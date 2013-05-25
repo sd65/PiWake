@@ -5,7 +5,7 @@ function drawTimeTable ($nomJour, $jour, $mois, $tp, $td, $semaine, $bdd)
 	
 	
 	$requeteCours = "SELECT * FROM EDT 
-	INNER JOIN NOMSPROFS ON EDT.prof = NOMSPROFS.name
+	LEFT JOIN NOMSPROFS ON EDT.prof = NOMSPROFS.name
 	WHERE type='" .$tp ."' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
 	" OR type='" .$td ."' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
 	" OR type='SRC_S2' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
