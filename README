@@ -1,5 +1,15 @@
-PiWake - A pratical and light viewer for Dynamisoft Satelys calendars
+Piwake é~
 
+> What is PiWake ?
 
-Welcome here !
+PiWake is a comfortable way to view Satelys Calendars. Because you don't need to login anywhere ad what you view is what you gonna go.
+
+> How it works ?
+
+PiWake firs etablish a connection to the SAtelys server to get the VCS files for each week. Then, it parse and push all the information to a SQL database. Third, it just display the calendar.
+
+> Special Thanks
+
+I would like to thanks Simon Talaga for his help !
+
 
