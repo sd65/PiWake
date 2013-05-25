@@ -230,50 +230,22 @@ color:white;
 
 
 
-/* Légende */
+/* Select */
 
-#Legende
+#selectTP 
 {
-margin-top : 30px;
-}
-
-caption
-{
-padding-bottom : 5px ;
-}
-
-.LegendeClasseEntiere
-{
-vertical-align:middle ;
-font-size : 1.1em ;
-width : 70px ;
-height : 70px ;
-text-align : center ;
-background-color : #BC1142 ;
-color : black ;
-}
-
-.LegendeTP
-{
-vertical-align:middle ;
-font-size : 1.1em ;
-width : 70px ;
-height : 70px ;
-text-align : center ;
+-webkit-appearance: none;
+background-color : green ;
 background-color : #33B5E5 ;
-color : black ;
+}
+              
+#selectTD 
+{
+-webkit-appearance: none;
+background-color : green ;
+background-color : #9C0 ;
 }
 
-.LegendeTD
-{
-vertical-align:middle ;
-font-size : 1.1em ;
-width : 70px ;
-height : 70px ;
-text-align : center ;
-background-color : #9C0 ;
-color : black ;
-}
 
 
 

@@ -49,14 +49,14 @@ $semaine = $_POST['semaine'] ;
 		<form action="index.php" method="post">
 		
 		<label for="tp">TP :</label>
-		<select name="tp" onchange="this.form.submit()">
+		<select id="selectTP" name="tp" onchange="this.form.submit()">
 			<option <?php if($tp==1){echo "selected" ;}?> value="1">TP1</option>
 			<option <?php if($tp==2){echo "selected" ;}?> value="2">TP2</option>
 			<option <?php if($tp==3){echo "selected" ;}?> value="3">TP3</option>
 		</select> 
 	
 		<label for="td">TD :</label>
-		<select name="td" onchange="this.form.submit()" >
+		<select id="selectTD" name="td" onchange="this.form.submit()" >
 			<option <?php if($td==1){echo "selected" ;}?> value="1">TD1</option>
 			<option <?php if($td==2){echo "selected" ;}?> value="2">TD2</option>
 		</select>		
@@ -142,15 +142,6 @@ $semaine = $_POST['semaine'] ;
 	
 	
 
-
-<table id="Legende">
-	<caption>Légende</caption>
-	<tr>
-		<td class="LegendeClasseEntiere">Classe Entière</td>
-		<td class="LegendeTP">TP</td>
-		<td class="LegendeTD">TD</td>
-	</tr> 
-</table>
 
 </div>
 </div>
