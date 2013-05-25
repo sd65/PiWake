@@ -2,6 +2,8 @@
 
 //Cookie !
 setcookie('enreg_semaine', $_POST['semaine'], time() + 365*24*3600, null, null,false, true); 
+setcookie('enreg_tp', $_POST['tp'], time() + 365*24*3600, null, null,false, true); 
+setcookie('enreg_td', $_POST['td'], time() + 365*24*3600, null, null,false, true); 
 
 // Connexion
 $bdd = new PDO("sqlite:../PIWAKE");
@@ -10,10 +12,25 @@ $bdd = new PDO("sqlite:../PIWAKE");
 include_once "functions.php" ;
 
 // Post Data
+if (!empty($_COOKIE) && empty($_POST))
+{
+$td = $_COOKIE['enreg_td'] ;
+$tp = $_COOKIE['enreg_tp'] ;
+$semaine = $_COOKIE['enreg_semaine'] ;
+}
+if (!empty($_POST))
+{
 $td = $_POST['td'] ;
 $tp = $_POST['tp'] ;
 $semaine = $_POST['semaine'] ;
-
+}
+else
+{
+$td = 1 ;
+$tp = 1 ;
+$semaine = 22 ;
+//$semaine = date('W') ;
+}
 
 ?>
 
