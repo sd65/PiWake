@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This file is intented to be used in crontab
+
 cd /var/www/piwake3/
 
 
