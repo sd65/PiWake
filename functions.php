@@ -4,8 +4,9 @@ function drawTimeTable ($nomJour, $jour, $mois, $tp, $td, $semaine, $bdd)
 {
 	
 	
-	$requeteCours = "SELECT * FROM EDT WHERE 
-	type='" .$tp ."' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
+	$requeteCours = "SELECT * FROM EDT 
+	INNER JOIN NOMSPROFS ON EDT.prof = NOMSPROFS.name
+	WHERE type='" .$tp ."' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
 	" OR type='" .$td ."' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
 	" OR type='SRC_S2' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
 	" ORDER BY startHeure" ;
@@ -52,7 +53,7 @@ function drawTimeTable ($nomJour, $jour, $mois, $tp, $td, $semaine, $bdd)
 		echo "<td class=\"$couleur\"  colspan=" . $duree  .">
 		<div class=\"cellule\">
 		<p class=\"jourMatiere\">" . $lines['matiere'] . "</p>
-		<p class=\"jourProf\">" . $lines['prof'] ."</p>
+		<p class=\"jourProf\">" . $lines['realName'] ."</p>
 		<p class=\"jourSalle\">". $lines['salle'] . "</div></p></td>";
 
 	}
