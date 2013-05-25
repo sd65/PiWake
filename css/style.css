@@ -80,7 +80,6 @@ color : white ;
 {
 width : 75% ;
 margin : auto ;
-padding-bottom : 25px ;
 }
 
 table
@@ -238,7 +237,9 @@ text-align : center ;
 #footer
 {
 width : 150px;
-margin : 40px auto ;
+margin : auto ;
+margin-top : 25px ;
+padding-bottom : 25px ;
 }
 
 /* Select */
