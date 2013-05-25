@@ -157,9 +157,10 @@ $semaine = 22 ;
 	</table>
 	
 	
+<div id="footer">
+	<a href="https://github.com/sd65/PiWake" title="Le site du projet">Explore on GitHub</a>
+</div>
 	
-
-
 </div>
 </div>
 
