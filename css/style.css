@@ -163,6 +163,7 @@ font-style : italic ;
 .cellule
 {
 font-family : serif ;
+color : black ;
 }
 
 .vide
@@ -223,7 +224,7 @@ text-decoration : none;
 
 
 ::selection { 
-background:black; 
+background:#BC1142; 
 color:white; 
 } 
 
