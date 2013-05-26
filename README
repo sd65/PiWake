@@ -2,11 +2,11 @@ Piwake ~
 
 > What is PiWake ?
 
-PiWake is a comfortable way to view Satelys Calendars. Because you don't need to login anywhere ad what you view is what you gonna go.
+PiWake is a comfortable way to view Satelys Calendars. Because you don't need to login anywhere and what you view is what you gonna go.
 
 > How it works ?
 
-PiWake firs etablish a connection to the SAtelys server to get the VCS files for each week. Then, it parse and push all the information to a SQL database. Third, it just display the calendar.
+PiWake first etablish a connection to the Satelys server to get the VCS files for each week. Then, it parse and push all the information to a SQL database. Third, it just display the calendar.
 
 > Special Thanks
 
