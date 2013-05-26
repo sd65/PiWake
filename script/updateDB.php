@@ -7,14 +7,14 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 // Connexion BDD
-$bdd = new PDO("sqlite:/var/www/PIWAKE");
+$bdd = new PDO("sqlite:../PIWAKE");
 $bdd->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 
 // On flush tout pour éviter les doublons			
 $bdd->exec("DELETE FROM EDT WHERE 1") ; 
 
 
-$lines = file('/var/www/piwake3/vcs/VCSALL');
+$lines = file('vcs/VCSALL');
 
 	foreach ($lines as $lineNumber => $lineContent) // Pour chaque ligne
     {
