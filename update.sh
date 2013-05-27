@@ -3,7 +3,7 @@
 # This file is intented to be used in crontab
 
 # Fetch VCS files
-cd /var/www/piwake3/
+cd /var/www/piwake/
 
 for i in {21..26}
 do
