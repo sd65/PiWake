@@ -8,6 +8,10 @@ PiWake is a comfortable way to view Satelys Calendars. Because you don't need to
 
 PiWake first etablish a connection to the Satelys server to get the VCS files for each week. Then, it parse and push all the information to a SQL database. Third, it just display the calendar.
 
+> Where can I test it ?
+
+Just go to http://sdpi.no-ip.org/piwake
+
 > Special Thanks
 
 I would like to thanks Simon Talaga for his help !
