@@ -2,8 +2,6 @@
 
 function drawTimeTable ($nomJour, $jour, $mois, $tp, $td, $semaine, $bdd) 
 {
-	
-	
 	$requeteCours = "SELECT * FROM EDT 
 	LEFT JOIN NOMSPROFS ON EDT.prof = NOMSPROFS.name
 	WHERE type='" .$tp ."' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
@@ -15,7 +13,9 @@ function drawTimeTable ($nomJour, $jour, $mois, $tp, $td, $semaine, $bdd)
 	
 	
 	// Titre
-	echo "<td class=\"tjour\" ><p class=\"pjour\"><span class=\"jourJour\"> " . substr($nomJour,0,3) . ".</span> <span class=\"jourNum\">" . $jour . "</span><br/><span class=\"jourMois\">" . $mois . "</span></p></td>" ;
+	echo "<td class=\"tjour\" ><p class=\"pjour\"><span class=\"jourJour\"> " . substr($nomJour,0,3) . ".</span> 
+	<span class=\"jourNum\">" . $jour . "</span><br/>
+	<span class=\"jourMois\">" . $mois . "</span></p></td>" ;
 
 	$lastCours = 9 ;
 	$sommeCours = 0 ;
@@ -55,8 +55,8 @@ function drawTimeTable ($nomJour, $jour, $mois, $tp, $td, $semaine, $bdd)
 		<p class=\"jourMatiere\">" . $lines['matiere'] . "</p>
 		<p class=\"jourProf\">" . $lines['realName'] ."</p>
 		<p class=\"jourSalle\">". $lines['salle'] . "</div></p></td>";
-
-	}
+		
+	} // Fin du While
 	
 	
 	if ($sommeCours<10)
@@ -65,7 +65,7 @@ function drawTimeTable ($nomJour, $jour, $mois, $tp, $td, $semaine, $bdd)
 		$delta *=2 ;
 		echo "<td class=\"vide\" colspan=" . $delta  . "></td>" ;
 	}
-}
-
+	
+} // Fin de la fonction
 	
 ?>
