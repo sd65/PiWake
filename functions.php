@@ -93,7 +93,20 @@ function drawTimeTable ($vue, $nomJour, $jour, $mois, $tp, $td, $semaine, $bdd)
 	// Infos
 	while ($lines = $requeteCours->fetch()) 
 	{
-	
+		
+		// Notation TP/TD
+		if ($type == "SRC_S2A1")
+			$tp = "TP1" ;
+		if ($type == "SRC_S2A2")
+			$tp = "TP2" ;
+		if ($tpe == "SRC_S2B1")
+			$tp = "TP3" ;
+		if ($tpe == "SRC_S2A")
+			$td = "TD1" ;		
+		if ($tpe == "SRC_SB2")
+			$td = "TD2" ;	
+
+
 		$duree = $lines['endHeure'] - $lines['startHeure'] ;
 		$sommeCours += $duree ; 
 		$duree *= 2 ; //Les demi-heures
