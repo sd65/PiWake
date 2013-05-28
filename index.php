@@ -75,8 +75,6 @@ include_once "functions.php" ;
 			<select id="vue" name="vue" onchange="this.form.submit()">
 				<option <?php if($vue==0){echo "selected" ;}?> value="0">Sélective</option>
 				<option <?php if($vue==1){echo "selected" ;}?> value="1">Générale</option>
-				<option value="1">TEST</option>
-				<option  value="1">EN COURS</option>
 			</select>
 		
 			<label for="tp">TP :</label>
