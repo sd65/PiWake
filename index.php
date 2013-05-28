@@ -17,14 +17,14 @@ else
 {
 	if (!empty($_COOKIE)) //Si on revient sur PiWake avec des Cookies remplis
 	{
-		$td = $_COOKIE['enreg_td'] ;
+	$td = $_COOKIE['enreg_td'] ;
         $tp = $_COOKIE['enreg_tp'] ;
         $semaine = $_COOKIE['enreg_semaine'] ;
         $vue = $_COOKIE['enreg_vue'] ;
 	}
 	else
 	{
-		$td = 1 ;
+	$td = 1 ;
         $tp = 1 ;
         $semaine = date('W') ;
         $vue = 1 ;
@@ -73,8 +73,8 @@ include_once "functions.php" ;
 			
 			<label for="vue">Vue :</label>
 			<select id="vue" name="vue" onchange="this.form.submit()">
-				<option <?php if($vue==1){echo "selected" ;}?> value="0">Sélective</option>
-				<option <?php if($vue==2){echo "selected" ;}?> value="1">Générale</option>
+				<option <?php if($vue==0){echo "selected" ;}?> value="0">Sélective</option>
+				<option <?php if($vue==1){echo "selected" ;}?> value="1">Générale</option>
 				<option value="1">TEST</option>
 				<option  value="1">EN COURS</option>
 			</select>
@@ -157,7 +157,7 @@ include_once "functions.php" ;
 	
 			echo '<tr>' ;
 			
-				drawTimeTable($lines['nomJour'], $lines['jour'], $nomMois[--$lines['mois']], $tp, $td, $semaine,$bdd) ; 
+				drawTimeTable($vue, $lines['nomJour'], $lines['jour'], $nomMois[--$lines['mois']], $tp, $td, $semaine,$bdd) ; 
 		
 			echo "</tr>" ;
 	

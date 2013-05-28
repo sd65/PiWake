@@ -1,15 +1,25 @@
 <?php
 
-function drawTimeTable ($nomJour, $jour, $mois, $tp, $td, $semaine, $bdd) 
+function drawTimeTable ($vue, $nomJour, $jour, $mois, $tp, $td, $semaine, $bdd) 
 {
+	
+	if ($vue == 0)
+	{
 	$requeteCours = "SELECT * FROM EDT 
 	LEFT JOIN NOMSPROFS ON EDT.prof = NOMSPROFS.name
 	WHERE type='" .$tp ."' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
 	" OR type='" .$td ."' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
 	" OR type='SRC_S2' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
 	" ORDER BY startHeure" ;
-	
-	$requeteCours = $bdd->query($requeteCours) ;
+	}
+	else
+	{
+	$requeteCours = "SELECT * FROM EDT 
+	LEFT JOIN NOMSPROFS ON EDT.prof = NOMSPROFS.name
+	WHERE semaine=" . $semaine . " ORDER BY startHeure" ;
+	}
+
+$requeteCours = $bdd->query($requeteCours) ;
 	
 	
 	// Titre
