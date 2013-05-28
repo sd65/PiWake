@@ -11,7 +11,6 @@ if (!empty($_POST)) // Si on soumet le formulaire
 	$td = $_POST['td'] ;
 	$tp = $_POST['tp'] ;
 	$semaine = $_POST['semaine'] ;
-	$vue = $_POST['vue'] ;
 }
 else
 {
@@ -20,14 +19,12 @@ else
 	$td = $_COOKIE['enreg_td'] ;
         $tp = $_COOKIE['enreg_tp'] ;
         $semaine = $_COOKIE['enreg_semaine'] ;
-        $vue = $_COOKIE['enreg_vue'] ;
 	}
 	else
 	{
 	$td = 1 ;
         $tp = 1 ;
         $semaine = date('W') ;
-        $vue = 1 ;
 	}
 
 }
@@ -71,12 +68,6 @@ include_once "functions.php" ;
 			
 			<form action="index.php" method="post">
 			
-			<label for="vue">Vue :</label>
-			<select id="vue" name="vue" onchange="this.form.submit()">
-				<option <?php if($vue==0){echo "selected" ;}?> value="0">Sélective</option>
-				<option <?php if($vue==1){echo "selected" ;}?> value="1">Générale</option>
-			</select>
-		
 			<label for="tp">TP :</label>
 			<select id="selectTP" name="tp" onchange="this.form.submit()">
 				<option <?php if($tp==1){echo "selected" ;}?> value="1">TP1</option>
@@ -155,7 +146,7 @@ include_once "functions.php" ;
 	
 			echo '<tr>' ;
 			
-				drawTimeTable($vue, $lines['nomJour'], $lines['jour'], $nomMois[--$lines['mois']], $tp, $td, $semaine,$bdd) ; 
+				drawTimeTable($lines['nomJour'], $lines['jour'], $nomMois[--$lines['mois']], $tp, $td, $semaine,$bdd) ; 
 		
 			echo "</tr>" ;
 	
