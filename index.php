@@ -32,7 +32,7 @@ else
 
 
 // Connexion
-$bdd = new PDO("sqlite:../PIWAKE");
+$bdd = new PDO('mysql:host=localhost;dbname=PIWAKE', 'root', 'sql');
 
 //Link
 include_once "functions.php" ;
