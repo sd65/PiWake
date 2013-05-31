@@ -11,20 +11,23 @@ if (!empty($_POST)) // Si on soumet le formulaire
 	$td = $_POST['td'] ;
 	$tp = $_POST['tp'] ;
 	$semaine = $_POST['semaine'] ;
+	$vue = $_POST['vue'] ;
 }
 else
 {
 	if (!empty($_COOKIE)) //Si on revient sur PiWake avec des Cookies remplis
 	{
 	$td = $_COOKIE['enreg_td'] ;
-        $tp = $_COOKIE['enreg_tp'] ;
+       	$tp = $_COOKIE['enreg_tp'] ;
         $semaine = $_COOKIE['enreg_semaine'] ;
+        $vue = $_COOKIE['enreg_vue'] ;
 	}
 	else
 	{
 	$td = 1 ;
         $tp = 1 ;
         $semaine = date('W') ;
+        $vue = 1 ;
 	}
 
 }
@@ -32,7 +35,8 @@ else
 
 
 // Connexion
-$bdd = new PDO('mysql:host=localhost;dbname=PIWAKE', 'root', 'sql');
+//$bdd = new PDO('mysql:host=localhost;dbname=PIWAKE', 'root', 'sql');
+$bdd = new PDO("sqlite:../PIWAKE");
 
 //Link
 include_once "functions.php" ;
@@ -44,11 +48,12 @@ include_once "functions.php" ;
 <html lang="fr">
 
 <head>	
-	<title>PiWake3</title>
+	<title>PiWake 3.1</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,200,100' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300' rel='stylesheet' type='text/css'>
 </head>
 
 
@@ -58,7 +63,7 @@ include_once "functions.php" ;
 
 	<div id="head">
 
-		<h1>PiWake<span class="trucUseless">3</span></h1>
+		<h1>PiWake <span class="trucUseless">3<span id="petiteVersion">.1</span></span></h1>
 
 
 		<h2><span class="trucUseless">S</span>imple <span class="trucUseless">R</span>apide <span class="trucUseless">C</span>onnecté</h2>
@@ -68,21 +73,26 @@ include_once "functions.php" ;
 			
 			<form action="index.php" method="post">
 			
-			<label for="tp">TP :</label>
+			<?php /* Inutile mais cool :  echo ($vue) ? "1" : "0" ; */ ?>
+				
+			<select id="selectVue" name="vue" onchange="this.form.submit()">
+				<option <?php if($vue==1){echo "selected" ;}?> value="1">Selon</option>
+				<option <?php if($vue==0){echo "selected" ;}?> value="0">Tout</option>
+			</select> 
+				/
 			<select id="selectTP" name="tp" onchange="this.form.submit()">
 				<option <?php if($tp==1){echo "selected" ;}?> value="1">TP1</option>
 				<option <?php if($tp==2){echo "selected" ;}?> value="2">TP2</option>
 				<option <?php if($tp==3){echo "selected" ;}?> value="3">TP3</option>
 			</select> 
-	
-			<label for="td">TD :</label>
+				/
 			<select id="selectTD" name="td" onchange="this.form.submit()" >
 				<option <?php if($td==1){echo "selected" ;}?> value="1">TD1</option>
 				<option <?php if($td==2){echo "selected" ;}?> value="2">TD2</option>
 			</select>		
-					
-			<label for="semaine">Semaine :</label>
-			<select name="semaine" onchange="this.form.submit()" >
+				/	
+			<label for="semaine">Sem.</label>
+			<select id="selectSemaine" name="semaine" onchange="this.form.submit()" >
 				<option <?php if($semaine==22){echo "selected" ;}?> value="22">22</option>
 				<option <?php if($semaine==23){echo "selected" ;}?> value="23">23</option>
 				<option <?php if($semaine==24){echo "selected" ;}?> value="24">24</option>
@@ -103,12 +113,12 @@ include_once "functions.php" ;
 		
 			<thead>
 				<tr>
-					<td class="jourTop" >Jour</td>
+					<td class="jourTop">Jour</td>
 					<?php	
 						for ($heureDuJour=9;$heureDuJour<20;$heureDuJour++)
 						{
 							echo "<td  class=\"Heure\">" . $heureDuJour. "h</td>" ;
-							echo "<td  class=\"demiHeure\">30</td>" ;
+							echo "<td  class=\"demiHeure\"></td>" ;
 						}
 					?>
 				</tr>
@@ -146,8 +156,11 @@ include_once "functions.php" ;
 	
 			echo '<tr>' ;
 			
-				drawTimeTable($lines['nomJour'], $lines['jour'], $nomMois[--$lines['mois']], $tp, $td, $semaine,$bdd) ; 
-		
+				if ($vue==1)
+					drawTimeTableSelective($lines['nomJour'], $lines['jour'], $nomMois[--$lines['mois']], $tp, $td, $semaine,$bdd) ; 
+				else
+					drawTimeTableGlobal($lines['nomJour'], $lines['jour'], $nomMois[--$lines['mois']], $semaine,$bdd) ; 
+					
 			echo "</tr>" ;
 	
 		}
