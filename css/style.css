@@ -27,7 +27,7 @@ font-size : 1.4em;
 /* H group */
 
 h1 {
-color : black;
+color : #333;
 font-size : 40px ;
 padding-top : 15px ;
 margin-bottom :-3px ;
@@ -37,7 +37,7 @@ font-weight: 100;
 } 
 
 h2 {
-color : black;
+color : #333;
 font-size : 0.95em;
 font-family: 'Roboto', sans-serif;
 font-weight: 200; 
