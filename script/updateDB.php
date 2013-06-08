@@ -7,7 +7,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 // Connexion BDD
-$bdd = new PDO('mysql:host=localhost;dbname=PIWAKE', 'root', 'sql');
+//$bdd = new PDO('mysql:host=localhost;dbname=PIWAKE', 'root', 'sql');
+$bdd = new PDO("sqlite:../PIWAKE");
 $bdd->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 
 // On flush tout pour éviter les doublons			
