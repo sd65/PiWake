@@ -7,7 +7,7 @@ function drawTimeTableSelective ($nomJour, $jour, $mois, $tp, $td, $semaine, $bd
 	LEFT JOIN NOMSPROFS ON EDT.prof = NOMSPROFS.name
 	WHERE type='" .$tp ."' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
 	" OR type='" .$td ."' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
-	" OR type='SRC_S2' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
+	" OR type='SRC_S3' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
 	" ORDER BY startHeure" ;
 	
 
@@ -114,22 +114,22 @@ function drawTimeTableGlobal($nomJour, $jour, $mois, $semaine, $bdd)
 		
 		$type = $lines['type']  ;
 		
-		if ($type == "SRC_S2")
+		if ($type == "SRC_S3")
 			{ $type = "" ; $timbre="timbre_ClasseEntiere"; }
 			
-		if ($type == "SRC_S2A")
+		if ($type == "SRC_S3A")
 			{ $type = "TD1" ; $timbre="timbre_td"; }
 
-		if ($type == "SRC_S2B")
+		if ($type == "SRC_S3B")
 			{ $type = "TD2" ; $timbre="timbre_td"; }
 
-		if ($type == "SRC_S2A1")
+		if ($type == "SRC_S3A1")
 			{ $type = "TP1" ; $timbre="timbre_td"; }
 
-		if ($type == "SRC_S2A2")
+		if ($type == "SRC_S3A2")
 			{ $type = "TP2" ; $timbre="timbre_tp"; }
 	 
-		if ($type == "SRC_S2B1")
+		if ($type == "SRC_S3B1")
 			{ $type = "TP3" ; $timbre="timbre_tp"; }
 	
 		

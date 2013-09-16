@@ -8,14 +8,13 @@ ini_set('display_errors', 'On');
 
 // Connexion BDD
 //$bdd = new PDO('mysql:host=localhost;dbname=PIWAKE', 'root', 'sql');
-$bdd = new PDO("sqlite:../PIWAKE");
-$bdd->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+$bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", "buddy", "sqlbuddy");
 
 // On flush tout pour éviter les doublons			
 $bdd->exec("DELETE FROM EDT WHERE 1") ; 
 
 
-$lines = file('/var/www/piwake/vcs/VCSALL');
+$lines = file('/usr/share/nginx/www/piwake/vcs/VCSALL');
 
 	foreach ($lines as $lineNumber => $lineContent) // Pour chaque ligne
     {

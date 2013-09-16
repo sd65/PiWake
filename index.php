@@ -35,8 +35,7 @@ else
 
 
 // Connexion
-//$bdd = new PDO('mysql:host=localhost;dbname=PIWAKE', 'root', 'sql');
-$bdd = new PDO("sqlite:../PIWAKE");
+$bdd = new PDO('mysql:host=localhost;dbname=PIWAKE;charset=utf8', 'buddy', 'sqlbuddy');
 
 //Link
 include_once "functions.php" ;
@@ -49,7 +48,7 @@ include_once "functions.php" ;
 
 <head>	
 	<title>PiWake 3.1</title>
-	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,200,100' rel='stylesheet' type='text/css'>
@@ -93,11 +92,14 @@ include_once "functions.php" ;
 				/	
 			<label for="semaine">Sem.</label>
 			<select id="selectSemaine" name="semaine" onchange="this.form.submit()" >
-				<option <?php if($semaine==22){echo "selected" ;}?> value="22">22</option>
-				<option <?php if($semaine==23){echo "selected" ;}?> value="23">23</option>
-				<option <?php if($semaine==24){echo "selected" ;}?> value="24">24</option>
-				<option <?php if($semaine==25){echo "selected" ;}?> value="25">25</option>
-				<option <?php if($semaine==26){echo "selected" ;}?> value="26">26</option>
+
+			<?php
+			$intervale_start=38;
+			$intervale_end=52;
+			for(;$intervale_start <= $intervale_end;$intervale_start++) {
+			?>
+				<option <?php if($semaine==$intervale_start){echo "selected" ;}?> value="<?php echo $intervale_start ?> "><?php echo $intervale_start ?></option>
+			<?php } ?>
 			</select>
 			</form>
 				
@@ -129,26 +131,26 @@ include_once "functions.php" ;
 		<?php
 	
 		if ($td == 1)
-			$td = "SRC_S2A" ;
+			$td = "SRC_S3A" ;
 		
 		if ($td == 2)
-		    $td = "SRC_S2B" ;
+		    $td = "SRC_S3B" ;
 
 	 	if ($tp == 1)
-		    $tp = "SRC_S2A1" ;
+		    $tp = "SRC_S3A1" ;
 
 	 	if ($tp == 2)
-		    $tp = "SRC_S2A2" ;
+		    $tp = "SRC_S3A2" ;
 
 	 	if ($tp == 3)
-		    $tp = "SRC_S2B1" ;
+		    $tp = "SRC_S3B1" ;
 
 	
 	
 		$requeteMois = $bdd->query("SELECT DISTINCT nomJour, jour, mois FROM EDT WHERE 
 		type='" .$tp . "' AND semaine=" . $semaine . 
 		" OR type='" .$td . "' AND semaine=" . $semaine .
-		" OR type='SRC_S2' AND semaine=" . $semaine .  " ORDER BY jour") ;
+		" OR type='SRC_S3' AND semaine=" . $semaine .  " ORDER BY jour") ;
 	
 		$nomMois = array("Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"); 
 	
@@ -172,8 +174,7 @@ include_once "functions.php" ;
 	
 	
 		<div id="footer">	
-			<a href="../piwake2" title="PiWake2">Revert to old Piwake</a> | 
-			<a href="https://github.com/sd65/PiWake" title="Le site du projet">Explore on GitHub</a>
+			<a href="https://github.com/sd65/PiWake" title="Le site du projet">All rights reserved &#183; <img src="cat.png" alt="Calendar Mew"/> &#183; Explore on GitHub</a>
 		</div>
 
 	</div> <!-- Fin du Tableau -->
