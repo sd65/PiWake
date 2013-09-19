@@ -53,6 +53,8 @@ include_once "functions.php" ;
 	<link rel="stylesheet" href="css/style.css">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,200,100' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300' rel='stylesheet' type='text/css'>
+	<script src="script/jquery.js" type="text/javascript"></script>
+	<script src="script/b.js" type="text/javascript"></script>
 </head>
 
 

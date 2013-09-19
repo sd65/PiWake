@@ -1,4 +1,263 @@
-[H[2JBEGIN:VCALENDAR
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Satellys</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="fr" http-equiv="Content-Language" />
+	<meta name="description" content="Dynamisoft" />
+	<meta name="keywords" content="dynamisoft" />
+	<meta name="robots" content="index,follow" />
+	<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="gpu.css" type="text/css" />	
+	<link rel="stylesheet" type="text/css" href="print_gpu.css" media="print" />
+	<link rel="stylesheet" href="../sat/satellys.css" type="text/css" />
+		<script type="text/javascript">
+	<!--
+	function externalLinks(){ 
+		if(!document.getElementsByTagName) return; 
+		var anchors = document.getElementsByTagName("a"); 
+		for (var i=0; i<anchors.length; i++){ 
+			var anchor = anchors[i]; 
+			if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") 
+				anchor.target = "_blank"; 
+		} 
+	} 
+	window.onload = externalLinks;
+	function EcrireCookie(nom, valeur)
+	{
+	
+	var argv=EcrireCookie.arguments;
+	var argc=EcrireCookie.arguments.length;
+	var expires=(argc > 2) ? argv[2] : null;
+	var path=(argc > 3) ? argv[3] : null;
+	var domain=(argc > 4) ? argv[4] : null;
+	var secure=(argc > 5) ? argv[5] : false;
+	document.cookie=nom+"="+escape(valeur)+
+	((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
+	((path==null) ? "" : ("; path="+path))+
+	((domain==null) ? "" : ("; domain="+domain))+
+	((secure==true) ? "; secure" : "");
+	
+	}
+		
+	function getCookieVal(offset)
+	{
+		var endstr=document.cookie.indexOf (";", offset);
+		if (endstr==-1) endstr=document.cookie.length;
+		return unescape(document.cookie.substring(offset, endstr)); 
+	}
+	function LireCookie(nom)
+	{
+		var arg=nom+"=";
+		var alen=arg.length;
+		var clen=document.cookie.length;
+		var i=0;
+		while (i<clen)
+		{
+			var j=i+alen;
+			if (document.cookie.substring(i, j)==arg) return getCookieVal(j);
+			i=document.cookie.indexOf(" ",i)+1;
+			if (i==0) break;
+		}
+		return null; 
+	}
+	
+	function switchdiv(act,_div){
+			date=new Date;
+			date.setMonth(date.getMonth()+1);
+			if (act=="hide") {
+				EcrireCookie(_div, 0, date);
+				if (document.getElementById(_div).style.visibility!="hidden"){
+					document.getElementById(_div).style.visibility="hidden";
+					document.getElementById(_div).style.display='none';
+					document.getElementById(_div+"bar").style.visibility="visible";
+					document.getElementById(_div+"bar").style.display='block';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="hidden";
+						e.style.display='none';
+						}
+				}
+			}
+			if (act=="show"){
+				EcrireCookie(_div, 1, date);
+				if (document.getElementById(_div).style.visibility!="visible"){
+					document.getElementById(_div).style.visibility="visible";
+					document.getElementById(_div).style.display='block';
+					document.getElementById(_div+"bar").style.visibility="hidden";
+					document.getElementById(_div+"bar").style.display='none';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="visible";
+						e.style.display='block';
+						}
+				}
+			}
+		}
+		
+	function affichediv(_div){
+		if (LireCookie(_div)==0) 
+			{
+			document.getElementById(_div).style.visibility="hidden";
+			document.getElementById(_div).style.display='none';
+			document.getElementById(_div+"bar").style.visibility="visible";
+			document.getElementById(_div+"bar").style.display='block';
+			var e = document.getElementById(_div+"plie");
+			if (e) {
+				e.style.visibility="hidden";
+				e.style.display='none';
+				}
+			}
+	}
+	
+	function ajax(ppage)
+	{
+	    var xhr=null;
+	    
+	    if (window.XMLHttpRequest) { 
+	        xhr = new XMLHttpRequest();
+	    }
+	    else if (window.ActiveXObject) 
+	    {
+	        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    //on appelle le fichier ppage
+	    xhr.open("GET", ppage, false);
+	    xhr.send(null);
+	    
+	    return xhr.responseText;
+	}
+	
+	
+	function descendMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0) {
+		window.document.getElementById("menu").style.top =  window.document.body.scrollTop-0+'px';
+		window.document.getElementById("menubar").style.top =  window.document.body.scrollTop-0+'px';
+		}
+	}
+	
+	function figerMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0)
+	    {
+		ajax("./setvar.php?nomvar=stylemenu&valeur=1");
+		this.document.formindex.stylemenu.value=1;
+		document.imgclou.src="images/punaise_on.gif";
+		}
+		else {
+			ajax("./setvar.php?nomvar=stylemenu&valeur=0");
+			this.document.formindex.stylemenu.value=0;
+			document.imgclou.src="images/punaise_off.gif";
+			}
+	}
+	
+	function Ouvrecentree(page,largeur,hauteur,options)
+	{
+		var top=(screen.height-hauteur)/2;
+		var left=(screen.width-largeur)/2;
+		if (largeur==0) 
+			{
+			if (hauteur==0)
+				window.open(page,"","top=2,left=2,"+options);
+				else window.open(page,"","top="+top+",left=2, height="+hauteur+","+options);
+			}
+			else 
+			{
+	    	if (hauteur==0)
+	    		window.open(page,"","top=2,left="+left+",width="+largeur+","+options);
+	    		else
+	    	    window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+	    	}
+	}
+	//-->
+	</script>		 
+</head>
+<body>
+		<form name="testform" id="testform" >
+		</form>
+		<div class="s_top">
+			<div style="float:left; width: 49%; height: auto;"><img src="../images/votrelogo.png" alt="" style="border:0px solid white; "  title="" /></div>
+			<div style="float:left; width: 50%; height: auto; text-align:right; "><a href="../sat/index.php"><img src="../images/logo satellys.gif" style="border:0px solid white; " alt="" title="" /></a></div>
+			<div class="s_onglets">
+				<div class="ongletGPU"><p style=" margin-top: 5px; padding: 0px;">GPU</p></div>
+				<div class="ongletGDS"><p style=" margin-top: 5px; padding: 0px;">GDS</p></div>
+				<div class="ongletGDE"><p style=" margin-top: 5px; padding: 0px;">GDE</p></div>
+                <div class="ongletGNT"><p style=" margin-top: 5px; padding: 0px;">GNT</p></div>
+				<div style="margin-right: 10px; color: black; float: right; font-size: 12px; height: 33px;"><p style="padding: 0px;"><a class="souligne" href="../sat/index.php?page_param=deconnect.php&module=SAT&cat=0&numpage=1&niv=1&clef=/3003/">D&eacute;connexion</a> - <a class="souligne"  href="../sat/index.php">Accueil SATELLYS</a></p></div>				
+			</div>
+		</div>
+		<div class="barre">&nbsp;</div>
+		<div class="s_global">	
+			<div id="menu" class="hideprint"  style=" position:relative; visibility:visible; display:block; float:left;">
+<form name="formindex" method="get" >
+	<input type="hidden" name="stylemenu" value=1 />
+</form>
+				<script language="javascript">
+<!--
+function change_dept()
+{
+var e=document.getElementsByName('chgdept');
+if (e[0].value!='')
+    {
+    rep=ajax("../aj_chgdept.php?code="+e[0].value);
+    //alert(rep);
+	if (rep=="ok") this.document.testform.submit();
+	}
+}
+
+function change_annee()
+{
+var e=document.getElementsByName('chgannee');
+if (e[0].value!='')
+    {
+	if (ajax("../aj_chgannee.php?code="+e[0].value)=="ok") this.document.testform.submit();
+	}
+}
+//-->
+</script>	
+<div class="s_profil">
+	<img src="../images/profil_etu.png" style="margin-left:2px;width:50px;" alt="" title="" align="left" />
+	<p>Utilisateur : sdoignon<br/>Dépt : SRC		<br />
+		Année : <select class="combobox" style="z-index:0; position:static; width:60px;" name="chgannee" id="chgannee"  onchange="change_annee();" ><option value='2012' >2012-2013</option>
+ </select><br />
+		Profil : 100100999999<br />
+	</p>
+</div>					<div class="hideprint">
+					<br/><div class="menutitre"><p style="margin-top: 5px; margin-left: 10px; padding: 0px;"><a href="index.php?page_param=accueil.php&cat=0&numpage=1&niv=1&clef=/305/">Emplois du temps</a></p></div><img src="./images/menu_corner_hd.gif" alt="" border="0px" style="padding: 0px; margin-left: -3px;" /><br/>      					</div>	
+			</div>
+			<div id="menuplie" style="height:56px; float:left;  background-image:url(images/menubar.gif); width:15px; background-repeat:no-repeat;" onclick="javascript:switchdiv('hide','menu');" class="handcursor"> </div>
+			<div name="menubar" id="menubar" style="float:left; position:relative; visibility:hidden;display:none; background-image:url(./images/menubar2.gif); background-repeat:no-repeat; width:15px; height:49px;" onclick="javascript:switchdiv('show','menu');"> </div>
+			<div class="s_contener" style="border-left:6px solid #828995; ">	
+			<br /><br /><br />
+<table>
+	<tr>
+		<td valign="top"><br />
+			<h1>BIENVENUE SUR SATELLYS GPU</h1>
+			<p>Avec SATELLYS GPU, vous avez la possibilité de <strong>consulter vos emplois du temps à distance.</strong>
+			<br/>
+			<br/>SATELLYS GPU est <strong>accessible partout</strong> où vous disposez d'une connexion internet ! 
+			<br/>Il est <strong>compatible avec la majorité des navigateurs internet.</strong>
+			<br/>
+			<br/>
+					
+			</p>
+		</td>
+        <td><img src="images/GPU_accueil.gif" > </td>
+	</tr>
+</table>
+
+		
+	
+			</div>
+		</div>
+		<div class="s_footer"  style="margin-top: 20px;" >Satellys est un produit Dynamisoft<sup>&copy;</sup>.</div>
+		<script language="Javascript">
+		affichediv("menu");
+		</script>
+	</body>
+</html>BEGIN:VCALENDAR
 PRODID: Gpu2vcs modified by Dynamisoft
 VERSION:2.0
 METHOD:PUBLISH
@@ -52,7 +311,19 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1379498400-1379505600-4
+UID:1379671200-1379678400-4
+DTSTAMP:20130920T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:vlavilleneau Spe:Analyse et th=C3=A9orie des m=C3=A9dia 1\SRC_S3\SRC_S3 
+SUMMARY:AN_THEO_MEDIA / COURS / SRC_S3 / SRC_S3 / SRC
+LOCATION:255-256
+DTSTART:20130920T120000Z
+DTEND:20130920T140000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1379498400-1379505600-5
 DTSTAMP:20130918T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hmillaret Spe:Economie Gestion\SRC_S3\SRC_S3 
 SUMMARY:ECO_GEST / COURS / SRC_S3 / SRC_S3 / SRC
@@ -64,19 +335,19 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1379653200-1379660400-5
+UID:1379660400-1379665800-6
 DTSTAMP:20130920T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hmillaret Spe:Economie Gestion\SRC_S3\SRC_S3 
 SUMMARY:ECO_GEST / COURS / SRC_S3 / SRC_S3 / SRC
 LOCATION:255-256
-DTSTART:20130920T070000Z
-DTEND:20130920T090000Z
+DTSTART:20130920T090000Z
+DTEND:20130920T103000Z
 PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1379394000-1379401200-6
+UID:1379394000-1379401200-7
 DTSTAMP:20130917T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hmillaret Spe:Droit\SRC_S3\SRC_S3 
 SUMMARY:DROIT / COURS / SRC_S3 / SRC_S3 / SRC
@@ -88,19 +359,19 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1379671200-1379678400-7
+UID:1379653200-1379660400-8
 DTSTAMP:20130920T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:dreyss Spe:Esth=C3=A9tique et expression artistique\SRC_S3\SRC_S3 
 SUMMARY:ESTH_EX_ART / COURS / SRC_S3 / SRC_S3 / SRC
 LOCATION:255-256
-DTSTART:20130920T120000Z
-DTEND:20130920T140000Z
+DTSTART:20130920T070000Z
+DTEND:20130920T090000Z
 PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1379584800-1379592000-8
+UID:1379584800-1379592000-9
 DTSTAMP:20130919T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3A\SRC_S3 
 SUMMARY:EXP_ECR_ORAL / TD / SRC_S3A / SRC_S3 / SRC
@@ -112,7 +383,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1379592000-1379599200-9
+UID:1379592000-1379599200-10
 DTSTAMP:20130919T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3B\SRC_S3 
 SUMMARY:EXP_ECR_ORAL / TD / SRC_S3B / SRC_S3 / SRC
@@ -124,25 +395,13 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1379487600-1379494800-10
+UID:1379487600-1379494800-11
 DTSTAMP:20130918T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3B\SRC_S3 
 SUMMARY:EXP_ECR_ORAL / TD / SRC_S3B / SRC_S3 / SRC
 LOCATION:232
 DTSTART:20130918T090000Z
 DTEND:20130918T110000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1379660400-1379667600-11
-DTSTAMP:20130920T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3B\SRC_S3 
-SUMMARY:EXP_ECR_ORAL / TD / SRC_S3B / SRC_S3 / SRC
-LOCATION:232
-DTSTART:20130920T090000Z
-DTEND:20130920T110000Z
 PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
@@ -219,7 +478,266 @@ PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 END:VCALENDAR
-BEGIN:VCALENDAR
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Satellys</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="fr" http-equiv="Content-Language" />
+	<meta name="description" content="Dynamisoft" />
+	<meta name="keywords" content="dynamisoft" />
+	<meta name="robots" content="index,follow" />
+	<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="gpu.css" type="text/css" />	
+	<link rel="stylesheet" type="text/css" href="print_gpu.css" media="print" />
+	<link rel="stylesheet" href="../sat/satellys.css" type="text/css" />
+		<script type="text/javascript">
+	<!--
+	function externalLinks(){ 
+		if(!document.getElementsByTagName) return; 
+		var anchors = document.getElementsByTagName("a"); 
+		for (var i=0; i<anchors.length; i++){ 
+			var anchor = anchors[i]; 
+			if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") 
+				anchor.target = "_blank"; 
+		} 
+	} 
+	window.onload = externalLinks;
+	function EcrireCookie(nom, valeur)
+	{
+	
+	var argv=EcrireCookie.arguments;
+	var argc=EcrireCookie.arguments.length;
+	var expires=(argc > 2) ? argv[2] : null;
+	var path=(argc > 3) ? argv[3] : null;
+	var domain=(argc > 4) ? argv[4] : null;
+	var secure=(argc > 5) ? argv[5] : false;
+	document.cookie=nom+"="+escape(valeur)+
+	((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
+	((path==null) ? "" : ("; path="+path))+
+	((domain==null) ? "" : ("; domain="+domain))+
+	((secure==true) ? "; secure" : "");
+	
+	}
+		
+	function getCookieVal(offset)
+	{
+		var endstr=document.cookie.indexOf (";", offset);
+		if (endstr==-1) endstr=document.cookie.length;
+		return unescape(document.cookie.substring(offset, endstr)); 
+	}
+	function LireCookie(nom)
+	{
+		var arg=nom+"=";
+		var alen=arg.length;
+		var clen=document.cookie.length;
+		var i=0;
+		while (i<clen)
+		{
+			var j=i+alen;
+			if (document.cookie.substring(i, j)==arg) return getCookieVal(j);
+			i=document.cookie.indexOf(" ",i)+1;
+			if (i==0) break;
+		}
+		return null; 
+	}
+	
+	function switchdiv(act,_div){
+			date=new Date;
+			date.setMonth(date.getMonth()+1);
+			if (act=="hide") {
+				EcrireCookie(_div, 0, date);
+				if (document.getElementById(_div).style.visibility!="hidden"){
+					document.getElementById(_div).style.visibility="hidden";
+					document.getElementById(_div).style.display='none';
+					document.getElementById(_div+"bar").style.visibility="visible";
+					document.getElementById(_div+"bar").style.display='block';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="hidden";
+						e.style.display='none';
+						}
+				}
+			}
+			if (act=="show"){
+				EcrireCookie(_div, 1, date);
+				if (document.getElementById(_div).style.visibility!="visible"){
+					document.getElementById(_div).style.visibility="visible";
+					document.getElementById(_div).style.display='block';
+					document.getElementById(_div+"bar").style.visibility="hidden";
+					document.getElementById(_div+"bar").style.display='none';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="visible";
+						e.style.display='block';
+						}
+				}
+			}
+		}
+		
+	function affichediv(_div){
+		if (LireCookie(_div)==0) 
+			{
+			document.getElementById(_div).style.visibility="hidden";
+			document.getElementById(_div).style.display='none';
+			document.getElementById(_div+"bar").style.visibility="visible";
+			document.getElementById(_div+"bar").style.display='block';
+			var e = document.getElementById(_div+"plie");
+			if (e) {
+				e.style.visibility="hidden";
+				e.style.display='none';
+				}
+			}
+	}
+	
+	function ajax(ppage)
+	{
+	    var xhr=null;
+	    
+	    if (window.XMLHttpRequest) { 
+	        xhr = new XMLHttpRequest();
+	    }
+	    else if (window.ActiveXObject) 
+	    {
+	        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    //on appelle le fichier ppage
+	    xhr.open("GET", ppage, false);
+	    xhr.send(null);
+	    
+	    return xhr.responseText;
+	}
+	
+	
+	function descendMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0) {
+		window.document.getElementById("menu").style.top =  window.document.body.scrollTop-0+'px';
+		window.document.getElementById("menubar").style.top =  window.document.body.scrollTop-0+'px';
+		}
+	}
+	
+	function figerMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0)
+	    {
+		ajax("./setvar.php?nomvar=stylemenu&valeur=1");
+		this.document.formindex.stylemenu.value=1;
+		document.imgclou.src="images/punaise_on.gif";
+		}
+		else {
+			ajax("./setvar.php?nomvar=stylemenu&valeur=0");
+			this.document.formindex.stylemenu.value=0;
+			document.imgclou.src="images/punaise_off.gif";
+			}
+	}
+	
+	function Ouvrecentree(page,largeur,hauteur,options)
+	{
+		var top=(screen.height-hauteur)/2;
+		var left=(screen.width-largeur)/2;
+		if (largeur==0) 
+			{
+			if (hauteur==0)
+				window.open(page,"","top=2,left=2,"+options);
+				else window.open(page,"","top="+top+",left=2, height="+hauteur+","+options);
+			}
+			else 
+			{
+	    	if (hauteur==0)
+	    		window.open(page,"","top=2,left="+left+",width="+largeur+","+options);
+	    		else
+	    	    window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+	    	}
+	}
+	//-->
+	</script>		 
+</head>
+<body>
+		<form name="testform" id="testform" >
+		</form>
+		<div class="s_top">
+			<div style="float:left; width: 49%; height: auto;"><img src="../images/votrelogo.png" alt="" style="border:0px solid white; "  title="" /></div>
+			<div style="float:left; width: 50%; height: auto; text-align:right; "><a href="../sat/index.php"><img src="../images/logo satellys.gif" style="border:0px solid white; " alt="" title="" /></a></div>
+			<div class="s_onglets">
+				<div class="ongletGPU"><p style=" margin-top: 5px; padding: 0px;">GPU</p></div>
+				<div class="ongletGDS"><p style=" margin-top: 5px; padding: 0px;">GDS</p></div>
+				<div class="ongletGDE"><p style=" margin-top: 5px; padding: 0px;">GDE</p></div>
+                <div class="ongletGNT"><p style=" margin-top: 5px; padding: 0px;">GNT</p></div>
+				<div style="margin-right: 10px; color: black; float: right; font-size: 12px; height: 33px;"><p style="padding: 0px;"><a class="souligne" href="../sat/index.php?page_param=deconnect.php&module=SAT&cat=0&numpage=1&niv=1&clef=/3003/">D&eacute;connexion</a> - <a class="souligne"  href="../sat/index.php">Accueil SATELLYS</a></p></div>				
+			</div>
+		</div>
+		<div class="barre">&nbsp;</div>
+		<div class="s_global">	
+			<div id="menu" class="hideprint"  style=" position:relative; visibility:visible; display:block; float:left;">
+<form name="formindex" method="get" >
+	<input type="hidden" name="stylemenu" value=1 />
+</form>
+				<script language="javascript">
+<!--
+function change_dept()
+{
+var e=document.getElementsByName('chgdept');
+if (e[0].value!='')
+    {
+    rep=ajax("../aj_chgdept.php?code="+e[0].value);
+    //alert(rep);
+	if (rep=="ok") this.document.testform.submit();
+	}
+}
+
+function change_annee()
+{
+var e=document.getElementsByName('chgannee');
+if (e[0].value!='')
+    {
+	if (ajax("../aj_chgannee.php?code="+e[0].value)=="ok") this.document.testform.submit();
+	}
+}
+//-->
+</script>	
+<div class="s_profil">
+	<img src="../images/profil_etu.png" style="margin-left:2px;width:50px;" alt="" title="" align="left" />
+	<p>Utilisateur : sdoignon<br/>Dépt : SRC		<br />
+		Année : <select class="combobox" style="z-index:0; position:static; width:60px;" name="chgannee" id="chgannee"  onchange="change_annee();" ><option value='2012' >2012-2013</option>
+ </select><br />
+		Profil : 100100999999<br />
+	</p>
+</div>					<div class="hideprint">
+					<br/><div class="menutitre"><p style="margin-top: 5px; margin-left: 10px; padding: 0px;"><a href="index.php?page_param=accueil.php&cat=0&numpage=1&niv=1&clef=/305/">Emplois du temps</a></p></div><img src="./images/menu_corner_hd.gif" alt="" border="0px" style="padding: 0px; margin-left: -3px;" /><br/>      					</div>	
+			</div>
+			<div id="menuplie" style="height:56px; float:left;  background-image:url(images/menubar.gif); width:15px; background-repeat:no-repeat;" onclick="javascript:switchdiv('hide','menu');" class="handcursor"> </div>
+			<div name="menubar" id="menubar" style="float:left; position:relative; visibility:hidden;display:none; background-image:url(./images/menubar2.gif); background-repeat:no-repeat; width:15px; height:49px;" onclick="javascript:switchdiv('show','menu');"> </div>
+			<div class="s_contener" style="border-left:6px solid #828995; ">	
+			<br /><br /><br />
+<table>
+	<tr>
+		<td valign="top"><br />
+			<h1>BIENVENUE SUR SATELLYS GPU</h1>
+			<p>Avec SATELLYS GPU, vous avez la possibilité de <strong>consulter vos emplois du temps à distance.</strong>
+			<br/>
+			<br/>SATELLYS GPU est <strong>accessible partout</strong> où vous disposez d'une connexion internet ! 
+			<br/>Il est <strong>compatible avec la majorité des navigateurs internet.</strong>
+			<br/>
+			<br/>
+					
+			</p>
+		</td>
+        <td><img src="images/GPU_accueil.gif" > </td>
+	</tr>
+</table>
+
+		
+	
+			</div>
+		</div>
+		<div class="s_footer"  style="margin-top: 20px;" >Satellys est un produit Dynamisoft<sup>&copy;</sup>.</div>
+		<script language="Javascript">
+		affichediv("menu");
+		</script>
+	</body>
+</html>BEGIN:VCALENDAR
 PRODID: Gpu2vcs modified by Dynamisoft
 VERSION:2.0
 METHOD:PUBLISH
@@ -297,175 +815,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380103200-1380110400-6
-DTSTAMP:20130925T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:mbornerie Spe:Programmation\SRC_S3\SRC_S3 
-SUMMARY:PROG / COURS / SRC_S3 / SRC_S3 / SRC
-LOCATION:255-256
-DTSTART:20130925T120000Z
-DTEND:20130925T140000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1379912400-1379919600-7
-DTSTAMP:20130923T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:252 Prof:lgillier Spe:Programmation\SRC_S3A1\SRC_S3 
-SUMMARY:PROG / TP / SRC_S3A1 / SRC_S3 / SRC
-LOCATION:252
-DTSTART:20130923T070000Z
-DTEND:20130923T090000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1379912400-1379919600-8
-DTSTAMP:20130923T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:251 Prof:mbornerie Spe:Programmation\SRC_S3A2\SRC_S3 
-SUMMARY:PROG / TP / SRC_S3A2 / SRC_S3 / SRC
-LOCATION:251
-DTSTART:20130923T070000Z
-DTEND:20130923T090000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1380110400-1380117600-9
-DTSTAMP:20130925T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:252 Prof:mbornerie Spe:Programmation\SRC_S3B1\SRC_S3 
-SUMMARY:PROG / TP / SRC_S3B1 / SRC_S3 / SRC
-LOCATION:252
-DTSTART:20130925T140000Z
-DTEND:20130925T160000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1380276000-1380283200-10
-DTSTAMP:20130927T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:hdesliens Spe:Analyse et th=C3=A9orie des m=C3=A9dia 2\SRC_S3A\SRC_S3 
-SUMMARY:AN_THEO_M2 / TD / SRC_S3A / SRC_S3 / SRC
-LOCATION:232
-DTSTART:20130927T120000Z
-DTEND:20130927T140000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1380283200-1380290400-11
-DTSTAMP:20130927T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle: Prof:hdesliens Spe:Analyse et th=C3=A9orie des m=C3=A9dia 2\SRC_S3B\SRC_S3 
-SUMMARY:AN_THEO_M2 / TD / SRC_S3B / SRC_S3 / SRC
-LOCATION:
-DTSTART:20130927T140000Z
-DTEND:20130927T160000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1380178800-1380186000-12
-DTSTAMP:20130926T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hkromm Spe:Gestion de projet\SRC_S3\SRC_S3 
-SUMMARY:GEST_PROJ_1 / COURS / SRC_S3 / SRC_S3 / SRC
-LOCATION:255-256
-DTSTART:20130926T090000Z
-DTEND:20130926T110000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1379930400-1379937600-13
-DTSTAMP:20130923T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:hkromm Spe:Gestion de projet\SRC_S3B\SRC_S3 
-SUMMARY:GEST_PROJ_1 / TD / SRC_S3B / SRC_S3 / SRC
-LOCATION:227
-DTSTART:20130923T120000Z
-DTEND:20130923T140000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1379937600-1379944800-14
-DTSTAMP:20130923T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hkromm Spe:Gestion de projet\SRC_S3B\SRC_S3 
-SUMMARY:GEST_PROJ_1 / TD / SRC_S3B / SRC_S3 / SRC
-LOCATION:255-256
-DTSTART:20130923T140000Z
-DTEND:20130923T160000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1379998800-1380006000-15
-DTSTAMP:20130924T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:hkromm Spe:Gestion de projet\SRC_S3A\SRC_S3 
-SUMMARY:GEST_PROJ_1 / TD / SRC_S3A / SRC_S3 / SRC
-LOCATION:227
-DTSTART:20130924T070000Z
-DTEND:20130924T090000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1380006000-1380013200-16
-DTSTAMP:20130924T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:hkromm Spe:Gestion de projet\SRC_S3A\SRC_S3 
-SUMMARY:GEST_PROJ_1 / TD / SRC_S3A / SRC_S3 / SRC
-LOCATION:227
-DTSTART:20130924T090000Z
-DTEND:20130924T110000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1380283200-1380290400-17
-DTSTAMP:20130927T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:228 Prof:hkromm Spe:Gestion de projet\SRC_S3A\SRC_S3 
-SUMMARY:GEST_PROJ_1 / TD / SRC_S3A / SRC_S3 / SRC
-LOCATION:228
-DTSTART:20130927T140000Z
-DTEND:20130927T160000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1380276000-1380283200-18
-DTSTAMP:20130927T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:228 Prof:hkromm Spe:Gestion de projet\SRC_S3B\SRC_S3 
-SUMMARY:GEST_PROJ_1 / TD / SRC_S3B / SRC_S3 / SRC
-LOCATION:228
-DTSTART:20130927T120000Z
-DTEND:20130927T140000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1380024000-1380031200-19
-DTSTAMP:20130924T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:AMPHI-60 Prof:hdesliens Spe:Analyse et th=C3=A9orie des m=C3=A9dia 2\SRC_S3\SRC_S3 
-SUMMARY:AN_THEO_M2 / COURS / SRC_S3 / SRC_S3 / SRC
-LOCATION:AMPHI-60
-DTSTART:20130924T140000Z
-DTEND:20130924T160000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1380265200-1380272400-20
+UID:1380265200-1380272400-6
 DTSTAMP:20130927T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:vlavilleneau Spe:Analyse et th=C3=A9orie des m=C3=A9dia 1\SRC_S3\SRC_S3 
 SUMMARY:AN_THEO_MEDIA / COURS / SRC_S3 / SRC_S3 / SRC
@@ -477,7 +827,163 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380258000-1380265200-21
+UID:1380103200-1380110400-7
+DTSTAMP:20130925T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:mbornerie Spe:Programmation\SRC_S3\SRC_S3 
+SUMMARY:PROG / COURS / SRC_S3 / SRC_S3 / SRC
+LOCATION:255-256
+DTSTART:20130925T120000Z
+DTEND:20130925T140000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1379912400-1379919600-8
+DTSTAMP:20130923T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:252 Prof:lgillier Spe:Programmation\SRC_S3A1\SRC_S3 
+SUMMARY:PROG / TP / SRC_S3A1 / SRC_S3 / SRC
+LOCATION:252
+DTSTART:20130923T070000Z
+DTEND:20130923T090000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1379912400-1379919600-9
+DTSTAMP:20130923T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:251 Prof:mbornerie Spe:Programmation\SRC_S3A2\SRC_S3 
+SUMMARY:PROG / TP / SRC_S3A2 / SRC_S3 / SRC
+LOCATION:251
+DTSTART:20130923T070000Z
+DTEND:20130923T090000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1380024000-1380031200-10
+DTSTAMP:20130924T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:251 Prof:mbornerie Spe:Programmation\SRC_S3B1\SRC_S3 
+SUMMARY:PROG / TP / SRC_S3B1 / SRC_S3 / SRC
+LOCATION:251
+DTSTART:20130924T140000Z
+DTEND:20130924T160000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1380276000-1380283200-11
+DTSTAMP:20130927T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:hdesliens Spe:Analyse et th=C3=A9orie des m=C3=A9dia 2\SRC_S3A\SRC_S3 
+SUMMARY:AN_THEO_M2 / TD / SRC_S3A / SRC_S3 / SRC
+LOCATION:232
+DTSTART:20130927T120000Z
+DTEND:20130927T140000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1380283200-1380290400-12
+DTSTAMP:20130927T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle: Prof:hdesliens Spe:Analyse et th=C3=A9orie des m=C3=A9dia 2\SRC_S3B\SRC_S3 
+SUMMARY:AN_THEO_M2 / TD / SRC_S3B / SRC_S3 / SRC
+LOCATION:
+DTSTART:20130927T140000Z
+DTEND:20130927T160000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1380178800-1380186000-13
+DTSTAMP:20130926T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hkromm Spe:Gestion de projet\SRC_S3\SRC_S3 
+SUMMARY:GEST_PROJ_1 / COURS / SRC_S3 / SRC_S3 / SRC
+LOCATION:255-256
+DTSTART:20130926T090000Z
+DTEND:20130926T110000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1379930400-1379937600-14
+DTSTAMP:20130923T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:hkromm Spe:Gestion de projet\SRC_S3B\SRC_S3 
+SUMMARY:GEST_PROJ_1 / TD / SRC_S3B / SRC_S3 / SRC
+LOCATION:227
+DTSTART:20130923T120000Z
+DTEND:20130923T140000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1379937600-1379944800-15
+DTSTAMP:20130923T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hkromm Spe:Gestion de projet\SRC_S3B\SRC_S3 
+SUMMARY:GEST_PROJ_1 / TD / SRC_S3B / SRC_S3 / SRC
+LOCATION:255-256
+DTSTART:20130923T140000Z
+DTEND:20130923T160000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1379998800-1380006000-16
+DTSTAMP:20130924T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:hkromm Spe:Gestion de projet\SRC_S3A\SRC_S3 
+SUMMARY:GEST_PROJ_1 / TD / SRC_S3A / SRC_S3 / SRC
+LOCATION:227
+DTSTART:20130924T070000Z
+DTEND:20130924T090000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1380006000-1380013200-17
+DTSTAMP:20130924T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:hkromm Spe:Gestion de projet\SRC_S3A\SRC_S3 
+SUMMARY:GEST_PROJ_1 / TD / SRC_S3A / SRC_S3 / SRC
+LOCATION:227
+DTSTART:20130924T090000Z
+DTEND:20130924T110000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1380283200-1380290400-18
+DTSTAMP:20130927T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:228 Prof:hkromm Spe:Gestion de projet\SRC_S3A\SRC_S3 
+SUMMARY:GEST_PROJ_1 / TD / SRC_S3A / SRC_S3 / SRC
+LOCATION:228
+DTSTART:20130927T140000Z
+DTEND:20130927T160000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1380276000-1380283200-19
+DTSTAMP:20130927T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:228 Prof:hkromm Spe:Gestion de projet\SRC_S3B\SRC_S3 
+SUMMARY:GEST_PROJ_1 / TD / SRC_S3B / SRC_S3 / SRC
+LOCATION:228
+DTSTART:20130927T120000Z
+DTEND:20130927T140000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1380258000-1380265200-20
 DTSTAMP:20130927T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hmillaret Spe:Economie Gestion\SRC_S3\SRC_S3 
 SUMMARY:ECO_GEST / COURS / SRC_S3 / SRC_S3 / SRC
@@ -489,19 +995,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380196800-1380204000-22
-DTSTAMP:20130926T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3B\SRC_S3 
-SUMMARY:EXP_ECR_ORAL / TD / SRC_S3B / SRC_S3 / SRC
-LOCATION:227
-DTSTART:20130926T140000Z
-DTEND:20130926T160000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1379919600-1379926800-23
+UID:1379919600-1379926800-21
 DTSTAMP:20130923T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:mbornerie Spe:Syst=C3=A8me d'information\SRC_S3\SRC_S3 
 SUMMARY:SYS_INFO / COURS / SRC_S3 / SRC_S3 / SRC
@@ -513,7 +1007,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380171600-1380178800-24
+UID:1380171600-1380178800-22
 DTSTAMP:20130926T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:AMPHI-60 Prof:bbastien Spe:Th=C3=A9orie de la communication\SRC_S3\SRC_S3 
 SUMMARY:THEO_COM_1 / COURS / SRC_S3 / SRC_S3 / SRC
@@ -525,7 +1019,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380092400-1380099600-25
+UID:1380092400-1380099600-23
 DTSTAMP:20130925T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:mbornerie Spe:Syst=C3=A8me d'information\SRC_S3A\SRC_S3 
 SUMMARY:SYS_INFO / TD / SRC_S3A / SRC_S3 / SRC
@@ -537,7 +1031,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380016800-1380024000-26
+UID:1380016800-1380024000-24
 DTSTAMP:20130924T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:mbornerie Spe:Syst=C3=A8me d'information\SRC_S3B\SRC_S3 
 SUMMARY:SYS_INFO / TD / SRC_S3B / SRC_S3 / SRC
@@ -549,7 +1043,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380196800-1380204000-27
+UID:1380196800-1380204000-25
 DTSTAMP:20130926T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:bbastien Spe:Th=C3=A9orie de la communication\SRC_S3A\SRC_S3 
 SUMMARY:THEO_COM_1 / TD / SRC_S3A / SRC_S3 / SRC
@@ -561,7 +1055,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380189600-1380196800-28
+UID:1380189600-1380196800-26
 DTSTAMP:20130926T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:bbastien Spe:Th=C3=A9orie de la communication\SRC_S3B\SRC_S3 
 SUMMARY:THEO_COM_1 / TD / SRC_S3B / SRC_S3 / SRC
@@ -573,7 +1067,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380085200-1380092400-29
+UID:1380085200-1380092400-27
 DTSTAMP:20130925T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:jpsalmon Spe:Projets Tuteur=C3=A9s\SRC_S3\SRC_S3 
 SUMMARY:S3_PROJ_TUT / COURS / SRC_S3 / SRC_S3 / SRC
@@ -584,7 +1078,266 @@ PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 END:VCALENDAR
-BEGIN:VCALENDAR
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Satellys</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="fr" http-equiv="Content-Language" />
+	<meta name="description" content="Dynamisoft" />
+	<meta name="keywords" content="dynamisoft" />
+	<meta name="robots" content="index,follow" />
+	<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="gpu.css" type="text/css" />	
+	<link rel="stylesheet" type="text/css" href="print_gpu.css" media="print" />
+	<link rel="stylesheet" href="../sat/satellys.css" type="text/css" />
+		<script type="text/javascript">
+	<!--
+	function externalLinks(){ 
+		if(!document.getElementsByTagName) return; 
+		var anchors = document.getElementsByTagName("a"); 
+		for (var i=0; i<anchors.length; i++){ 
+			var anchor = anchors[i]; 
+			if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") 
+				anchor.target = "_blank"; 
+		} 
+	} 
+	window.onload = externalLinks;
+	function EcrireCookie(nom, valeur)
+	{
+	
+	var argv=EcrireCookie.arguments;
+	var argc=EcrireCookie.arguments.length;
+	var expires=(argc > 2) ? argv[2] : null;
+	var path=(argc > 3) ? argv[3] : null;
+	var domain=(argc > 4) ? argv[4] : null;
+	var secure=(argc > 5) ? argv[5] : false;
+	document.cookie=nom+"="+escape(valeur)+
+	((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
+	((path==null) ? "" : ("; path="+path))+
+	((domain==null) ? "" : ("; domain="+domain))+
+	((secure==true) ? "; secure" : "");
+	
+	}
+		
+	function getCookieVal(offset)
+	{
+		var endstr=document.cookie.indexOf (";", offset);
+		if (endstr==-1) endstr=document.cookie.length;
+		return unescape(document.cookie.substring(offset, endstr)); 
+	}
+	function LireCookie(nom)
+	{
+		var arg=nom+"=";
+		var alen=arg.length;
+		var clen=document.cookie.length;
+		var i=0;
+		while (i<clen)
+		{
+			var j=i+alen;
+			if (document.cookie.substring(i, j)==arg) return getCookieVal(j);
+			i=document.cookie.indexOf(" ",i)+1;
+			if (i==0) break;
+		}
+		return null; 
+	}
+	
+	function switchdiv(act,_div){
+			date=new Date;
+			date.setMonth(date.getMonth()+1);
+			if (act=="hide") {
+				EcrireCookie(_div, 0, date);
+				if (document.getElementById(_div).style.visibility!="hidden"){
+					document.getElementById(_div).style.visibility="hidden";
+					document.getElementById(_div).style.display='none';
+					document.getElementById(_div+"bar").style.visibility="visible";
+					document.getElementById(_div+"bar").style.display='block';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="hidden";
+						e.style.display='none';
+						}
+				}
+			}
+			if (act=="show"){
+				EcrireCookie(_div, 1, date);
+				if (document.getElementById(_div).style.visibility!="visible"){
+					document.getElementById(_div).style.visibility="visible";
+					document.getElementById(_div).style.display='block';
+					document.getElementById(_div+"bar").style.visibility="hidden";
+					document.getElementById(_div+"bar").style.display='none';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="visible";
+						e.style.display='block';
+						}
+				}
+			}
+		}
+		
+	function affichediv(_div){
+		if (LireCookie(_div)==0) 
+			{
+			document.getElementById(_div).style.visibility="hidden";
+			document.getElementById(_div).style.display='none';
+			document.getElementById(_div+"bar").style.visibility="visible";
+			document.getElementById(_div+"bar").style.display='block';
+			var e = document.getElementById(_div+"plie");
+			if (e) {
+				e.style.visibility="hidden";
+				e.style.display='none';
+				}
+			}
+	}
+	
+	function ajax(ppage)
+	{
+	    var xhr=null;
+	    
+	    if (window.XMLHttpRequest) { 
+	        xhr = new XMLHttpRequest();
+	    }
+	    else if (window.ActiveXObject) 
+	    {
+	        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    //on appelle le fichier ppage
+	    xhr.open("GET", ppage, false);
+	    xhr.send(null);
+	    
+	    return xhr.responseText;
+	}
+	
+	
+	function descendMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0) {
+		window.document.getElementById("menu").style.top =  window.document.body.scrollTop-0+'px';
+		window.document.getElementById("menubar").style.top =  window.document.body.scrollTop-0+'px';
+		}
+	}
+	
+	function figerMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0)
+	    {
+		ajax("./setvar.php?nomvar=stylemenu&valeur=1");
+		this.document.formindex.stylemenu.value=1;
+		document.imgclou.src="images/punaise_on.gif";
+		}
+		else {
+			ajax("./setvar.php?nomvar=stylemenu&valeur=0");
+			this.document.formindex.stylemenu.value=0;
+			document.imgclou.src="images/punaise_off.gif";
+			}
+	}
+	
+	function Ouvrecentree(page,largeur,hauteur,options)
+	{
+		var top=(screen.height-hauteur)/2;
+		var left=(screen.width-largeur)/2;
+		if (largeur==0) 
+			{
+			if (hauteur==0)
+				window.open(page,"","top=2,left=2,"+options);
+				else window.open(page,"","top="+top+",left=2, height="+hauteur+","+options);
+			}
+			else 
+			{
+	    	if (hauteur==0)
+	    		window.open(page,"","top=2,left="+left+",width="+largeur+","+options);
+	    		else
+	    	    window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+	    	}
+	}
+	//-->
+	</script>		 
+</head>
+<body>
+		<form name="testform" id="testform" >
+		</form>
+		<div class="s_top">
+			<div style="float:left; width: 49%; height: auto;"><img src="../images/votrelogo.png" alt="" style="border:0px solid white; "  title="" /></div>
+			<div style="float:left; width: 50%; height: auto; text-align:right; "><a href="../sat/index.php"><img src="../images/logo satellys.gif" style="border:0px solid white; " alt="" title="" /></a></div>
+			<div class="s_onglets">
+				<div class="ongletGPU"><p style=" margin-top: 5px; padding: 0px;">GPU</p></div>
+				<div class="ongletGDS"><p style=" margin-top: 5px; padding: 0px;">GDS</p></div>
+				<div class="ongletGDE"><p style=" margin-top: 5px; padding: 0px;">GDE</p></div>
+                <div class="ongletGNT"><p style=" margin-top: 5px; padding: 0px;">GNT</p></div>
+				<div style="margin-right: 10px; color: black; float: right; font-size: 12px; height: 33px;"><p style="padding: 0px;"><a class="souligne" href="../sat/index.php?page_param=deconnect.php&module=SAT&cat=0&numpage=1&niv=1&clef=/3003/">D&eacute;connexion</a> - <a class="souligne"  href="../sat/index.php">Accueil SATELLYS</a></p></div>				
+			</div>
+		</div>
+		<div class="barre">&nbsp;</div>
+		<div class="s_global">	
+			<div id="menu" class="hideprint"  style=" position:relative; visibility:visible; display:block; float:left;">
+<form name="formindex" method="get" >
+	<input type="hidden" name="stylemenu" value=1 />
+</form>
+				<script language="javascript">
+<!--
+function change_dept()
+{
+var e=document.getElementsByName('chgdept');
+if (e[0].value!='')
+    {
+    rep=ajax("../aj_chgdept.php?code="+e[0].value);
+    //alert(rep);
+	if (rep=="ok") this.document.testform.submit();
+	}
+}
+
+function change_annee()
+{
+var e=document.getElementsByName('chgannee');
+if (e[0].value!='')
+    {
+	if (ajax("../aj_chgannee.php?code="+e[0].value)=="ok") this.document.testform.submit();
+	}
+}
+//-->
+</script>	
+<div class="s_profil">
+	<img src="../images/profil_etu.png" style="margin-left:2px;width:50px;" alt="" title="" align="left" />
+	<p>Utilisateur : sdoignon<br/>Dépt : SRC		<br />
+		Année : <select class="combobox" style="z-index:0; position:static; width:60px;" name="chgannee" id="chgannee"  onchange="change_annee();" ><option value='2012' >2012-2013</option>
+ </select><br />
+		Profil : 100100999999<br />
+	</p>
+</div>					<div class="hideprint">
+					<br/><div class="menutitre"><p style="margin-top: 5px; margin-left: 10px; padding: 0px;"><a href="index.php?page_param=accueil.php&cat=0&numpage=1&niv=1&clef=/305/">Emplois du temps</a></p></div><img src="./images/menu_corner_hd.gif" alt="" border="0px" style="padding: 0px; margin-left: -3px;" /><br/>      					</div>	
+			</div>
+			<div id="menuplie" style="height:56px; float:left;  background-image:url(images/menubar.gif); width:15px; background-repeat:no-repeat;" onclick="javascript:switchdiv('hide','menu');" class="handcursor"> </div>
+			<div name="menubar" id="menubar" style="float:left; position:relative; visibility:hidden;display:none; background-image:url(./images/menubar2.gif); background-repeat:no-repeat; width:15px; height:49px;" onclick="javascript:switchdiv('show','menu');"> </div>
+			<div class="s_contener" style="border-left:6px solid #828995; ">	
+			<br /><br /><br />
+<table>
+	<tr>
+		<td valign="top"><br />
+			<h1>BIENVENUE SUR SATELLYS GPU</h1>
+			<p>Avec SATELLYS GPU, vous avez la possibilité de <strong>consulter vos emplois du temps à distance.</strong>
+			<br/>
+			<br/>SATELLYS GPU est <strong>accessible partout</strong> où vous disposez d'une connexion internet ! 
+			<br/>Il est <strong>compatible avec la majorité des navigateurs internet.</strong>
+			<br/>
+			<br/>
+					
+			</p>
+		</td>
+        <td><img src="images/GPU_accueil.gif" > </td>
+	</tr>
+</table>
+
+		
+	
+			</div>
+		</div>
+		<div class="s_footer"  style="margin-top: 20px;" >Satellys est un produit Dynamisoft<sup>&copy;</sup>.</div>
+		<script language="Javascript">
+		affichediv("menu");
+		</script>
+	</body>
+</html>BEGIN:VCALENDAR
 PRODID: Gpu2vcs modified by Dynamisoft
 VERSION:2.0
 METHOD:PUBLISH
@@ -662,19 +1415,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380888000-1380895200-6
-DTSTAMP:20131004T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:AMPHI-60 Prof:vlavilleneau Spe:Analyse et th=C3=A9orie des m=C3=A9dia 1\SRC_S3\SRC_S3 
-SUMMARY:AN_THEO_MEDIA / COURS / SRC_S3 / SRC_S3 / SRC
-LOCATION:AMPHI-60
-DTSTART:20131004T140000Z
-DTEND:20131004T160000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1380690000-1380697200-7
+UID:1380690000-1380697200-6
 DTSTAMP:20131002T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:mbornerie Spe:Programmation\SRC_S3\SRC_S3 
 SUMMARY:PROG / COURS / SRC_S3 / SRC_S3 / SRC
@@ -686,7 +1427,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380517200-1380524400-8
+UID:1380517200-1380524400-7
 DTSTAMP:20130930T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:252 Prof:lgillier Spe:Programmation\SRC_S3A1\SRC_S3 
 SUMMARY:PROG / TP / SRC_S3A1 / SRC_S3 / SRC
@@ -698,7 +1439,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380628800-1380636000-9
+UID:1380628800-1380636000-8
 DTSTAMP:20131001T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:251 Prof:mbornerie Spe:Programmation\SRC_S3B1\SRC_S3 
 SUMMARY:PROG / TP / SRC_S3B1 / SRC_S3 / SRC
@@ -710,7 +1451,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380517200-1380524400-10
+UID:1380517200-1380524400-9
 DTSTAMP:20130930T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:251 Prof:mbornerie Spe:Programmation\SRC_S3A2\SRC_S3 
 SUMMARY:PROG / TP / SRC_S3A2 / SRC_S3 / SRC
@@ -722,7 +1463,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380621600-1380628800-11
+UID:1380621600-1380628800-10
 DTSTAMP:20131001T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hdesliens Spe:Analyse et th=C3=A9orie des m=C3=A9dia 2\SRC_S3\SRC_S3 
 SUMMARY:AN_THEO_M2 / COURS / SRC_S3 / SRC_S3 / SRC
@@ -734,7 +1475,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380870000-1380877200-12
+UID:1380870000-1380877200-11
 DTSTAMP:20131004T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hdesliens Spe:Analyse et th=C3=A9orie des m=C3=A9dia 2\SRC_S3\SRC_S3 
 SUMMARY:AN_THEO_M2 / COURS / SRC_S3 / SRC_S3 / SRC
@@ -746,7 +1487,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380862800-1380870000-13
+UID:1380862800-1380870000-12
 DTSTAMP:20131004T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hmillaret Spe:Economie Gestion\SRC_S3\SRC_S3 
 SUMMARY:ECO_GEST / COURS / SRC_S3 / SRC_S3 / SRC
@@ -758,7 +1499,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380542400-1380549600-14
+UID:1380542400-1380549600-13
 DTSTAMP:20130930T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:228 Prof:hmillaret Spe:Economie Gestion\SRC_S3A\SRC_S3 
 SUMMARY:ECO_GEST / TD / SRC_S3A / SRC_S3 / SRC
@@ -770,19 +1511,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380708000-1380715200-15
-DTSTAMP:20131002T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:dreyss Spe:Esth=C3=A9tique et expression artistique\SRC_S3\SRC_S3 
-SUMMARY:ESTH_EX_ART / COURS / SRC_S3 / SRC_S3 / SRC
-LOCATION:255-256
-DTSTART:20131002T120000Z
-DTEND:20131002T140000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1380542400-1380549600-16
+UID:1380542400-1380549600-14
 DTSTAMP:20130930T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:dreyss Spe:Esth=C3=A9tique et expression artistique\SRC_S3B\SRC_S3 
 SUMMARY:ESTH_EX_ART / TD / SRC_S3B / SRC_S3 / SRC
@@ -794,7 +1523,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380628800-1380636000-17
+UID:1380628800-1380636000-15
 DTSTAMP:20131001T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3A\SRC_S3 
 SUMMARY:EXP_ECR_ORAL / TD / SRC_S3A / SRC_S3 / SRC
@@ -806,7 +1535,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380524400-1380531600-18
+UID:1380524400-1380531600-16
 DTSTAMP:20130930T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:mbornerie Spe:Syst=C3=A8me d'information\SRC_S3\SRC_S3 
 SUMMARY:SYS_INFO / COURS / SRC_S3 / SRC_S3 / SRC
@@ -818,7 +1547,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380715200-1380722400-19
+UID:1380715200-1380722400-17
 DTSTAMP:20131002T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:bbastien Spe:Th=C3=A9orie de la communication\SRC_S3\SRC_S3 
 SUMMARY:THEO_COM_1 / COURS / SRC_S3 / SRC_S3 / SRC
@@ -830,7 +1559,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380535200-1380542400-20
+UID:1380535200-1380542400-18
 DTSTAMP:20130930T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:228 Prof:mbornerie Spe:Syst=C3=A8me d'information\SRC_S3A\SRC_S3 
 SUMMARY:SYS_INFO / TD / SRC_S3A / SRC_S3 / SRC
@@ -842,7 +1571,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1380697200-1380704400-21
+UID:1380697200-1380704400-19
 DTSTAMP:20131002T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle: Prof:mbornerie Spe:Syst=C3=A8me d'information\SRC_S3B\SRC_S3 
 SUMMARY:SYS_INFO / TD / SRC_S3B / SRC_S3 / SRC
@@ -853,7 +1582,266 @@ PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 END:VCALENDAR
-BEGIN:VCALENDAR
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Satellys</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="fr" http-equiv="Content-Language" />
+	<meta name="description" content="Dynamisoft" />
+	<meta name="keywords" content="dynamisoft" />
+	<meta name="robots" content="index,follow" />
+	<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="gpu.css" type="text/css" />	
+	<link rel="stylesheet" type="text/css" href="print_gpu.css" media="print" />
+	<link rel="stylesheet" href="../sat/satellys.css" type="text/css" />
+		<script type="text/javascript">
+	<!--
+	function externalLinks(){ 
+		if(!document.getElementsByTagName) return; 
+		var anchors = document.getElementsByTagName("a"); 
+		for (var i=0; i<anchors.length; i++){ 
+			var anchor = anchors[i]; 
+			if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") 
+				anchor.target = "_blank"; 
+		} 
+	} 
+	window.onload = externalLinks;
+	function EcrireCookie(nom, valeur)
+	{
+	
+	var argv=EcrireCookie.arguments;
+	var argc=EcrireCookie.arguments.length;
+	var expires=(argc > 2) ? argv[2] : null;
+	var path=(argc > 3) ? argv[3] : null;
+	var domain=(argc > 4) ? argv[4] : null;
+	var secure=(argc > 5) ? argv[5] : false;
+	document.cookie=nom+"="+escape(valeur)+
+	((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
+	((path==null) ? "" : ("; path="+path))+
+	((domain==null) ? "" : ("; domain="+domain))+
+	((secure==true) ? "; secure" : "");
+	
+	}
+		
+	function getCookieVal(offset)
+	{
+		var endstr=document.cookie.indexOf (";", offset);
+		if (endstr==-1) endstr=document.cookie.length;
+		return unescape(document.cookie.substring(offset, endstr)); 
+	}
+	function LireCookie(nom)
+	{
+		var arg=nom+"=";
+		var alen=arg.length;
+		var clen=document.cookie.length;
+		var i=0;
+		while (i<clen)
+		{
+			var j=i+alen;
+			if (document.cookie.substring(i, j)==arg) return getCookieVal(j);
+			i=document.cookie.indexOf(" ",i)+1;
+			if (i==0) break;
+		}
+		return null; 
+	}
+	
+	function switchdiv(act,_div){
+			date=new Date;
+			date.setMonth(date.getMonth()+1);
+			if (act=="hide") {
+				EcrireCookie(_div, 0, date);
+				if (document.getElementById(_div).style.visibility!="hidden"){
+					document.getElementById(_div).style.visibility="hidden";
+					document.getElementById(_div).style.display='none';
+					document.getElementById(_div+"bar").style.visibility="visible";
+					document.getElementById(_div+"bar").style.display='block';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="hidden";
+						e.style.display='none';
+						}
+				}
+			}
+			if (act=="show"){
+				EcrireCookie(_div, 1, date);
+				if (document.getElementById(_div).style.visibility!="visible"){
+					document.getElementById(_div).style.visibility="visible";
+					document.getElementById(_div).style.display='block';
+					document.getElementById(_div+"bar").style.visibility="hidden";
+					document.getElementById(_div+"bar").style.display='none';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="visible";
+						e.style.display='block';
+						}
+				}
+			}
+		}
+		
+	function affichediv(_div){
+		if (LireCookie(_div)==0) 
+			{
+			document.getElementById(_div).style.visibility="hidden";
+			document.getElementById(_div).style.display='none';
+			document.getElementById(_div+"bar").style.visibility="visible";
+			document.getElementById(_div+"bar").style.display='block';
+			var e = document.getElementById(_div+"plie");
+			if (e) {
+				e.style.visibility="hidden";
+				e.style.display='none';
+				}
+			}
+	}
+	
+	function ajax(ppage)
+	{
+	    var xhr=null;
+	    
+	    if (window.XMLHttpRequest) { 
+	        xhr = new XMLHttpRequest();
+	    }
+	    else if (window.ActiveXObject) 
+	    {
+	        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    //on appelle le fichier ppage
+	    xhr.open("GET", ppage, false);
+	    xhr.send(null);
+	    
+	    return xhr.responseText;
+	}
+	
+	
+	function descendMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0) {
+		window.document.getElementById("menu").style.top =  window.document.body.scrollTop-0+'px';
+		window.document.getElementById("menubar").style.top =  window.document.body.scrollTop-0+'px';
+		}
+	}
+	
+	function figerMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0)
+	    {
+		ajax("./setvar.php?nomvar=stylemenu&valeur=1");
+		this.document.formindex.stylemenu.value=1;
+		document.imgclou.src="images/punaise_on.gif";
+		}
+		else {
+			ajax("./setvar.php?nomvar=stylemenu&valeur=0");
+			this.document.formindex.stylemenu.value=0;
+			document.imgclou.src="images/punaise_off.gif";
+			}
+	}
+	
+	function Ouvrecentree(page,largeur,hauteur,options)
+	{
+		var top=(screen.height-hauteur)/2;
+		var left=(screen.width-largeur)/2;
+		if (largeur==0) 
+			{
+			if (hauteur==0)
+				window.open(page,"","top=2,left=2,"+options);
+				else window.open(page,"","top="+top+",left=2, height="+hauteur+","+options);
+			}
+			else 
+			{
+	    	if (hauteur==0)
+	    		window.open(page,"","top=2,left="+left+",width="+largeur+","+options);
+	    		else
+	    	    window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+	    	}
+	}
+	//-->
+	</script>		 
+</head>
+<body>
+		<form name="testform" id="testform" >
+		</form>
+		<div class="s_top">
+			<div style="float:left; width: 49%; height: auto;"><img src="../images/votrelogo.png" alt="" style="border:0px solid white; "  title="" /></div>
+			<div style="float:left; width: 50%; height: auto; text-align:right; "><a href="../sat/index.php"><img src="../images/logo satellys.gif" style="border:0px solid white; " alt="" title="" /></a></div>
+			<div class="s_onglets">
+				<div class="ongletGPU"><p style=" margin-top: 5px; padding: 0px;">GPU</p></div>
+				<div class="ongletGDS"><p style=" margin-top: 5px; padding: 0px;">GDS</p></div>
+				<div class="ongletGDE"><p style=" margin-top: 5px; padding: 0px;">GDE</p></div>
+                <div class="ongletGNT"><p style=" margin-top: 5px; padding: 0px;">GNT</p></div>
+				<div style="margin-right: 10px; color: black; float: right; font-size: 12px; height: 33px;"><p style="padding: 0px;"><a class="souligne" href="../sat/index.php?page_param=deconnect.php&module=SAT&cat=0&numpage=1&niv=1&clef=/3003/">D&eacute;connexion</a> - <a class="souligne"  href="../sat/index.php">Accueil SATELLYS</a></p></div>				
+			</div>
+		</div>
+		<div class="barre">&nbsp;</div>
+		<div class="s_global">	
+			<div id="menu" class="hideprint"  style=" position:relative; visibility:visible; display:block; float:left;">
+<form name="formindex" method="get" >
+	<input type="hidden" name="stylemenu" value=1 />
+</form>
+				<script language="javascript">
+<!--
+function change_dept()
+{
+var e=document.getElementsByName('chgdept');
+if (e[0].value!='')
+    {
+    rep=ajax("../aj_chgdept.php?code="+e[0].value);
+    //alert(rep);
+	if (rep=="ok") this.document.testform.submit();
+	}
+}
+
+function change_annee()
+{
+var e=document.getElementsByName('chgannee');
+if (e[0].value!='')
+    {
+	if (ajax("../aj_chgannee.php?code="+e[0].value)=="ok") this.document.testform.submit();
+	}
+}
+//-->
+</script>	
+<div class="s_profil">
+	<img src="../images/profil_etu.png" style="margin-left:2px;width:50px;" alt="" title="" align="left" />
+	<p>Utilisateur : sdoignon<br/>Dépt : SRC		<br />
+		Année : <select class="combobox" style="z-index:0; position:static; width:60px;" name="chgannee" id="chgannee"  onchange="change_annee();" ><option value='2012' >2012-2013</option>
+ </select><br />
+		Profil : 100100999999<br />
+	</p>
+</div>					<div class="hideprint">
+					<br/><div class="menutitre"><p style="margin-top: 5px; margin-left: 10px; padding: 0px;"><a href="index.php?page_param=accueil.php&cat=0&numpage=1&niv=1&clef=/305/">Emplois du temps</a></p></div><img src="./images/menu_corner_hd.gif" alt="" border="0px" style="padding: 0px; margin-left: -3px;" /><br/>      					</div>	
+			</div>
+			<div id="menuplie" style="height:56px; float:left;  background-image:url(images/menubar.gif); width:15px; background-repeat:no-repeat;" onclick="javascript:switchdiv('hide','menu');" class="handcursor"> </div>
+			<div name="menubar" id="menubar" style="float:left; position:relative; visibility:hidden;display:none; background-image:url(./images/menubar2.gif); background-repeat:no-repeat; width:15px; height:49px;" onclick="javascript:switchdiv('show','menu');"> </div>
+			<div class="s_contener" style="border-left:6px solid #828995; ">	
+			<br /><br /><br />
+<table>
+	<tr>
+		<td valign="top"><br />
+			<h1>BIENVENUE SUR SATELLYS GPU</h1>
+			<p>Avec SATELLYS GPU, vous avez la possibilité de <strong>consulter vos emplois du temps à distance.</strong>
+			<br/>
+			<br/>SATELLYS GPU est <strong>accessible partout</strong> où vous disposez d'une connexion internet ! 
+			<br/>Il est <strong>compatible avec la majorité des navigateurs internet.</strong>
+			<br/>
+			<br/>
+					
+			</p>
+		</td>
+        <td><img src="images/GPU_accueil.gif" > </td>
+	</tr>
+</table>
+
+		
+	
+			</div>
+		</div>
+		<div class="s_footer"  style="margin-top: 20px;" >Satellys est un produit Dynamisoft<sup>&copy;</sup>.</div>
+		<script language="Javascript">
+		affichediv("menu");
+		</script>
+	</body>
+</html>BEGIN:VCALENDAR
 PRODID: Gpu2vcs modified by Dynamisoft
 VERSION:2.0
 METHOD:PUBLISH
@@ -991,7 +1979,19 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381294800-1381302000-11
+UID:1381312800-1381320000-11
+DTSTAMP:20131009T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:mbornerie Spe:Multim=C3=A9dia\SRC_S3\SRC_S3 
+SUMMARY:MULTIMED / COURS / SRC_S3 / SRC_S3 / SRC
+LOCATION:255-256
+DTSTART:20131009T120000Z
+DTEND:20131009T140000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1381294800-1381302000-12
 DTSTAMP:20131009T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:251 Prof:mbornerie Spe:Programmation\SRC_S3B1\SRC_S3 
 SUMMARY:PROG / TP / SRC_S3B1 / SRC_S3 / SRC
@@ -1003,7 +2003,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381233600-1381240800-12
+UID:1381233600-1381240800-13
 DTSTAMP:20131008T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:mbornerie Spe:Programmation\SRC_S3\SRC_S3 
 SUMMARY:PROG / COURS / SRC_S3 / SRC_S3 / SRC
@@ -1015,7 +2015,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381122000-1381129200-13
+UID:1381122000-1381129200-14
 DTSTAMP:20131007T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:252 Prof:lgillier Spe:Programmation\SRC_S3A1\SRC_S3 
 SUMMARY:PROG / TP / SRC_S3A1 / SRC_S3 / SRC
@@ -1027,7 +2027,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381122000-1381129200-14
+UID:1381122000-1381129200-15
 DTSTAMP:20131007T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:251 Prof:mbornerie Spe:Programmation\SRC_S3A2\SRC_S3 
 SUMMARY:PROG / TP / SRC_S3A2 / SRC_S3 / SRC
@@ -1039,7 +2039,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381485600-1381492800-15
+UID:1381485600-1381492800-16
 DTSTAMP:20131011T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:PTV Prof:alevy Spe:Infographie\SRC_S3\SRC_S3 
 SUMMARY:INFOGRAPH / TD / SRC_S3 / SRC_S3 / SRC
@@ -1051,7 +2051,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381140000-1381147200-16
+UID:1381140000-1381147200-17
 DTSTAMP:20131007T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hkromm Spe:Gestion de projet\SRC_S3B\SRC_S3 
 SUMMARY:GEST_PROJ_1 / TD / SRC_S3B / SRC_S3 / SRC
@@ -1063,7 +2063,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381147200-1381154400-17
+UID:1381147200-1381154400-18
 DTSTAMP:20131007T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hkromm Spe:Gestion de projet\SRC_S3B\SRC_S3 
 SUMMARY:GEST_PROJ_1 / TD / SRC_S3B / SRC_S3 / SRC
@@ -1075,7 +2075,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381208400-1381215600-18
+UID:1381208400-1381215600-19
 DTSTAMP:20131008T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:hkromm Spe:Gestion de projet\SRC_S3A\SRC_S3 
 SUMMARY:GEST_PROJ_1 / TD / SRC_S3A / SRC_S3 / SRC
@@ -1087,7 +2087,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381215600-1381222800-19
+UID:1381215600-1381222800-20
 DTSTAMP:20131008T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:hkromm Spe:Gestion de projet\SRC_S3A\SRC_S3 
 SUMMARY:GEST_PROJ_1 / TD / SRC_S3A / SRC_S3 / SRC
@@ -1099,7 +2099,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381294800-1381302000-20
+UID:1381294800-1381302000-21
 DTSTAMP:20131009T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:hkromm Spe:Gestion de projet\SRC_S3A\SRC_S3 
 SUMMARY:GEST_PROJ_1 / TD / SRC_S3A / SRC_S3 / SRC
@@ -1111,7 +2111,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381226400-1381233600-21
+UID:1381226400-1381233600-22
 DTSTAMP:20131008T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:hkromm Spe:Gestion de projet\SRC_S3B\SRC_S3 
 SUMMARY:GEST_PROJ_1 / TD / SRC_S3B / SRC_S3 / SRC
@@ -1123,7 +2123,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381474800-1381482000-22
+UID:1381474800-1381482000-23
 DTSTAMP:20131011T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:PTV Prof:alevy Spe:Infographie\SRC_S3\SRC_S3 
 SUMMARY:INFOGRAPH / TD / SRC_S3 / SRC_S3 / SRC
@@ -1135,7 +2135,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381467600-1381474800-23
+UID:1381467600-1381474800-24
 DTSTAMP:20131011T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:PTV Prof:alevy Spe:Infographie\SRC_S3\SRC_S3 
 SUMMARY:INFOGRAPH / TD / SRC_S3 / SRC_S3 / SRC
@@ -1147,7 +2147,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381492800-1381500000-24
+UID:1381492800-1381500000-25
 DTSTAMP:20131011T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:alevy Spe:Infographie\SRC_S3\SRC_S3 
 SUMMARY:INFOGRAPH / TD / SRC_S3 / SRC_S3 / SRC
@@ -1159,7 +2159,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381406400-1381413600-25
+UID:1381406400-1381413600-26
 DTSTAMP:20131010T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:hmillaret Spe:Economie Gestion\SRC_S3B\SRC_S3 
 SUMMARY:ECO_GEST / TD / SRC_S3B / SRC_S3 / SRC
@@ -1171,7 +2171,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381399200-1381406400-26
+UID:1381399200-1381406400-27
 DTSTAMP:20131010T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:hmillaret Spe:Economie Gestion\SRC_S3A\SRC_S3 
 SUMMARY:ECO_GEST / TD / SRC_S3A / SRC_S3 / SRC
@@ -1183,7 +2183,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381302000-1381309200-27
+UID:1381302000-1381309200-28
 DTSTAMP:20131009T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:dreyss Spe:Esth=C3=A9tique et expression artistique\SRC_S3A\SRC_S3 
 SUMMARY:ESTH_EX_ART / TD / SRC_S3A / SRC_S3 / SRC
@@ -1195,7 +2195,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381406400-1381413600-28
+UID:1381406400-1381413600-29
 DTSTAMP:20131010T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:dreyss Spe:Esth=C3=A9tique et expression artistique\SRC_S3A\SRC_S3 
 SUMMARY:ESTH_EX_ART / TD / SRC_S3A / SRC_S3 / SRC
@@ -1207,7 +2207,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381399200-1381406400-29
+UID:1381399200-1381406400-30
 DTSTAMP:20131010T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:dreyss Spe:Esth=C3=A9tique et expression artistique\SRC_S3B\SRC_S3 
 SUMMARY:ESTH_EX_ART / TD / SRC_S3B / SRC_S3 / SRC
@@ -1219,7 +2219,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381226400-1381233600-30
+UID:1381226400-1381233600-31
 DTSTAMP:20131008T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:229 Prof:mbornerie Spe:Syst=C3=A8me d'information\SRC_S3A\SRC_S3 
 SUMMARY:SYS_INFO / TD / SRC_S3A / SRC_S3 / SRC
@@ -1231,7 +2231,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381129200-1381136400-31
+UID:1381129200-1381136400-32
 DTSTAMP:20131007T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:mbornerie Spe:Syst=C3=A8me d'information\SRC_S3\SRC_S3 
 SUMMARY:SYS_INFO / COURS / SRC_S3 / SRC_S3 / SRC
@@ -1243,7 +2243,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381302000-1381309200-32
+UID:1381302000-1381309200-33
 DTSTAMP:20131009T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle: Prof:mbornerie Spe:Syst=C3=A8me d'information\SRC_S3B\SRC_S3 
 SUMMARY:SYS_INFO / TD / SRC_S3B / SRC_S3 / SRC
@@ -1254,7 +2254,266 @@ PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 END:VCALENDAR
-BEGIN:VCALENDAR
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Satellys</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="fr" http-equiv="Content-Language" />
+	<meta name="description" content="Dynamisoft" />
+	<meta name="keywords" content="dynamisoft" />
+	<meta name="robots" content="index,follow" />
+	<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="gpu.css" type="text/css" />	
+	<link rel="stylesheet" type="text/css" href="print_gpu.css" media="print" />
+	<link rel="stylesheet" href="../sat/satellys.css" type="text/css" />
+		<script type="text/javascript">
+	<!--
+	function externalLinks(){ 
+		if(!document.getElementsByTagName) return; 
+		var anchors = document.getElementsByTagName("a"); 
+		for (var i=0; i<anchors.length; i++){ 
+			var anchor = anchors[i]; 
+			if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") 
+				anchor.target = "_blank"; 
+		} 
+	} 
+	window.onload = externalLinks;
+	function EcrireCookie(nom, valeur)
+	{
+	
+	var argv=EcrireCookie.arguments;
+	var argc=EcrireCookie.arguments.length;
+	var expires=(argc > 2) ? argv[2] : null;
+	var path=(argc > 3) ? argv[3] : null;
+	var domain=(argc > 4) ? argv[4] : null;
+	var secure=(argc > 5) ? argv[5] : false;
+	document.cookie=nom+"="+escape(valeur)+
+	((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
+	((path==null) ? "" : ("; path="+path))+
+	((domain==null) ? "" : ("; domain="+domain))+
+	((secure==true) ? "; secure" : "");
+	
+	}
+		
+	function getCookieVal(offset)
+	{
+		var endstr=document.cookie.indexOf (";", offset);
+		if (endstr==-1) endstr=document.cookie.length;
+		return unescape(document.cookie.substring(offset, endstr)); 
+	}
+	function LireCookie(nom)
+	{
+		var arg=nom+"=";
+		var alen=arg.length;
+		var clen=document.cookie.length;
+		var i=0;
+		while (i<clen)
+		{
+			var j=i+alen;
+			if (document.cookie.substring(i, j)==arg) return getCookieVal(j);
+			i=document.cookie.indexOf(" ",i)+1;
+			if (i==0) break;
+		}
+		return null; 
+	}
+	
+	function switchdiv(act,_div){
+			date=new Date;
+			date.setMonth(date.getMonth()+1);
+			if (act=="hide") {
+				EcrireCookie(_div, 0, date);
+				if (document.getElementById(_div).style.visibility!="hidden"){
+					document.getElementById(_div).style.visibility="hidden";
+					document.getElementById(_div).style.display='none';
+					document.getElementById(_div+"bar").style.visibility="visible";
+					document.getElementById(_div+"bar").style.display='block';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="hidden";
+						e.style.display='none';
+						}
+				}
+			}
+			if (act=="show"){
+				EcrireCookie(_div, 1, date);
+				if (document.getElementById(_div).style.visibility!="visible"){
+					document.getElementById(_div).style.visibility="visible";
+					document.getElementById(_div).style.display='block';
+					document.getElementById(_div+"bar").style.visibility="hidden";
+					document.getElementById(_div+"bar").style.display='none';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="visible";
+						e.style.display='block';
+						}
+				}
+			}
+		}
+		
+	function affichediv(_div){
+		if (LireCookie(_div)==0) 
+			{
+			document.getElementById(_div).style.visibility="hidden";
+			document.getElementById(_div).style.display='none';
+			document.getElementById(_div+"bar").style.visibility="visible";
+			document.getElementById(_div+"bar").style.display='block';
+			var e = document.getElementById(_div+"plie");
+			if (e) {
+				e.style.visibility="hidden";
+				e.style.display='none';
+				}
+			}
+	}
+	
+	function ajax(ppage)
+	{
+	    var xhr=null;
+	    
+	    if (window.XMLHttpRequest) { 
+	        xhr = new XMLHttpRequest();
+	    }
+	    else if (window.ActiveXObject) 
+	    {
+	        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    //on appelle le fichier ppage
+	    xhr.open("GET", ppage, false);
+	    xhr.send(null);
+	    
+	    return xhr.responseText;
+	}
+	
+	
+	function descendMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0) {
+		window.document.getElementById("menu").style.top =  window.document.body.scrollTop-0+'px';
+		window.document.getElementById("menubar").style.top =  window.document.body.scrollTop-0+'px';
+		}
+	}
+	
+	function figerMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0)
+	    {
+		ajax("./setvar.php?nomvar=stylemenu&valeur=1");
+		this.document.formindex.stylemenu.value=1;
+		document.imgclou.src="images/punaise_on.gif";
+		}
+		else {
+			ajax("./setvar.php?nomvar=stylemenu&valeur=0");
+			this.document.formindex.stylemenu.value=0;
+			document.imgclou.src="images/punaise_off.gif";
+			}
+	}
+	
+	function Ouvrecentree(page,largeur,hauteur,options)
+	{
+		var top=(screen.height-hauteur)/2;
+		var left=(screen.width-largeur)/2;
+		if (largeur==0) 
+			{
+			if (hauteur==0)
+				window.open(page,"","top=2,left=2,"+options);
+				else window.open(page,"","top="+top+",left=2, height="+hauteur+","+options);
+			}
+			else 
+			{
+	    	if (hauteur==0)
+	    		window.open(page,"","top=2,left="+left+",width="+largeur+","+options);
+	    		else
+	    	    window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+	    	}
+	}
+	//-->
+	</script>		 
+</head>
+<body>
+		<form name="testform" id="testform" >
+		</form>
+		<div class="s_top">
+			<div style="float:left; width: 49%; height: auto;"><img src="../images/votrelogo.png" alt="" style="border:0px solid white; "  title="" /></div>
+			<div style="float:left; width: 50%; height: auto; text-align:right; "><a href="../sat/index.php"><img src="../images/logo satellys.gif" style="border:0px solid white; " alt="" title="" /></a></div>
+			<div class="s_onglets">
+				<div class="ongletGPU"><p style=" margin-top: 5px; padding: 0px;">GPU</p></div>
+				<div class="ongletGDS"><p style=" margin-top: 5px; padding: 0px;">GDS</p></div>
+				<div class="ongletGDE"><p style=" margin-top: 5px; padding: 0px;">GDE</p></div>
+                <div class="ongletGNT"><p style=" margin-top: 5px; padding: 0px;">GNT</p></div>
+				<div style="margin-right: 10px; color: black; float: right; font-size: 12px; height: 33px;"><p style="padding: 0px;"><a class="souligne" href="../sat/index.php?page_param=deconnect.php&module=SAT&cat=0&numpage=1&niv=1&clef=/3003/">D&eacute;connexion</a> - <a class="souligne"  href="../sat/index.php">Accueil SATELLYS</a></p></div>				
+			</div>
+		</div>
+		<div class="barre">&nbsp;</div>
+		<div class="s_global">	
+			<div id="menu" class="hideprint"  style=" position:relative; visibility:visible; display:block; float:left;">
+<form name="formindex" method="get" >
+	<input type="hidden" name="stylemenu" value=1 />
+</form>
+				<script language="javascript">
+<!--
+function change_dept()
+{
+var e=document.getElementsByName('chgdept');
+if (e[0].value!='')
+    {
+    rep=ajax("../aj_chgdept.php?code="+e[0].value);
+    //alert(rep);
+	if (rep=="ok") this.document.testform.submit();
+	}
+}
+
+function change_annee()
+{
+var e=document.getElementsByName('chgannee');
+if (e[0].value!='')
+    {
+	if (ajax("../aj_chgannee.php?code="+e[0].value)=="ok") this.document.testform.submit();
+	}
+}
+//-->
+</script>	
+<div class="s_profil">
+	<img src="../images/profil_etu.png" style="margin-left:2px;width:50px;" alt="" title="" align="left" />
+	<p>Utilisateur : sdoignon<br/>Dépt : SRC		<br />
+		Année : <select class="combobox" style="z-index:0; position:static; width:60px;" name="chgannee" id="chgannee"  onchange="change_annee();" ><option value='2012' >2012-2013</option>
+ </select><br />
+		Profil : 100100999999<br />
+	</p>
+</div>					<div class="hideprint">
+					<br/><div class="menutitre"><p style="margin-top: 5px; margin-left: 10px; padding: 0px;"><a href="index.php?page_param=accueil.php&cat=0&numpage=1&niv=1&clef=/305/">Emplois du temps</a></p></div><img src="./images/menu_corner_hd.gif" alt="" border="0px" style="padding: 0px; margin-left: -3px;" /><br/>      					</div>	
+			</div>
+			<div id="menuplie" style="height:56px; float:left;  background-image:url(images/menubar.gif); width:15px; background-repeat:no-repeat;" onclick="javascript:switchdiv('hide','menu');" class="handcursor"> </div>
+			<div name="menubar" id="menubar" style="float:left; position:relative; visibility:hidden;display:none; background-image:url(./images/menubar2.gif); background-repeat:no-repeat; width:15px; height:49px;" onclick="javascript:switchdiv('show','menu');"> </div>
+			<div class="s_contener" style="border-left:6px solid #828995; ">	
+			<br /><br /><br />
+<table>
+	<tr>
+		<td valign="top"><br />
+			<h1>BIENVENUE SUR SATELLYS GPU</h1>
+			<p>Avec SATELLYS GPU, vous avez la possibilité de <strong>consulter vos emplois du temps à distance.</strong>
+			<br/>
+			<br/>SATELLYS GPU est <strong>accessible partout</strong> où vous disposez d'une connexion internet ! 
+			<br/>Il est <strong>compatible avec la majorité des navigateurs internet.</strong>
+			<br/>
+			<br/>
+					
+			</p>
+		</td>
+        <td><img src="images/GPU_accueil.gif" > </td>
+	</tr>
+</table>
+
+		
+	
+			</div>
+		</div>
+		<div class="s_footer"  style="margin-top: 20px;" >Satellys est un produit Dynamisoft<sup>&copy;</sup>.</div>
+		<script language="Javascript">
+		affichediv("menu");
+		</script>
+	</body>
+</html>BEGIN:VCALENDAR
 PRODID: Gpu2vcs modified by Dynamisoft
 VERSION:2.0
 METHOD:PUBLISH
@@ -1368,19 +2627,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381924800-1381932000-9
-DTSTAMP:20131016T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:253 Prof:mbornerie Spe:Programmation\SRC_S3B1\SRC_S3 
-SUMMARY:PROG / TP / SRC_S3B1 / SRC_S3 / SRC
-LOCATION:253
-DTSTART:20131016T140000Z
-DTEND:20131016T160000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1381899600-1381906800-10
+UID:1381899600-1381906800-9
 DTSTAMP:20131016T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:mbornerie Spe:Programmation\SRC_S3\SRC_S3 
 SUMMARY:PROG / COURS / SRC_S3 / SRC_S3 / SRC
@@ -1392,7 +2639,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381726800-1381734000-11
+UID:1381726800-1381734000-10
 DTSTAMP:20131014T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:252 Prof:lgillier Spe:Programmation\SRC_S3A1\SRC_S3 
 SUMMARY:PROG / TP / SRC_S3A1 / SRC_S3 / SRC
@@ -1404,7 +2651,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381744800-1381752000-12
+UID:1381744800-1381752000-11
 DTSTAMP:20131014T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:vlavilleneau Spe:Analyse et th=C3=A9orie des m=C3=A9dia 1\SRC_S3A\SRC_S3 
 SUMMARY:AN_THEO_MEDIA / TD / SRC_S3A / SRC_S3 / SRC
@@ -1416,7 +2663,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381752000-1381759200-13
+UID:1381752000-1381759200-12
 DTSTAMP:20131014T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:vlavilleneau Spe:Analyse et th=C3=A9orie des m=C3=A9dia 1\SRC_S3B\SRC_S3 
 SUMMARY:AN_THEO_MEDIA / TD / SRC_S3B / SRC_S3 / SRC
@@ -1428,7 +2675,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1382090400-1382097600-14
+UID:1382090400-1382097600-13
 DTSTAMP:20131018T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hkromm Spe:Gestion de projet\SRC_S3A\SRC_S3 
 SUMMARY:GEST_PROJ_1 / TD / SRC_S3A / SRC_S3 / SRC
@@ -1440,7 +2687,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1382097600-1382104800-15
+UID:1382097600-1382104800-14
 DTSTAMP:20131018T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hkromm Spe:Gestion de projet\SRC_S3B\SRC_S3 
 SUMMARY:GEST_PROJ_1 / TD / SRC_S3B / SRC_S3 / SRC
@@ -1452,7 +2699,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1382079600-1382086800-16
+UID:1382079600-1382086800-15
 DTSTAMP:20131018T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hdesliens Spe:Analyse et th=C3=A9orie des m=C3=A9dia 2\SRC_S3\SRC_S3 
 SUMMARY:AN_THEO_M2 / COURS / SRC_S3 / SRC_S3 / SRC
@@ -1464,7 +2711,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1382072400-1382079600-17
+UID:1382072400-1382079600-16
 DTSTAMP:20131018T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hmillaret Spe:Economie Gestion\SRC_S3\SRC_S3 
 SUMMARY:ECO_GEST / COURS / SRC_S3 / SRC_S3 / SRC
@@ -1476,7 +2723,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381820400-1381827600-18
+UID:1381820400-1381827600-17
 DTSTAMP:20131015T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:dreyss Spe:Esth=C3=A9tique et expression artistique\SRC_S3\SRC_S3 
 SUMMARY:ESTH_EX_ART / COURS / SRC_S3 / SRC_S3 / SRC
@@ -1488,7 +2735,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1382097600-1382104800-19
+UID:1382097600-1382104800-18
 DTSTAMP:20131018T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3A\SRC_S3 
 SUMMARY:EXP_ECR_ORAL / TD / SRC_S3A / SRC_S3 / SRC
@@ -1500,7 +2747,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381906800-1381914000-20
+UID:1381906800-1381914000-19
 DTSTAMP:20131016T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3A\SRC_S3 
 SUMMARY:EXP_ECR_ORAL / TD / SRC_S3A / SRC_S3 / SRC
@@ -1512,7 +2759,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381917600-1381924800-21
+UID:1381917600-1381924800-20
 DTSTAMP:20131016T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3B\SRC_S3 
 SUMMARY:EXP_ECR_ORAL / TD / SRC_S3B / SRC_S3 / SRC
@@ -1524,7 +2771,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1382090400-1382097600-22
+UID:1382090400-1382097600-21
 DTSTAMP:20131018T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3B\SRC_S3 
 SUMMARY:EXP_ECR_ORAL / TD / SRC_S3B / SRC_S3 / SRC
@@ -1536,7 +2783,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381752000-1381759200-23
+UID:1381752000-1381759200-22
 DTSTAMP:20131014T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:mbornerie Spe:Syst=C3=A8me d'information\SRC_S3A\SRC_S3 
 SUMMARY:SYS_INFO / TD / SRC_S3A / SRC_S3 / SRC
@@ -1548,7 +2795,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381744800-1381752000-24
+UID:1381744800-1381752000-23
 DTSTAMP:20131014T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:mbornerie Spe:Syst=C3=A8me d'information\SRC_S3B\SRC_S3 
 SUMMARY:SYS_INFO / TD / SRC_S3B / SRC_S3 / SRC
@@ -1560,7 +2807,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381734000-1381741200-25
+UID:1381734000-1381741200-24
 DTSTAMP:20131014T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:mbornerie Spe:Syst=C3=A8me d'information\SRC_S3\SRC_S3 
 SUMMARY:SYS_INFO / COURS / SRC_S3 / SRC_S3 / SRC
@@ -1572,7 +2819,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1381838400-1381845600-26
+UID:1381838400-1381845600-25
 DTSTAMP:20131015T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:bbastien Spe:Th=C3=A9orie de la communication\SRC_S3\SRC_S3 
 SUMMARY:THEO_COM_1 / COURS / SRC_S3 / SRC_S3 / SRC
@@ -1583,7 +2830,266 @@ PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 END:VCALENDAR
-BEGIN:VCALENDAR
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Satellys</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="fr" http-equiv="Content-Language" />
+	<meta name="description" content="Dynamisoft" />
+	<meta name="keywords" content="dynamisoft" />
+	<meta name="robots" content="index,follow" />
+	<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="gpu.css" type="text/css" />	
+	<link rel="stylesheet" type="text/css" href="print_gpu.css" media="print" />
+	<link rel="stylesheet" href="../sat/satellys.css" type="text/css" />
+		<script type="text/javascript">
+	<!--
+	function externalLinks(){ 
+		if(!document.getElementsByTagName) return; 
+		var anchors = document.getElementsByTagName("a"); 
+		for (var i=0; i<anchors.length; i++){ 
+			var anchor = anchors[i]; 
+			if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") 
+				anchor.target = "_blank"; 
+		} 
+	} 
+	window.onload = externalLinks;
+	function EcrireCookie(nom, valeur)
+	{
+	
+	var argv=EcrireCookie.arguments;
+	var argc=EcrireCookie.arguments.length;
+	var expires=(argc > 2) ? argv[2] : null;
+	var path=(argc > 3) ? argv[3] : null;
+	var domain=(argc > 4) ? argv[4] : null;
+	var secure=(argc > 5) ? argv[5] : false;
+	document.cookie=nom+"="+escape(valeur)+
+	((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
+	((path==null) ? "" : ("; path="+path))+
+	((domain==null) ? "" : ("; domain="+domain))+
+	((secure==true) ? "; secure" : "");
+	
+	}
+		
+	function getCookieVal(offset)
+	{
+		var endstr=document.cookie.indexOf (";", offset);
+		if (endstr==-1) endstr=document.cookie.length;
+		return unescape(document.cookie.substring(offset, endstr)); 
+	}
+	function LireCookie(nom)
+	{
+		var arg=nom+"=";
+		var alen=arg.length;
+		var clen=document.cookie.length;
+		var i=0;
+		while (i<clen)
+		{
+			var j=i+alen;
+			if (document.cookie.substring(i, j)==arg) return getCookieVal(j);
+			i=document.cookie.indexOf(" ",i)+1;
+			if (i==0) break;
+		}
+		return null; 
+	}
+	
+	function switchdiv(act,_div){
+			date=new Date;
+			date.setMonth(date.getMonth()+1);
+			if (act=="hide") {
+				EcrireCookie(_div, 0, date);
+				if (document.getElementById(_div).style.visibility!="hidden"){
+					document.getElementById(_div).style.visibility="hidden";
+					document.getElementById(_div).style.display='none';
+					document.getElementById(_div+"bar").style.visibility="visible";
+					document.getElementById(_div+"bar").style.display='block';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="hidden";
+						e.style.display='none';
+						}
+				}
+			}
+			if (act=="show"){
+				EcrireCookie(_div, 1, date);
+				if (document.getElementById(_div).style.visibility!="visible"){
+					document.getElementById(_div).style.visibility="visible";
+					document.getElementById(_div).style.display='block';
+					document.getElementById(_div+"bar").style.visibility="hidden";
+					document.getElementById(_div+"bar").style.display='none';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="visible";
+						e.style.display='block';
+						}
+				}
+			}
+		}
+		
+	function affichediv(_div){
+		if (LireCookie(_div)==0) 
+			{
+			document.getElementById(_div).style.visibility="hidden";
+			document.getElementById(_div).style.display='none';
+			document.getElementById(_div+"bar").style.visibility="visible";
+			document.getElementById(_div+"bar").style.display='block';
+			var e = document.getElementById(_div+"plie");
+			if (e) {
+				e.style.visibility="hidden";
+				e.style.display='none';
+				}
+			}
+	}
+	
+	function ajax(ppage)
+	{
+	    var xhr=null;
+	    
+	    if (window.XMLHttpRequest) { 
+	        xhr = new XMLHttpRequest();
+	    }
+	    else if (window.ActiveXObject) 
+	    {
+	        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    //on appelle le fichier ppage
+	    xhr.open("GET", ppage, false);
+	    xhr.send(null);
+	    
+	    return xhr.responseText;
+	}
+	
+	
+	function descendMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0) {
+		window.document.getElementById("menu").style.top =  window.document.body.scrollTop-0+'px';
+		window.document.getElementById("menubar").style.top =  window.document.body.scrollTop-0+'px';
+		}
+	}
+	
+	function figerMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0)
+	    {
+		ajax("./setvar.php?nomvar=stylemenu&valeur=1");
+		this.document.formindex.stylemenu.value=1;
+		document.imgclou.src="images/punaise_on.gif";
+		}
+		else {
+			ajax("./setvar.php?nomvar=stylemenu&valeur=0");
+			this.document.formindex.stylemenu.value=0;
+			document.imgclou.src="images/punaise_off.gif";
+			}
+	}
+	
+	function Ouvrecentree(page,largeur,hauteur,options)
+	{
+		var top=(screen.height-hauteur)/2;
+		var left=(screen.width-largeur)/2;
+		if (largeur==0) 
+			{
+			if (hauteur==0)
+				window.open(page,"","top=2,left=2,"+options);
+				else window.open(page,"","top="+top+",left=2, height="+hauteur+","+options);
+			}
+			else 
+			{
+	    	if (hauteur==0)
+	    		window.open(page,"","top=2,left="+left+",width="+largeur+","+options);
+	    		else
+	    	    window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+	    	}
+	}
+	//-->
+	</script>		 
+</head>
+<body>
+		<form name="testform" id="testform" >
+		</form>
+		<div class="s_top">
+			<div style="float:left; width: 49%; height: auto;"><img src="../images/votrelogo.png" alt="" style="border:0px solid white; "  title="" /></div>
+			<div style="float:left; width: 50%; height: auto; text-align:right; "><a href="../sat/index.php"><img src="../images/logo satellys.gif" style="border:0px solid white; " alt="" title="" /></a></div>
+			<div class="s_onglets">
+				<div class="ongletGPU"><p style=" margin-top: 5px; padding: 0px;">GPU</p></div>
+				<div class="ongletGDS"><p style=" margin-top: 5px; padding: 0px;">GDS</p></div>
+				<div class="ongletGDE"><p style=" margin-top: 5px; padding: 0px;">GDE</p></div>
+                <div class="ongletGNT"><p style=" margin-top: 5px; padding: 0px;">GNT</p></div>
+				<div style="margin-right: 10px; color: black; float: right; font-size: 12px; height: 33px;"><p style="padding: 0px;"><a class="souligne" href="../sat/index.php?page_param=deconnect.php&module=SAT&cat=0&numpage=1&niv=1&clef=/3003/">D&eacute;connexion</a> - <a class="souligne"  href="../sat/index.php">Accueil SATELLYS</a></p></div>				
+			</div>
+		</div>
+		<div class="barre">&nbsp;</div>
+		<div class="s_global">	
+			<div id="menu" class="hideprint"  style=" position:relative; visibility:visible; display:block; float:left;">
+<form name="formindex" method="get" >
+	<input type="hidden" name="stylemenu" value=1 />
+</form>
+				<script language="javascript">
+<!--
+function change_dept()
+{
+var e=document.getElementsByName('chgdept');
+if (e[0].value!='')
+    {
+    rep=ajax("../aj_chgdept.php?code="+e[0].value);
+    //alert(rep);
+	if (rep=="ok") this.document.testform.submit();
+	}
+}
+
+function change_annee()
+{
+var e=document.getElementsByName('chgannee');
+if (e[0].value!='')
+    {
+	if (ajax("../aj_chgannee.php?code="+e[0].value)=="ok") this.document.testform.submit();
+	}
+}
+//-->
+</script>	
+<div class="s_profil">
+	<img src="../images/profil_etu.png" style="margin-left:2px;width:50px;" alt="" title="" align="left" />
+	<p>Utilisateur : sdoignon<br/>Dépt : SRC		<br />
+		Année : <select class="combobox" style="z-index:0; position:static; width:60px;" name="chgannee" id="chgannee"  onchange="change_annee();" ><option value='2012' >2012-2013</option>
+ </select><br />
+		Profil : 100100999999<br />
+	</p>
+</div>					<div class="hideprint">
+					<br/><div class="menutitre"><p style="margin-top: 5px; margin-left: 10px; padding: 0px;"><a href="index.php?page_param=accueil.php&cat=0&numpage=1&niv=1&clef=/305/">Emplois du temps</a></p></div><img src="./images/menu_corner_hd.gif" alt="" border="0px" style="padding: 0px; margin-left: -3px;" /><br/>      					</div>	
+			</div>
+			<div id="menuplie" style="height:56px; float:left;  background-image:url(images/menubar.gif); width:15px; background-repeat:no-repeat;" onclick="javascript:switchdiv('hide','menu');" class="handcursor"> </div>
+			<div name="menubar" id="menubar" style="float:left; position:relative; visibility:hidden;display:none; background-image:url(./images/menubar2.gif); background-repeat:no-repeat; width:15px; height:49px;" onclick="javascript:switchdiv('show','menu');"> </div>
+			<div class="s_contener" style="border-left:6px solid #828995; ">	
+			<br /><br /><br />
+<table>
+	<tr>
+		<td valign="top"><br />
+			<h1>BIENVENUE SUR SATELLYS GPU</h1>
+			<p>Avec SATELLYS GPU, vous avez la possibilité de <strong>consulter vos emplois du temps à distance.</strong>
+			<br/>
+			<br/>SATELLYS GPU est <strong>accessible partout</strong> où vous disposez d'une connexion internet ! 
+			<br/>Il est <strong>compatible avec la majorité des navigateurs internet.</strong>
+			<br/>
+			<br/>
+					
+			</p>
+		</td>
+        <td><img src="images/GPU_accueil.gif" > </td>
+	</tr>
+</table>
+
+		
+	
+			</div>
+		</div>
+		<div class="s_footer"  style="margin-top: 20px;" >Satellys est un produit Dynamisoft<sup>&copy;</sup>.</div>
+		<script language="Javascript">
+		affichediv("menu");
+		</script>
+	</body>
+</html>BEGIN:VCALENDAR
 PRODID: Gpu2vcs modified by Dynamisoft
 VERSION:2.0
 METHOD:PUBLISH
@@ -1648,7 +3154,266 @@ PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 END:VCALENDAR
-BEGIN:VCALENDAR
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Satellys</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="fr" http-equiv="Content-Language" />
+	<meta name="description" content="Dynamisoft" />
+	<meta name="keywords" content="dynamisoft" />
+	<meta name="robots" content="index,follow" />
+	<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="gpu.css" type="text/css" />	
+	<link rel="stylesheet" type="text/css" href="print_gpu.css" media="print" />
+	<link rel="stylesheet" href="../sat/satellys.css" type="text/css" />
+		<script type="text/javascript">
+	<!--
+	function externalLinks(){ 
+		if(!document.getElementsByTagName) return; 
+		var anchors = document.getElementsByTagName("a"); 
+		for (var i=0; i<anchors.length; i++){ 
+			var anchor = anchors[i]; 
+			if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") 
+				anchor.target = "_blank"; 
+		} 
+	} 
+	window.onload = externalLinks;
+	function EcrireCookie(nom, valeur)
+	{
+	
+	var argv=EcrireCookie.arguments;
+	var argc=EcrireCookie.arguments.length;
+	var expires=(argc > 2) ? argv[2] : null;
+	var path=(argc > 3) ? argv[3] : null;
+	var domain=(argc > 4) ? argv[4] : null;
+	var secure=(argc > 5) ? argv[5] : false;
+	document.cookie=nom+"="+escape(valeur)+
+	((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
+	((path==null) ? "" : ("; path="+path))+
+	((domain==null) ? "" : ("; domain="+domain))+
+	((secure==true) ? "; secure" : "");
+	
+	}
+		
+	function getCookieVal(offset)
+	{
+		var endstr=document.cookie.indexOf (";", offset);
+		if (endstr==-1) endstr=document.cookie.length;
+		return unescape(document.cookie.substring(offset, endstr)); 
+	}
+	function LireCookie(nom)
+	{
+		var arg=nom+"=";
+		var alen=arg.length;
+		var clen=document.cookie.length;
+		var i=0;
+		while (i<clen)
+		{
+			var j=i+alen;
+			if (document.cookie.substring(i, j)==arg) return getCookieVal(j);
+			i=document.cookie.indexOf(" ",i)+1;
+			if (i==0) break;
+		}
+		return null; 
+	}
+	
+	function switchdiv(act,_div){
+			date=new Date;
+			date.setMonth(date.getMonth()+1);
+			if (act=="hide") {
+				EcrireCookie(_div, 0, date);
+				if (document.getElementById(_div).style.visibility!="hidden"){
+					document.getElementById(_div).style.visibility="hidden";
+					document.getElementById(_div).style.display='none';
+					document.getElementById(_div+"bar").style.visibility="visible";
+					document.getElementById(_div+"bar").style.display='block';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="hidden";
+						e.style.display='none';
+						}
+				}
+			}
+			if (act=="show"){
+				EcrireCookie(_div, 1, date);
+				if (document.getElementById(_div).style.visibility!="visible"){
+					document.getElementById(_div).style.visibility="visible";
+					document.getElementById(_div).style.display='block';
+					document.getElementById(_div+"bar").style.visibility="hidden";
+					document.getElementById(_div+"bar").style.display='none';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="visible";
+						e.style.display='block';
+						}
+				}
+			}
+		}
+		
+	function affichediv(_div){
+		if (LireCookie(_div)==0) 
+			{
+			document.getElementById(_div).style.visibility="hidden";
+			document.getElementById(_div).style.display='none';
+			document.getElementById(_div+"bar").style.visibility="visible";
+			document.getElementById(_div+"bar").style.display='block';
+			var e = document.getElementById(_div+"plie");
+			if (e) {
+				e.style.visibility="hidden";
+				e.style.display='none';
+				}
+			}
+	}
+	
+	function ajax(ppage)
+	{
+	    var xhr=null;
+	    
+	    if (window.XMLHttpRequest) { 
+	        xhr = new XMLHttpRequest();
+	    }
+	    else if (window.ActiveXObject) 
+	    {
+	        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    //on appelle le fichier ppage
+	    xhr.open("GET", ppage, false);
+	    xhr.send(null);
+	    
+	    return xhr.responseText;
+	}
+	
+	
+	function descendMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0) {
+		window.document.getElementById("menu").style.top =  window.document.body.scrollTop-0+'px';
+		window.document.getElementById("menubar").style.top =  window.document.body.scrollTop-0+'px';
+		}
+	}
+	
+	function figerMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0)
+	    {
+		ajax("./setvar.php?nomvar=stylemenu&valeur=1");
+		this.document.formindex.stylemenu.value=1;
+		document.imgclou.src="images/punaise_on.gif";
+		}
+		else {
+			ajax("./setvar.php?nomvar=stylemenu&valeur=0");
+			this.document.formindex.stylemenu.value=0;
+			document.imgclou.src="images/punaise_off.gif";
+			}
+	}
+	
+	function Ouvrecentree(page,largeur,hauteur,options)
+	{
+		var top=(screen.height-hauteur)/2;
+		var left=(screen.width-largeur)/2;
+		if (largeur==0) 
+			{
+			if (hauteur==0)
+				window.open(page,"","top=2,left=2,"+options);
+				else window.open(page,"","top="+top+",left=2, height="+hauteur+","+options);
+			}
+			else 
+			{
+	    	if (hauteur==0)
+	    		window.open(page,"","top=2,left="+left+",width="+largeur+","+options);
+	    		else
+	    	    window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+	    	}
+	}
+	//-->
+	</script>		 
+</head>
+<body>
+		<form name="testform" id="testform" >
+		</form>
+		<div class="s_top">
+			<div style="float:left; width: 49%; height: auto;"><img src="../images/votrelogo.png" alt="" style="border:0px solid white; "  title="" /></div>
+			<div style="float:left; width: 50%; height: auto; text-align:right; "><a href="../sat/index.php"><img src="../images/logo satellys.gif" style="border:0px solid white; " alt="" title="" /></a></div>
+			<div class="s_onglets">
+				<div class="ongletGPU"><p style=" margin-top: 5px; padding: 0px;">GPU</p></div>
+				<div class="ongletGDS"><p style=" margin-top: 5px; padding: 0px;">GDS</p></div>
+				<div class="ongletGDE"><p style=" margin-top: 5px; padding: 0px;">GDE</p></div>
+                <div class="ongletGNT"><p style=" margin-top: 5px; padding: 0px;">GNT</p></div>
+				<div style="margin-right: 10px; color: black; float: right; font-size: 12px; height: 33px;"><p style="padding: 0px;"><a class="souligne" href="../sat/index.php?page_param=deconnect.php&module=SAT&cat=0&numpage=1&niv=1&clef=/3003/">D&eacute;connexion</a> - <a class="souligne"  href="../sat/index.php">Accueil SATELLYS</a></p></div>				
+			</div>
+		</div>
+		<div class="barre">&nbsp;</div>
+		<div class="s_global">	
+			<div id="menu" class="hideprint"  style=" position:relative; visibility:visible; display:block; float:left;">
+<form name="formindex" method="get" >
+	<input type="hidden" name="stylemenu" value=1 />
+</form>
+				<script language="javascript">
+<!--
+function change_dept()
+{
+var e=document.getElementsByName('chgdept');
+if (e[0].value!='')
+    {
+    rep=ajax("../aj_chgdept.php?code="+e[0].value);
+    //alert(rep);
+	if (rep=="ok") this.document.testform.submit();
+	}
+}
+
+function change_annee()
+{
+var e=document.getElementsByName('chgannee');
+if (e[0].value!='')
+    {
+	if (ajax("../aj_chgannee.php?code="+e[0].value)=="ok") this.document.testform.submit();
+	}
+}
+//-->
+</script>	
+<div class="s_profil">
+	<img src="../images/profil_etu.png" style="margin-left:2px;width:50px;" alt="" title="" align="left" />
+	<p>Utilisateur : sdoignon<br/>Dépt : SRC		<br />
+		Année : <select class="combobox" style="z-index:0; position:static; width:60px;" name="chgannee" id="chgannee"  onchange="change_annee();" ><option value='2012' >2012-2013</option>
+ </select><br />
+		Profil : 100100999999<br />
+	</p>
+</div>					<div class="hideprint">
+					<br/><div class="menutitre"><p style="margin-top: 5px; margin-left: 10px; padding: 0px;"><a href="index.php?page_param=accueil.php&cat=0&numpage=1&niv=1&clef=/305/">Emplois du temps</a></p></div><img src="./images/menu_corner_hd.gif" alt="" border="0px" style="padding: 0px; margin-left: -3px;" /><br/>      					</div>	
+			</div>
+			<div id="menuplie" style="height:56px; float:left;  background-image:url(images/menubar.gif); width:15px; background-repeat:no-repeat;" onclick="javascript:switchdiv('hide','menu');" class="handcursor"> </div>
+			<div name="menubar" id="menubar" style="float:left; position:relative; visibility:hidden;display:none; background-image:url(./images/menubar2.gif); background-repeat:no-repeat; width:15px; height:49px;" onclick="javascript:switchdiv('show','menu');"> </div>
+			<div class="s_contener" style="border-left:6px solid #828995; ">	
+			<br /><br /><br />
+<table>
+	<tr>
+		<td valign="top"><br />
+			<h1>BIENVENUE SUR SATELLYS GPU</h1>
+			<p>Avec SATELLYS GPU, vous avez la possibilité de <strong>consulter vos emplois du temps à distance.</strong>
+			<br/>
+			<br/>SATELLYS GPU est <strong>accessible partout</strong> où vous disposez d'une connexion internet ! 
+			<br/>Il est <strong>compatible avec la majorité des navigateurs internet.</strong>
+			<br/>
+			<br/>
+					
+			</p>
+		</td>
+        <td><img src="images/GPU_accueil.gif" > </td>
+	</tr>
+</table>
+
+		
+	
+			</div>
+		</div>
+		<div class="s_footer"  style="margin-top: 20px;" >Satellys est un produit Dynamisoft<sup>&copy;</sup>.</div>
+		<script language="Javascript">
+		affichediv("menu");
+		</script>
+	</body>
+</html>BEGIN:VCALENDAR
 PRODID: Gpu2vcs modified by Dynamisoft
 VERSION:2.0
 METHOD:PUBLISH
@@ -1737,7 +3502,266 @@ PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 END:VCALENDAR
-BEGIN:VCALENDAR
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Satellys</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="fr" http-equiv="Content-Language" />
+	<meta name="description" content="Dynamisoft" />
+	<meta name="keywords" content="dynamisoft" />
+	<meta name="robots" content="index,follow" />
+	<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="gpu.css" type="text/css" />	
+	<link rel="stylesheet" type="text/css" href="print_gpu.css" media="print" />
+	<link rel="stylesheet" href="../sat/satellys.css" type="text/css" />
+		<script type="text/javascript">
+	<!--
+	function externalLinks(){ 
+		if(!document.getElementsByTagName) return; 
+		var anchors = document.getElementsByTagName("a"); 
+		for (var i=0; i<anchors.length; i++){ 
+			var anchor = anchors[i]; 
+			if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") 
+				anchor.target = "_blank"; 
+		} 
+	} 
+	window.onload = externalLinks;
+	function EcrireCookie(nom, valeur)
+	{
+	
+	var argv=EcrireCookie.arguments;
+	var argc=EcrireCookie.arguments.length;
+	var expires=(argc > 2) ? argv[2] : null;
+	var path=(argc > 3) ? argv[3] : null;
+	var domain=(argc > 4) ? argv[4] : null;
+	var secure=(argc > 5) ? argv[5] : false;
+	document.cookie=nom+"="+escape(valeur)+
+	((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
+	((path==null) ? "" : ("; path="+path))+
+	((domain==null) ? "" : ("; domain="+domain))+
+	((secure==true) ? "; secure" : "");
+	
+	}
+		
+	function getCookieVal(offset)
+	{
+		var endstr=document.cookie.indexOf (";", offset);
+		if (endstr==-1) endstr=document.cookie.length;
+		return unescape(document.cookie.substring(offset, endstr)); 
+	}
+	function LireCookie(nom)
+	{
+		var arg=nom+"=";
+		var alen=arg.length;
+		var clen=document.cookie.length;
+		var i=0;
+		while (i<clen)
+		{
+			var j=i+alen;
+			if (document.cookie.substring(i, j)==arg) return getCookieVal(j);
+			i=document.cookie.indexOf(" ",i)+1;
+			if (i==0) break;
+		}
+		return null; 
+	}
+	
+	function switchdiv(act,_div){
+			date=new Date;
+			date.setMonth(date.getMonth()+1);
+			if (act=="hide") {
+				EcrireCookie(_div, 0, date);
+				if (document.getElementById(_div).style.visibility!="hidden"){
+					document.getElementById(_div).style.visibility="hidden";
+					document.getElementById(_div).style.display='none';
+					document.getElementById(_div+"bar").style.visibility="visible";
+					document.getElementById(_div+"bar").style.display='block';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="hidden";
+						e.style.display='none';
+						}
+				}
+			}
+			if (act=="show"){
+				EcrireCookie(_div, 1, date);
+				if (document.getElementById(_div).style.visibility!="visible"){
+					document.getElementById(_div).style.visibility="visible";
+					document.getElementById(_div).style.display='block';
+					document.getElementById(_div+"bar").style.visibility="hidden";
+					document.getElementById(_div+"bar").style.display='none';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="visible";
+						e.style.display='block';
+						}
+				}
+			}
+		}
+		
+	function affichediv(_div){
+		if (LireCookie(_div)==0) 
+			{
+			document.getElementById(_div).style.visibility="hidden";
+			document.getElementById(_div).style.display='none';
+			document.getElementById(_div+"bar").style.visibility="visible";
+			document.getElementById(_div+"bar").style.display='block';
+			var e = document.getElementById(_div+"plie");
+			if (e) {
+				e.style.visibility="hidden";
+				e.style.display='none';
+				}
+			}
+	}
+	
+	function ajax(ppage)
+	{
+	    var xhr=null;
+	    
+	    if (window.XMLHttpRequest) { 
+	        xhr = new XMLHttpRequest();
+	    }
+	    else if (window.ActiveXObject) 
+	    {
+	        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    //on appelle le fichier ppage
+	    xhr.open("GET", ppage, false);
+	    xhr.send(null);
+	    
+	    return xhr.responseText;
+	}
+	
+	
+	function descendMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0) {
+		window.document.getElementById("menu").style.top =  window.document.body.scrollTop-0+'px';
+		window.document.getElementById("menubar").style.top =  window.document.body.scrollTop-0+'px';
+		}
+	}
+	
+	function figerMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0)
+	    {
+		ajax("./setvar.php?nomvar=stylemenu&valeur=1");
+		this.document.formindex.stylemenu.value=1;
+		document.imgclou.src="images/punaise_on.gif";
+		}
+		else {
+			ajax("./setvar.php?nomvar=stylemenu&valeur=0");
+			this.document.formindex.stylemenu.value=0;
+			document.imgclou.src="images/punaise_off.gif";
+			}
+	}
+	
+	function Ouvrecentree(page,largeur,hauteur,options)
+	{
+		var top=(screen.height-hauteur)/2;
+		var left=(screen.width-largeur)/2;
+		if (largeur==0) 
+			{
+			if (hauteur==0)
+				window.open(page,"","top=2,left=2,"+options);
+				else window.open(page,"","top="+top+",left=2, height="+hauteur+","+options);
+			}
+			else 
+			{
+	    	if (hauteur==0)
+	    		window.open(page,"","top=2,left="+left+",width="+largeur+","+options);
+	    		else
+	    	    window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+	    	}
+	}
+	//-->
+	</script>		 
+</head>
+<body>
+		<form name="testform" id="testform" >
+		</form>
+		<div class="s_top">
+			<div style="float:left; width: 49%; height: auto;"><img src="../images/votrelogo.png" alt="" style="border:0px solid white; "  title="" /></div>
+			<div style="float:left; width: 50%; height: auto; text-align:right; "><a href="../sat/index.php"><img src="../images/logo satellys.gif" style="border:0px solid white; " alt="" title="" /></a></div>
+			<div class="s_onglets">
+				<div class="ongletGPU"><p style=" margin-top: 5px; padding: 0px;">GPU</p></div>
+				<div class="ongletGDS"><p style=" margin-top: 5px; padding: 0px;">GDS</p></div>
+				<div class="ongletGDE"><p style=" margin-top: 5px; padding: 0px;">GDE</p></div>
+                <div class="ongletGNT"><p style=" margin-top: 5px; padding: 0px;">GNT</p></div>
+				<div style="margin-right: 10px; color: black; float: right; font-size: 12px; height: 33px;"><p style="padding: 0px;"><a class="souligne" href="../sat/index.php?page_param=deconnect.php&module=SAT&cat=0&numpage=1&niv=1&clef=/3003/">D&eacute;connexion</a> - <a class="souligne"  href="../sat/index.php">Accueil SATELLYS</a></p></div>				
+			</div>
+		</div>
+		<div class="barre">&nbsp;</div>
+		<div class="s_global">	
+			<div id="menu" class="hideprint"  style=" position:relative; visibility:visible; display:block; float:left;">
+<form name="formindex" method="get" >
+	<input type="hidden" name="stylemenu" value=1 />
+</form>
+				<script language="javascript">
+<!--
+function change_dept()
+{
+var e=document.getElementsByName('chgdept');
+if (e[0].value!='')
+    {
+    rep=ajax("../aj_chgdept.php?code="+e[0].value);
+    //alert(rep);
+	if (rep=="ok") this.document.testform.submit();
+	}
+}
+
+function change_annee()
+{
+var e=document.getElementsByName('chgannee');
+if (e[0].value!='')
+    {
+	if (ajax("../aj_chgannee.php?code="+e[0].value)=="ok") this.document.testform.submit();
+	}
+}
+//-->
+</script>	
+<div class="s_profil">
+	<img src="../images/profil_etu.png" style="margin-left:2px;width:50px;" alt="" title="" align="left" />
+	<p>Utilisateur : sdoignon<br/>Dépt : SRC		<br />
+		Année : <select class="combobox" style="z-index:0; position:static; width:60px;" name="chgannee" id="chgannee"  onchange="change_annee();" ><option value='2012' >2012-2013</option>
+ </select><br />
+		Profil : 100100999999<br />
+	</p>
+</div>					<div class="hideprint">
+					<br/><div class="menutitre"><p style="margin-top: 5px; margin-left: 10px; padding: 0px;"><a href="index.php?page_param=accueil.php&cat=0&numpage=1&niv=1&clef=/305/">Emplois du temps</a></p></div><img src="./images/menu_corner_hd.gif" alt="" border="0px" style="padding: 0px; margin-left: -3px;" /><br/>      					</div>	
+			</div>
+			<div id="menuplie" style="height:56px; float:left;  background-image:url(images/menubar.gif); width:15px; background-repeat:no-repeat;" onclick="javascript:switchdiv('hide','menu');" class="handcursor"> </div>
+			<div name="menubar" id="menubar" style="float:left; position:relative; visibility:hidden;display:none; background-image:url(./images/menubar2.gif); background-repeat:no-repeat; width:15px; height:49px;" onclick="javascript:switchdiv('show','menu');"> </div>
+			<div class="s_contener" style="border-left:6px solid #828995; ">	
+			<br /><br /><br />
+<table>
+	<tr>
+		<td valign="top"><br />
+			<h1>BIENVENUE SUR SATELLYS GPU</h1>
+			<p>Avec SATELLYS GPU, vous avez la possibilité de <strong>consulter vos emplois du temps à distance.</strong>
+			<br/>
+			<br/>SATELLYS GPU est <strong>accessible partout</strong> où vous disposez d'une connexion internet ! 
+			<br/>Il est <strong>compatible avec la majorité des navigateurs internet.</strong>
+			<br/>
+			<br/>
+					
+			</p>
+		</td>
+        <td><img src="images/GPU_accueil.gif" > </td>
+	</tr>
+</table>
+
+		
+	
+			</div>
+		</div>
+		<div class="s_footer"  style="margin-top: 20px;" >Satellys est un produit Dynamisoft<sup>&copy;</sup>.</div>
+		<script language="Javascript">
+		affichediv("menu");
+		</script>
+	</body>
+</html>BEGIN:VCALENDAR
 PRODID: Gpu2vcs modified by Dynamisoft
 VERSION:2.0
 METHOD:PUBLISH
@@ -1923,19 +3947,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1383811200-1383818400-15
-DTSTAMP:20131107T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:AMPHI-60 Prof:mbornerie Spe:Multim=C3=A9dia\SRC_S3\SRC_S3 
-SUMMARY:MULTIMED / COURS / SRC_S3 / SRC_S3 / SRC
-LOCATION:AMPHI-60
-DTSTART:20131107T090000Z
-DTEND:20131107T110000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1383638400-1383645600-16
+UID:1383638400-1383645600-15
 DTSTAMP:20131105T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:mbornerie Spe:Multim=C3=A9dia\SRC_S3\SRC_S3 
 SUMMARY:MULTIMED / COURS / SRC_S3 / SRC_S3 / SRC
@@ -1947,7 +3959,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1383649200-1383656400-17
+UID:1383649200-1383656400-16
 DTSTAMP:20131105T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:251 Prof:jgomez Spe:Multim=C3=A9dia\SRC_S3A2\SRC_S3 
 SUMMARY:MULTIMED / TP / SRC_S3A2 / SRC_S3 / SRC
@@ -1959,7 +3971,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1383544800-1383552000-18
+UID:1383544800-1383552000-17
 DTSTAMP:20131104T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:251 Prof:mbornerie Spe:Programmation\SRC_S3A2\SRC_S3 
 SUMMARY:PROG / TP / SRC_S3A2 / SRC_S3 / SRC
@@ -1971,13 +3983,25 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1383649200-1383656400-19
+UID:1383649200-1383656400-18
 DTSTAMP:20131105T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:224/232 Prof:nbickram Spe:Anglais\SRC_S3A1\SRC_S3 
 SUMMARY:ANG / TP / SRC_S3A1 / SRC_S3 / SRC
 LOCATION:224/232
 DTSTART:20131105T120000Z
 DTEND:20131105T140000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1383811200-1383818400-19
+DTSTAMP:20131107T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:253 Prof:mbornerie Spe:Programmation\SRC_S3B1\SRC_S3 
+SUMMARY:PROG / TP / SRC_S3B1 / SRC_S3 / SRC
+LOCATION:253
+DTSTART:20131107T090000Z
+DTEND:20131107T110000Z
 PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
@@ -2117,9 +4141,9 @@ BEGIN:VEVENT
 SEQUENCE:0
 UID:1383804000-1383811200-31
 DTSTAMP:20131107T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3A\SRC_S3 
-SUMMARY:EXP_ECR_ORAL / TD / SRC_S3A / SRC_S3 / SRC
-LOCATION:227
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:llepetit/dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3\SRC_S3 
+SUMMARY:EXP_ECR_ORAL / COURS / SRC_S3 / SRC_S3 / SRC
+LOCATION:255-256
 DTSTART:20131107T070000Z
 DTEND:20131107T090000Z
 PRIORITY:5
@@ -2138,7 +4162,266 @@ PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 END:VCALENDAR
-BEGIN:VCALENDAR
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Satellys</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="fr" http-equiv="Content-Language" />
+	<meta name="description" content="Dynamisoft" />
+	<meta name="keywords" content="dynamisoft" />
+	<meta name="robots" content="index,follow" />
+	<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="gpu.css" type="text/css" />	
+	<link rel="stylesheet" type="text/css" href="print_gpu.css" media="print" />
+	<link rel="stylesheet" href="../sat/satellys.css" type="text/css" />
+		<script type="text/javascript">
+	<!--
+	function externalLinks(){ 
+		if(!document.getElementsByTagName) return; 
+		var anchors = document.getElementsByTagName("a"); 
+		for (var i=0; i<anchors.length; i++){ 
+			var anchor = anchors[i]; 
+			if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") 
+				anchor.target = "_blank"; 
+		} 
+	} 
+	window.onload = externalLinks;
+	function EcrireCookie(nom, valeur)
+	{
+	
+	var argv=EcrireCookie.arguments;
+	var argc=EcrireCookie.arguments.length;
+	var expires=(argc > 2) ? argv[2] : null;
+	var path=(argc > 3) ? argv[3] : null;
+	var domain=(argc > 4) ? argv[4] : null;
+	var secure=(argc > 5) ? argv[5] : false;
+	document.cookie=nom+"="+escape(valeur)+
+	((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
+	((path==null) ? "" : ("; path="+path))+
+	((domain==null) ? "" : ("; domain="+domain))+
+	((secure==true) ? "; secure" : "");
+	
+	}
+		
+	function getCookieVal(offset)
+	{
+		var endstr=document.cookie.indexOf (";", offset);
+		if (endstr==-1) endstr=document.cookie.length;
+		return unescape(document.cookie.substring(offset, endstr)); 
+	}
+	function LireCookie(nom)
+	{
+		var arg=nom+"=";
+		var alen=arg.length;
+		var clen=document.cookie.length;
+		var i=0;
+		while (i<clen)
+		{
+			var j=i+alen;
+			if (document.cookie.substring(i, j)==arg) return getCookieVal(j);
+			i=document.cookie.indexOf(" ",i)+1;
+			if (i==0) break;
+		}
+		return null; 
+	}
+	
+	function switchdiv(act,_div){
+			date=new Date;
+			date.setMonth(date.getMonth()+1);
+			if (act=="hide") {
+				EcrireCookie(_div, 0, date);
+				if (document.getElementById(_div).style.visibility!="hidden"){
+					document.getElementById(_div).style.visibility="hidden";
+					document.getElementById(_div).style.display='none';
+					document.getElementById(_div+"bar").style.visibility="visible";
+					document.getElementById(_div+"bar").style.display='block';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="hidden";
+						e.style.display='none';
+						}
+				}
+			}
+			if (act=="show"){
+				EcrireCookie(_div, 1, date);
+				if (document.getElementById(_div).style.visibility!="visible"){
+					document.getElementById(_div).style.visibility="visible";
+					document.getElementById(_div).style.display='block';
+					document.getElementById(_div+"bar").style.visibility="hidden";
+					document.getElementById(_div+"bar").style.display='none';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="visible";
+						e.style.display='block';
+						}
+				}
+			}
+		}
+		
+	function affichediv(_div){
+		if (LireCookie(_div)==0) 
+			{
+			document.getElementById(_div).style.visibility="hidden";
+			document.getElementById(_div).style.display='none';
+			document.getElementById(_div+"bar").style.visibility="visible";
+			document.getElementById(_div+"bar").style.display='block';
+			var e = document.getElementById(_div+"plie");
+			if (e) {
+				e.style.visibility="hidden";
+				e.style.display='none';
+				}
+			}
+	}
+	
+	function ajax(ppage)
+	{
+	    var xhr=null;
+	    
+	    if (window.XMLHttpRequest) { 
+	        xhr = new XMLHttpRequest();
+	    }
+	    else if (window.ActiveXObject) 
+	    {
+	        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    //on appelle le fichier ppage
+	    xhr.open("GET", ppage, false);
+	    xhr.send(null);
+	    
+	    return xhr.responseText;
+	}
+	
+	
+	function descendMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0) {
+		window.document.getElementById("menu").style.top =  window.document.body.scrollTop-0+'px';
+		window.document.getElementById("menubar").style.top =  window.document.body.scrollTop-0+'px';
+		}
+	}
+	
+	function figerMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0)
+	    {
+		ajax("./setvar.php?nomvar=stylemenu&valeur=1");
+		this.document.formindex.stylemenu.value=1;
+		document.imgclou.src="images/punaise_on.gif";
+		}
+		else {
+			ajax("./setvar.php?nomvar=stylemenu&valeur=0");
+			this.document.formindex.stylemenu.value=0;
+			document.imgclou.src="images/punaise_off.gif";
+			}
+	}
+	
+	function Ouvrecentree(page,largeur,hauteur,options)
+	{
+		var top=(screen.height-hauteur)/2;
+		var left=(screen.width-largeur)/2;
+		if (largeur==0) 
+			{
+			if (hauteur==0)
+				window.open(page,"","top=2,left=2,"+options);
+				else window.open(page,"","top="+top+",left=2, height="+hauteur+","+options);
+			}
+			else 
+			{
+	    	if (hauteur==0)
+	    		window.open(page,"","top=2,left="+left+",width="+largeur+","+options);
+	    		else
+	    	    window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+	    	}
+	}
+	//-->
+	</script>		 
+</head>
+<body>
+		<form name="testform" id="testform" >
+		</form>
+		<div class="s_top">
+			<div style="float:left; width: 49%; height: auto;"><img src="../images/votrelogo.png" alt="" style="border:0px solid white; "  title="" /></div>
+			<div style="float:left; width: 50%; height: auto; text-align:right; "><a href="../sat/index.php"><img src="../images/logo satellys.gif" style="border:0px solid white; " alt="" title="" /></a></div>
+			<div class="s_onglets">
+				<div class="ongletGPU"><p style=" margin-top: 5px; padding: 0px;">GPU</p></div>
+				<div class="ongletGDS"><p style=" margin-top: 5px; padding: 0px;">GDS</p></div>
+				<div class="ongletGDE"><p style=" margin-top: 5px; padding: 0px;">GDE</p></div>
+                <div class="ongletGNT"><p style=" margin-top: 5px; padding: 0px;">GNT</p></div>
+				<div style="margin-right: 10px; color: black; float: right; font-size: 12px; height: 33px;"><p style="padding: 0px;"><a class="souligne" href="../sat/index.php?page_param=deconnect.php&module=SAT&cat=0&numpage=1&niv=1&clef=/3003/">D&eacute;connexion</a> - <a class="souligne"  href="../sat/index.php">Accueil SATELLYS</a></p></div>				
+			</div>
+		</div>
+		<div class="barre">&nbsp;</div>
+		<div class="s_global">	
+			<div id="menu" class="hideprint"  style=" position:relative; visibility:visible; display:block; float:left;">
+<form name="formindex" method="get" >
+	<input type="hidden" name="stylemenu" value=1 />
+</form>
+				<script language="javascript">
+<!--
+function change_dept()
+{
+var e=document.getElementsByName('chgdept');
+if (e[0].value!='')
+    {
+    rep=ajax("../aj_chgdept.php?code="+e[0].value);
+    //alert(rep);
+	if (rep=="ok") this.document.testform.submit();
+	}
+}
+
+function change_annee()
+{
+var e=document.getElementsByName('chgannee');
+if (e[0].value!='')
+    {
+	if (ajax("../aj_chgannee.php?code="+e[0].value)=="ok") this.document.testform.submit();
+	}
+}
+//-->
+</script>	
+<div class="s_profil">
+	<img src="../images/profil_etu.png" style="margin-left:2px;width:50px;" alt="" title="" align="left" />
+	<p>Utilisateur : sdoignon<br/>Dépt : SRC		<br />
+		Année : <select class="combobox" style="z-index:0; position:static; width:60px;" name="chgannee" id="chgannee"  onchange="change_annee();" ><option value='2012' >2012-2013</option>
+ </select><br />
+		Profil : 100100999999<br />
+	</p>
+</div>					<div class="hideprint">
+					<br/><div class="menutitre"><p style="margin-top: 5px; margin-left: 10px; padding: 0px;"><a href="index.php?page_param=accueil.php&cat=0&numpage=1&niv=1&clef=/305/">Emplois du temps</a></p></div><img src="./images/menu_corner_hd.gif" alt="" border="0px" style="padding: 0px; margin-left: -3px;" /><br/>      					</div>	
+			</div>
+			<div id="menuplie" style="height:56px; float:left;  background-image:url(images/menubar.gif); width:15px; background-repeat:no-repeat;" onclick="javascript:switchdiv('hide','menu');" class="handcursor"> </div>
+			<div name="menubar" id="menubar" style="float:left; position:relative; visibility:hidden;display:none; background-image:url(./images/menubar2.gif); background-repeat:no-repeat; width:15px; height:49px;" onclick="javascript:switchdiv('show','menu');"> </div>
+			<div class="s_contener" style="border-left:6px solid #828995; ">	
+			<br /><br /><br />
+<table>
+	<tr>
+		<td valign="top"><br />
+			<h1>BIENVENUE SUR SATELLYS GPU</h1>
+			<p>Avec SATELLYS GPU, vous avez la possibilité de <strong>consulter vos emplois du temps à distance.</strong>
+			<br/>
+			<br/>SATELLYS GPU est <strong>accessible partout</strong> où vous disposez d'une connexion internet ! 
+			<br/>Il est <strong>compatible avec la majorité des navigateurs internet.</strong>
+			<br/>
+			<br/>
+					
+			</p>
+		</td>
+        <td><img src="images/GPU_accueil.gif" > </td>
+	</tr>
+</table>
+
+		
+	
+			</div>
+		</div>
+		<div class="s_footer"  style="margin-top: 20px;" >Satellys est un produit Dynamisoft<sup>&copy;</sup>.</div>
+		<script language="Javascript">
+		affichediv("menu");
+		</script>
+	</body>
+</html>BEGIN:VCALENDAR
 PRODID: Gpu2vcs modified by Dynamisoft
 VERSION:2.0
 METHOD:PUBLISH
@@ -2467,7 +4750,266 @@ PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 END:VCALENDAR
-BEGIN:VCALENDAR
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Satellys</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="fr" http-equiv="Content-Language" />
+	<meta name="description" content="Dynamisoft" />
+	<meta name="keywords" content="dynamisoft" />
+	<meta name="robots" content="index,follow" />
+	<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="gpu.css" type="text/css" />	
+	<link rel="stylesheet" type="text/css" href="print_gpu.css" media="print" />
+	<link rel="stylesheet" href="../sat/satellys.css" type="text/css" />
+		<script type="text/javascript">
+	<!--
+	function externalLinks(){ 
+		if(!document.getElementsByTagName) return; 
+		var anchors = document.getElementsByTagName("a"); 
+		for (var i=0; i<anchors.length; i++){ 
+			var anchor = anchors[i]; 
+			if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") 
+				anchor.target = "_blank"; 
+		} 
+	} 
+	window.onload = externalLinks;
+	function EcrireCookie(nom, valeur)
+	{
+	
+	var argv=EcrireCookie.arguments;
+	var argc=EcrireCookie.arguments.length;
+	var expires=(argc > 2) ? argv[2] : null;
+	var path=(argc > 3) ? argv[3] : null;
+	var domain=(argc > 4) ? argv[4] : null;
+	var secure=(argc > 5) ? argv[5] : false;
+	document.cookie=nom+"="+escape(valeur)+
+	((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
+	((path==null) ? "" : ("; path="+path))+
+	((domain==null) ? "" : ("; domain="+domain))+
+	((secure==true) ? "; secure" : "");
+	
+	}
+		
+	function getCookieVal(offset)
+	{
+		var endstr=document.cookie.indexOf (";", offset);
+		if (endstr==-1) endstr=document.cookie.length;
+		return unescape(document.cookie.substring(offset, endstr)); 
+	}
+	function LireCookie(nom)
+	{
+		var arg=nom+"=";
+		var alen=arg.length;
+		var clen=document.cookie.length;
+		var i=0;
+		while (i<clen)
+		{
+			var j=i+alen;
+			if (document.cookie.substring(i, j)==arg) return getCookieVal(j);
+			i=document.cookie.indexOf(" ",i)+1;
+			if (i==0) break;
+		}
+		return null; 
+	}
+	
+	function switchdiv(act,_div){
+			date=new Date;
+			date.setMonth(date.getMonth()+1);
+			if (act=="hide") {
+				EcrireCookie(_div, 0, date);
+				if (document.getElementById(_div).style.visibility!="hidden"){
+					document.getElementById(_div).style.visibility="hidden";
+					document.getElementById(_div).style.display='none';
+					document.getElementById(_div+"bar").style.visibility="visible";
+					document.getElementById(_div+"bar").style.display='block';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="hidden";
+						e.style.display='none';
+						}
+				}
+			}
+			if (act=="show"){
+				EcrireCookie(_div, 1, date);
+				if (document.getElementById(_div).style.visibility!="visible"){
+					document.getElementById(_div).style.visibility="visible";
+					document.getElementById(_div).style.display='block';
+					document.getElementById(_div+"bar").style.visibility="hidden";
+					document.getElementById(_div+"bar").style.display='none';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="visible";
+						e.style.display='block';
+						}
+				}
+			}
+		}
+		
+	function affichediv(_div){
+		if (LireCookie(_div)==0) 
+			{
+			document.getElementById(_div).style.visibility="hidden";
+			document.getElementById(_div).style.display='none';
+			document.getElementById(_div+"bar").style.visibility="visible";
+			document.getElementById(_div+"bar").style.display='block';
+			var e = document.getElementById(_div+"plie");
+			if (e) {
+				e.style.visibility="hidden";
+				e.style.display='none';
+				}
+			}
+	}
+	
+	function ajax(ppage)
+	{
+	    var xhr=null;
+	    
+	    if (window.XMLHttpRequest) { 
+	        xhr = new XMLHttpRequest();
+	    }
+	    else if (window.ActiveXObject) 
+	    {
+	        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    //on appelle le fichier ppage
+	    xhr.open("GET", ppage, false);
+	    xhr.send(null);
+	    
+	    return xhr.responseText;
+	}
+	
+	
+	function descendMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0) {
+		window.document.getElementById("menu").style.top =  window.document.body.scrollTop-0+'px';
+		window.document.getElementById("menubar").style.top =  window.document.body.scrollTop-0+'px';
+		}
+	}
+	
+	function figerMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0)
+	    {
+		ajax("./setvar.php?nomvar=stylemenu&valeur=1");
+		this.document.formindex.stylemenu.value=1;
+		document.imgclou.src="images/punaise_on.gif";
+		}
+		else {
+			ajax("./setvar.php?nomvar=stylemenu&valeur=0");
+			this.document.formindex.stylemenu.value=0;
+			document.imgclou.src="images/punaise_off.gif";
+			}
+	}
+	
+	function Ouvrecentree(page,largeur,hauteur,options)
+	{
+		var top=(screen.height-hauteur)/2;
+		var left=(screen.width-largeur)/2;
+		if (largeur==0) 
+			{
+			if (hauteur==0)
+				window.open(page,"","top=2,left=2,"+options);
+				else window.open(page,"","top="+top+",left=2, height="+hauteur+","+options);
+			}
+			else 
+			{
+	    	if (hauteur==0)
+	    		window.open(page,"","top=2,left="+left+",width="+largeur+","+options);
+	    		else
+	    	    window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+	    	}
+	}
+	//-->
+	</script>		 
+</head>
+<body>
+		<form name="testform" id="testform" >
+		</form>
+		<div class="s_top">
+			<div style="float:left; width: 49%; height: auto;"><img src="../images/votrelogo.png" alt="" style="border:0px solid white; "  title="" /></div>
+			<div style="float:left; width: 50%; height: auto; text-align:right; "><a href="../sat/index.php"><img src="../images/logo satellys.gif" style="border:0px solid white; " alt="" title="" /></a></div>
+			<div class="s_onglets">
+				<div class="ongletGPU"><p style=" margin-top: 5px; padding: 0px;">GPU</p></div>
+				<div class="ongletGDS"><p style=" margin-top: 5px; padding: 0px;">GDS</p></div>
+				<div class="ongletGDE"><p style=" margin-top: 5px; padding: 0px;">GDE</p></div>
+                <div class="ongletGNT"><p style=" margin-top: 5px; padding: 0px;">GNT</p></div>
+				<div style="margin-right: 10px; color: black; float: right; font-size: 12px; height: 33px;"><p style="padding: 0px;"><a class="souligne" href="../sat/index.php?page_param=deconnect.php&module=SAT&cat=0&numpage=1&niv=1&clef=/3003/">D&eacute;connexion</a> - <a class="souligne"  href="../sat/index.php">Accueil SATELLYS</a></p></div>				
+			</div>
+		</div>
+		<div class="barre">&nbsp;</div>
+		<div class="s_global">	
+			<div id="menu" class="hideprint"  style=" position:relative; visibility:visible; display:block; float:left;">
+<form name="formindex" method="get" >
+	<input type="hidden" name="stylemenu" value=1 />
+</form>
+				<script language="javascript">
+<!--
+function change_dept()
+{
+var e=document.getElementsByName('chgdept');
+if (e[0].value!='')
+    {
+    rep=ajax("../aj_chgdept.php?code="+e[0].value);
+    //alert(rep);
+	if (rep=="ok") this.document.testform.submit();
+	}
+}
+
+function change_annee()
+{
+var e=document.getElementsByName('chgannee');
+if (e[0].value!='')
+    {
+	if (ajax("../aj_chgannee.php?code="+e[0].value)=="ok") this.document.testform.submit();
+	}
+}
+//-->
+</script>	
+<div class="s_profil">
+	<img src="../images/profil_etu.png" style="margin-left:2px;width:50px;" alt="" title="" align="left" />
+	<p>Utilisateur : sdoignon<br/>Dépt : SRC		<br />
+		Année : <select class="combobox" style="z-index:0; position:static; width:60px;" name="chgannee" id="chgannee"  onchange="change_annee();" ><option value='2012' >2012-2013</option>
+ </select><br />
+		Profil : 100100999999<br />
+	</p>
+</div>					<div class="hideprint">
+					<br/><div class="menutitre"><p style="margin-top: 5px; margin-left: 10px; padding: 0px;"><a href="index.php?page_param=accueil.php&cat=0&numpage=1&niv=1&clef=/305/">Emplois du temps</a></p></div><img src="./images/menu_corner_hd.gif" alt="" border="0px" style="padding: 0px; margin-left: -3px;" /><br/>      					</div>	
+			</div>
+			<div id="menuplie" style="height:56px; float:left;  background-image:url(images/menubar.gif); width:15px; background-repeat:no-repeat;" onclick="javascript:switchdiv('hide','menu');" class="handcursor"> </div>
+			<div name="menubar" id="menubar" style="float:left; position:relative; visibility:hidden;display:none; background-image:url(./images/menubar2.gif); background-repeat:no-repeat; width:15px; height:49px;" onclick="javascript:switchdiv('show','menu');"> </div>
+			<div class="s_contener" style="border-left:6px solid #828995; ">	
+			<br /><br /><br />
+<table>
+	<tr>
+		<td valign="top"><br />
+			<h1>BIENVENUE SUR SATELLYS GPU</h1>
+			<p>Avec SATELLYS GPU, vous avez la possibilité de <strong>consulter vos emplois du temps à distance.</strong>
+			<br/>
+			<br/>SATELLYS GPU est <strong>accessible partout</strong> où vous disposez d'une connexion internet ! 
+			<br/>Il est <strong>compatible avec la majorité des navigateurs internet.</strong>
+			<br/>
+			<br/>
+					
+			</p>
+		</td>
+        <td><img src="images/GPU_accueil.gif" > </td>
+	</tr>
+</table>
+
+		
+	
+			</div>
+		</div>
+		<div class="s_footer"  style="margin-top: 20px;" >Satellys est un produit Dynamisoft<sup>&copy;</sup>.</div>
+		<script language="Javascript">
+		affichediv("menu");
+		</script>
+	</body>
+</html>BEGIN:VCALENDAR
 PRODID: Gpu2vcs modified by Dynamisoft
 VERSION:2.0
 METHOD:PUBLISH
@@ -2844,7 +5386,266 @@ PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 END:VCALENDAR
-BEGIN:VCALENDAR
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Satellys</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="fr" http-equiv="Content-Language" />
+	<meta name="description" content="Dynamisoft" />
+	<meta name="keywords" content="dynamisoft" />
+	<meta name="robots" content="index,follow" />
+	<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="gpu.css" type="text/css" />	
+	<link rel="stylesheet" type="text/css" href="print_gpu.css" media="print" />
+	<link rel="stylesheet" href="../sat/satellys.css" type="text/css" />
+		<script type="text/javascript">
+	<!--
+	function externalLinks(){ 
+		if(!document.getElementsByTagName) return; 
+		var anchors = document.getElementsByTagName("a"); 
+		for (var i=0; i<anchors.length; i++){ 
+			var anchor = anchors[i]; 
+			if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") 
+				anchor.target = "_blank"; 
+		} 
+	} 
+	window.onload = externalLinks;
+	function EcrireCookie(nom, valeur)
+	{
+	
+	var argv=EcrireCookie.arguments;
+	var argc=EcrireCookie.arguments.length;
+	var expires=(argc > 2) ? argv[2] : null;
+	var path=(argc > 3) ? argv[3] : null;
+	var domain=(argc > 4) ? argv[4] : null;
+	var secure=(argc > 5) ? argv[5] : false;
+	document.cookie=nom+"="+escape(valeur)+
+	((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
+	((path==null) ? "" : ("; path="+path))+
+	((domain==null) ? "" : ("; domain="+domain))+
+	((secure==true) ? "; secure" : "");
+	
+	}
+		
+	function getCookieVal(offset)
+	{
+		var endstr=document.cookie.indexOf (";", offset);
+		if (endstr==-1) endstr=document.cookie.length;
+		return unescape(document.cookie.substring(offset, endstr)); 
+	}
+	function LireCookie(nom)
+	{
+		var arg=nom+"=";
+		var alen=arg.length;
+		var clen=document.cookie.length;
+		var i=0;
+		while (i<clen)
+		{
+			var j=i+alen;
+			if (document.cookie.substring(i, j)==arg) return getCookieVal(j);
+			i=document.cookie.indexOf(" ",i)+1;
+			if (i==0) break;
+		}
+		return null; 
+	}
+	
+	function switchdiv(act,_div){
+			date=new Date;
+			date.setMonth(date.getMonth()+1);
+			if (act=="hide") {
+				EcrireCookie(_div, 0, date);
+				if (document.getElementById(_div).style.visibility!="hidden"){
+					document.getElementById(_div).style.visibility="hidden";
+					document.getElementById(_div).style.display='none';
+					document.getElementById(_div+"bar").style.visibility="visible";
+					document.getElementById(_div+"bar").style.display='block';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="hidden";
+						e.style.display='none';
+						}
+				}
+			}
+			if (act=="show"){
+				EcrireCookie(_div, 1, date);
+				if (document.getElementById(_div).style.visibility!="visible"){
+					document.getElementById(_div).style.visibility="visible";
+					document.getElementById(_div).style.display='block';
+					document.getElementById(_div+"bar").style.visibility="hidden";
+					document.getElementById(_div+"bar").style.display='none';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="visible";
+						e.style.display='block';
+						}
+				}
+			}
+		}
+		
+	function affichediv(_div){
+		if (LireCookie(_div)==0) 
+			{
+			document.getElementById(_div).style.visibility="hidden";
+			document.getElementById(_div).style.display='none';
+			document.getElementById(_div+"bar").style.visibility="visible";
+			document.getElementById(_div+"bar").style.display='block';
+			var e = document.getElementById(_div+"plie");
+			if (e) {
+				e.style.visibility="hidden";
+				e.style.display='none';
+				}
+			}
+	}
+	
+	function ajax(ppage)
+	{
+	    var xhr=null;
+	    
+	    if (window.XMLHttpRequest) { 
+	        xhr = new XMLHttpRequest();
+	    }
+	    else if (window.ActiveXObject) 
+	    {
+	        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    //on appelle le fichier ppage
+	    xhr.open("GET", ppage, false);
+	    xhr.send(null);
+	    
+	    return xhr.responseText;
+	}
+	
+	
+	function descendMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0) {
+		window.document.getElementById("menu").style.top =  window.document.body.scrollTop-0+'px';
+		window.document.getElementById("menubar").style.top =  window.document.body.scrollTop-0+'px';
+		}
+	}
+	
+	function figerMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0)
+	    {
+		ajax("./setvar.php?nomvar=stylemenu&valeur=1");
+		this.document.formindex.stylemenu.value=1;
+		document.imgclou.src="images/punaise_on.gif";
+		}
+		else {
+			ajax("./setvar.php?nomvar=stylemenu&valeur=0");
+			this.document.formindex.stylemenu.value=0;
+			document.imgclou.src="images/punaise_off.gif";
+			}
+	}
+	
+	function Ouvrecentree(page,largeur,hauteur,options)
+	{
+		var top=(screen.height-hauteur)/2;
+		var left=(screen.width-largeur)/2;
+		if (largeur==0) 
+			{
+			if (hauteur==0)
+				window.open(page,"","top=2,left=2,"+options);
+				else window.open(page,"","top="+top+",left=2, height="+hauteur+","+options);
+			}
+			else 
+			{
+	    	if (hauteur==0)
+	    		window.open(page,"","top=2,left="+left+",width="+largeur+","+options);
+	    		else
+	    	    window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+	    	}
+	}
+	//-->
+	</script>		 
+</head>
+<body>
+		<form name="testform" id="testform" >
+		</form>
+		<div class="s_top">
+			<div style="float:left; width: 49%; height: auto;"><img src="../images/votrelogo.png" alt="" style="border:0px solid white; "  title="" /></div>
+			<div style="float:left; width: 50%; height: auto; text-align:right; "><a href="../sat/index.php"><img src="../images/logo satellys.gif" style="border:0px solid white; " alt="" title="" /></a></div>
+			<div class="s_onglets">
+				<div class="ongletGPU"><p style=" margin-top: 5px; padding: 0px;">GPU</p></div>
+				<div class="ongletGDS"><p style=" margin-top: 5px; padding: 0px;">GDS</p></div>
+				<div class="ongletGDE"><p style=" margin-top: 5px; padding: 0px;">GDE</p></div>
+                <div class="ongletGNT"><p style=" margin-top: 5px; padding: 0px;">GNT</p></div>
+				<div style="margin-right: 10px; color: black; float: right; font-size: 12px; height: 33px;"><p style="padding: 0px;"><a class="souligne" href="../sat/index.php?page_param=deconnect.php&module=SAT&cat=0&numpage=1&niv=1&clef=/3003/">D&eacute;connexion</a> - <a class="souligne"  href="../sat/index.php">Accueil SATELLYS</a></p></div>				
+			</div>
+		</div>
+		<div class="barre">&nbsp;</div>
+		<div class="s_global">	
+			<div id="menu" class="hideprint"  style=" position:relative; visibility:visible; display:block; float:left;">
+<form name="formindex" method="get" >
+	<input type="hidden" name="stylemenu" value=1 />
+</form>
+				<script language="javascript">
+<!--
+function change_dept()
+{
+var e=document.getElementsByName('chgdept');
+if (e[0].value!='')
+    {
+    rep=ajax("../aj_chgdept.php?code="+e[0].value);
+    //alert(rep);
+	if (rep=="ok") this.document.testform.submit();
+	}
+}
+
+function change_annee()
+{
+var e=document.getElementsByName('chgannee');
+if (e[0].value!='')
+    {
+	if (ajax("../aj_chgannee.php?code="+e[0].value)=="ok") this.document.testform.submit();
+	}
+}
+//-->
+</script>	
+<div class="s_profil">
+	<img src="../images/profil_etu.png" style="margin-left:2px;width:50px;" alt="" title="" align="left" />
+	<p>Utilisateur : sdoignon<br/>Dépt : SRC		<br />
+		Année : <select class="combobox" style="z-index:0; position:static; width:60px;" name="chgannee" id="chgannee"  onchange="change_annee();" ><option value='2012' >2012-2013</option>
+ </select><br />
+		Profil : 100100999999<br />
+	</p>
+</div>					<div class="hideprint">
+					<br/><div class="menutitre"><p style="margin-top: 5px; margin-left: 10px; padding: 0px;"><a href="index.php?page_param=accueil.php&cat=0&numpage=1&niv=1&clef=/305/">Emplois du temps</a></p></div><img src="./images/menu_corner_hd.gif" alt="" border="0px" style="padding: 0px; margin-left: -3px;" /><br/>      					</div>	
+			</div>
+			<div id="menuplie" style="height:56px; float:left;  background-image:url(images/menubar.gif); width:15px; background-repeat:no-repeat;" onclick="javascript:switchdiv('hide','menu');" class="handcursor"> </div>
+			<div name="menubar" id="menubar" style="float:left; position:relative; visibility:hidden;display:none; background-image:url(./images/menubar2.gif); background-repeat:no-repeat; width:15px; height:49px;" onclick="javascript:switchdiv('show','menu');"> </div>
+			<div class="s_contener" style="border-left:6px solid #828995; ">	
+			<br /><br /><br />
+<table>
+	<tr>
+		<td valign="top"><br />
+			<h1>BIENVENUE SUR SATELLYS GPU</h1>
+			<p>Avec SATELLYS GPU, vous avez la possibilité de <strong>consulter vos emplois du temps à distance.</strong>
+			<br/>
+			<br/>SATELLYS GPU est <strong>accessible partout</strong> où vous disposez d'une connexion internet ! 
+			<br/>Il est <strong>compatible avec la majorité des navigateurs internet.</strong>
+			<br/>
+			<br/>
+					
+			</p>
+		</td>
+        <td><img src="images/GPU_accueil.gif" > </td>
+	</tr>
+</table>
+
+		
+	
+			</div>
+		</div>
+		<div class="s_footer"  style="margin-top: 20px;" >Satellys est un produit Dynamisoft<sup>&copy;</sup>.</div>
+		<script language="Javascript">
+		affichediv("menu");
+		</script>
+	</body>
+</html>BEGIN:VCALENDAR
 PRODID: Gpu2vcs modified by Dynamisoft
 VERSION:2.0
 METHOD:PUBLISH
@@ -3029,7 +5830,266 @@ PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 END:VCALENDAR
-BEGIN:VCALENDAR
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Satellys</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="fr" http-equiv="Content-Language" />
+	<meta name="description" content="Dynamisoft" />
+	<meta name="keywords" content="dynamisoft" />
+	<meta name="robots" content="index,follow" />
+	<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="gpu.css" type="text/css" />	
+	<link rel="stylesheet" type="text/css" href="print_gpu.css" media="print" />
+	<link rel="stylesheet" href="../sat/satellys.css" type="text/css" />
+		<script type="text/javascript">
+	<!--
+	function externalLinks(){ 
+		if(!document.getElementsByTagName) return; 
+		var anchors = document.getElementsByTagName("a"); 
+		for (var i=0; i<anchors.length; i++){ 
+			var anchor = anchors[i]; 
+			if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") 
+				anchor.target = "_blank"; 
+		} 
+	} 
+	window.onload = externalLinks;
+	function EcrireCookie(nom, valeur)
+	{
+	
+	var argv=EcrireCookie.arguments;
+	var argc=EcrireCookie.arguments.length;
+	var expires=(argc > 2) ? argv[2] : null;
+	var path=(argc > 3) ? argv[3] : null;
+	var domain=(argc > 4) ? argv[4] : null;
+	var secure=(argc > 5) ? argv[5] : false;
+	document.cookie=nom+"="+escape(valeur)+
+	((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
+	((path==null) ? "" : ("; path="+path))+
+	((domain==null) ? "" : ("; domain="+domain))+
+	((secure==true) ? "; secure" : "");
+	
+	}
+		
+	function getCookieVal(offset)
+	{
+		var endstr=document.cookie.indexOf (";", offset);
+		if (endstr==-1) endstr=document.cookie.length;
+		return unescape(document.cookie.substring(offset, endstr)); 
+	}
+	function LireCookie(nom)
+	{
+		var arg=nom+"=";
+		var alen=arg.length;
+		var clen=document.cookie.length;
+		var i=0;
+		while (i<clen)
+		{
+			var j=i+alen;
+			if (document.cookie.substring(i, j)==arg) return getCookieVal(j);
+			i=document.cookie.indexOf(" ",i)+1;
+			if (i==0) break;
+		}
+		return null; 
+	}
+	
+	function switchdiv(act,_div){
+			date=new Date;
+			date.setMonth(date.getMonth()+1);
+			if (act=="hide") {
+				EcrireCookie(_div, 0, date);
+				if (document.getElementById(_div).style.visibility!="hidden"){
+					document.getElementById(_div).style.visibility="hidden";
+					document.getElementById(_div).style.display='none';
+					document.getElementById(_div+"bar").style.visibility="visible";
+					document.getElementById(_div+"bar").style.display='block';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="hidden";
+						e.style.display='none';
+						}
+				}
+			}
+			if (act=="show"){
+				EcrireCookie(_div, 1, date);
+				if (document.getElementById(_div).style.visibility!="visible"){
+					document.getElementById(_div).style.visibility="visible";
+					document.getElementById(_div).style.display='block';
+					document.getElementById(_div+"bar").style.visibility="hidden";
+					document.getElementById(_div+"bar").style.display='none';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="visible";
+						e.style.display='block';
+						}
+				}
+			}
+		}
+		
+	function affichediv(_div){
+		if (LireCookie(_div)==0) 
+			{
+			document.getElementById(_div).style.visibility="hidden";
+			document.getElementById(_div).style.display='none';
+			document.getElementById(_div+"bar").style.visibility="visible";
+			document.getElementById(_div+"bar").style.display='block';
+			var e = document.getElementById(_div+"plie");
+			if (e) {
+				e.style.visibility="hidden";
+				e.style.display='none';
+				}
+			}
+	}
+	
+	function ajax(ppage)
+	{
+	    var xhr=null;
+	    
+	    if (window.XMLHttpRequest) { 
+	        xhr = new XMLHttpRequest();
+	    }
+	    else if (window.ActiveXObject) 
+	    {
+	        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    //on appelle le fichier ppage
+	    xhr.open("GET", ppage, false);
+	    xhr.send(null);
+	    
+	    return xhr.responseText;
+	}
+	
+	
+	function descendMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0) {
+		window.document.getElementById("menu").style.top =  window.document.body.scrollTop-0+'px';
+		window.document.getElementById("menubar").style.top =  window.document.body.scrollTop-0+'px';
+		}
+	}
+	
+	function figerMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0)
+	    {
+		ajax("./setvar.php?nomvar=stylemenu&valeur=1");
+		this.document.formindex.stylemenu.value=1;
+		document.imgclou.src="images/punaise_on.gif";
+		}
+		else {
+			ajax("./setvar.php?nomvar=stylemenu&valeur=0");
+			this.document.formindex.stylemenu.value=0;
+			document.imgclou.src="images/punaise_off.gif";
+			}
+	}
+	
+	function Ouvrecentree(page,largeur,hauteur,options)
+	{
+		var top=(screen.height-hauteur)/2;
+		var left=(screen.width-largeur)/2;
+		if (largeur==0) 
+			{
+			if (hauteur==0)
+				window.open(page,"","top=2,left=2,"+options);
+				else window.open(page,"","top="+top+",left=2, height="+hauteur+","+options);
+			}
+			else 
+			{
+	    	if (hauteur==0)
+	    		window.open(page,"","top=2,left="+left+",width="+largeur+","+options);
+	    		else
+	    	    window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+	    	}
+	}
+	//-->
+	</script>		 
+</head>
+<body>
+		<form name="testform" id="testform" >
+		</form>
+		<div class="s_top">
+			<div style="float:left; width: 49%; height: auto;"><img src="../images/votrelogo.png" alt="" style="border:0px solid white; "  title="" /></div>
+			<div style="float:left; width: 50%; height: auto; text-align:right; "><a href="../sat/index.php"><img src="../images/logo satellys.gif" style="border:0px solid white; " alt="" title="" /></a></div>
+			<div class="s_onglets">
+				<div class="ongletGPU"><p style=" margin-top: 5px; padding: 0px;">GPU</p></div>
+				<div class="ongletGDS"><p style=" margin-top: 5px; padding: 0px;">GDS</p></div>
+				<div class="ongletGDE"><p style=" margin-top: 5px; padding: 0px;">GDE</p></div>
+                <div class="ongletGNT"><p style=" margin-top: 5px; padding: 0px;">GNT</p></div>
+				<div style="margin-right: 10px; color: black; float: right; font-size: 12px; height: 33px;"><p style="padding: 0px;"><a class="souligne" href="../sat/index.php?page_param=deconnect.php&module=SAT&cat=0&numpage=1&niv=1&clef=/3003/">D&eacute;connexion</a> - <a class="souligne"  href="../sat/index.php">Accueil SATELLYS</a></p></div>				
+			</div>
+		</div>
+		<div class="barre">&nbsp;</div>
+		<div class="s_global">	
+			<div id="menu" class="hideprint"  style=" position:relative; visibility:visible; display:block; float:left;">
+<form name="formindex" method="get" >
+	<input type="hidden" name="stylemenu" value=1 />
+</form>
+				<script language="javascript">
+<!--
+function change_dept()
+{
+var e=document.getElementsByName('chgdept');
+if (e[0].value!='')
+    {
+    rep=ajax("../aj_chgdept.php?code="+e[0].value);
+    //alert(rep);
+	if (rep=="ok") this.document.testform.submit();
+	}
+}
+
+function change_annee()
+{
+var e=document.getElementsByName('chgannee');
+if (e[0].value!='')
+    {
+	if (ajax("../aj_chgannee.php?code="+e[0].value)=="ok") this.document.testform.submit();
+	}
+}
+//-->
+</script>	
+<div class="s_profil">
+	<img src="../images/profil_etu.png" style="margin-left:2px;width:50px;" alt="" title="" align="left" />
+	<p>Utilisateur : sdoignon<br/>Dépt : SRC		<br />
+		Année : <select class="combobox" style="z-index:0; position:static; width:60px;" name="chgannee" id="chgannee"  onchange="change_annee();" ><option value='2012' >2012-2013</option>
+ </select><br />
+		Profil : 100100999999<br />
+	</p>
+</div>					<div class="hideprint">
+					<br/><div class="menutitre"><p style="margin-top: 5px; margin-left: 10px; padding: 0px;"><a href="index.php?page_param=accueil.php&cat=0&numpage=1&niv=1&clef=/305/">Emplois du temps</a></p></div><img src="./images/menu_corner_hd.gif" alt="" border="0px" style="padding: 0px; margin-left: -3px;" /><br/>      					</div>	
+			</div>
+			<div id="menuplie" style="height:56px; float:left;  background-image:url(images/menubar.gif); width:15px; background-repeat:no-repeat;" onclick="javascript:switchdiv('hide','menu');" class="handcursor"> </div>
+			<div name="menubar" id="menubar" style="float:left; position:relative; visibility:hidden;display:none; background-image:url(./images/menubar2.gif); background-repeat:no-repeat; width:15px; height:49px;" onclick="javascript:switchdiv('show','menu');"> </div>
+			<div class="s_contener" style="border-left:6px solid #828995; ">	
+			<br /><br /><br />
+<table>
+	<tr>
+		<td valign="top"><br />
+			<h1>BIENVENUE SUR SATELLYS GPU</h1>
+			<p>Avec SATELLYS GPU, vous avez la possibilité de <strong>consulter vos emplois du temps à distance.</strong>
+			<br/>
+			<br/>SATELLYS GPU est <strong>accessible partout</strong> où vous disposez d'une connexion internet ! 
+			<br/>Il est <strong>compatible avec la majorité des navigateurs internet.</strong>
+			<br/>
+			<br/>
+					
+			</p>
+		</td>
+        <td><img src="images/GPU_accueil.gif" > </td>
+	</tr>
+</table>
+
+		
+	
+			</div>
+		</div>
+		<div class="s_footer"  style="margin-top: 20px;" >Satellys est un produit Dynamisoft<sup>&copy;</sup>.</div>
+		<script language="Javascript">
+		affichediv("menu");
+		</script>
+	</body>
+</html>BEGIN:VCALENDAR
 PRODID: Gpu2vcs modified by Dynamisoft
 VERSION:2.0
 METHOD:PUBLISH
@@ -3430,7 +6490,266 @@ PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 END:VCALENDAR
-BEGIN:VCALENDAR
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Satellys</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="fr" http-equiv="Content-Language" />
+	<meta name="description" content="Dynamisoft" />
+	<meta name="keywords" content="dynamisoft" />
+	<meta name="robots" content="index,follow" />
+	<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="gpu.css" type="text/css" />	
+	<link rel="stylesheet" type="text/css" href="print_gpu.css" media="print" />
+	<link rel="stylesheet" href="../sat/satellys.css" type="text/css" />
+		<script type="text/javascript">
+	<!--
+	function externalLinks(){ 
+		if(!document.getElementsByTagName) return; 
+		var anchors = document.getElementsByTagName("a"); 
+		for (var i=0; i<anchors.length; i++){ 
+			var anchor = anchors[i]; 
+			if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") 
+				anchor.target = "_blank"; 
+		} 
+	} 
+	window.onload = externalLinks;
+	function EcrireCookie(nom, valeur)
+	{
+	
+	var argv=EcrireCookie.arguments;
+	var argc=EcrireCookie.arguments.length;
+	var expires=(argc > 2) ? argv[2] : null;
+	var path=(argc > 3) ? argv[3] : null;
+	var domain=(argc > 4) ? argv[4] : null;
+	var secure=(argc > 5) ? argv[5] : false;
+	document.cookie=nom+"="+escape(valeur)+
+	((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
+	((path==null) ? "" : ("; path="+path))+
+	((domain==null) ? "" : ("; domain="+domain))+
+	((secure==true) ? "; secure" : "");
+	
+	}
+		
+	function getCookieVal(offset)
+	{
+		var endstr=document.cookie.indexOf (";", offset);
+		if (endstr==-1) endstr=document.cookie.length;
+		return unescape(document.cookie.substring(offset, endstr)); 
+	}
+	function LireCookie(nom)
+	{
+		var arg=nom+"=";
+		var alen=arg.length;
+		var clen=document.cookie.length;
+		var i=0;
+		while (i<clen)
+		{
+			var j=i+alen;
+			if (document.cookie.substring(i, j)==arg) return getCookieVal(j);
+			i=document.cookie.indexOf(" ",i)+1;
+			if (i==0) break;
+		}
+		return null; 
+	}
+	
+	function switchdiv(act,_div){
+			date=new Date;
+			date.setMonth(date.getMonth()+1);
+			if (act=="hide") {
+				EcrireCookie(_div, 0, date);
+				if (document.getElementById(_div).style.visibility!="hidden"){
+					document.getElementById(_div).style.visibility="hidden";
+					document.getElementById(_div).style.display='none';
+					document.getElementById(_div+"bar").style.visibility="visible";
+					document.getElementById(_div+"bar").style.display='block';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="hidden";
+						e.style.display='none';
+						}
+				}
+			}
+			if (act=="show"){
+				EcrireCookie(_div, 1, date);
+				if (document.getElementById(_div).style.visibility!="visible"){
+					document.getElementById(_div).style.visibility="visible";
+					document.getElementById(_div).style.display='block';
+					document.getElementById(_div+"bar").style.visibility="hidden";
+					document.getElementById(_div+"bar").style.display='none';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="visible";
+						e.style.display='block';
+						}
+				}
+			}
+		}
+		
+	function affichediv(_div){
+		if (LireCookie(_div)==0) 
+			{
+			document.getElementById(_div).style.visibility="hidden";
+			document.getElementById(_div).style.display='none';
+			document.getElementById(_div+"bar").style.visibility="visible";
+			document.getElementById(_div+"bar").style.display='block';
+			var e = document.getElementById(_div+"plie");
+			if (e) {
+				e.style.visibility="hidden";
+				e.style.display='none';
+				}
+			}
+	}
+	
+	function ajax(ppage)
+	{
+	    var xhr=null;
+	    
+	    if (window.XMLHttpRequest) { 
+	        xhr = new XMLHttpRequest();
+	    }
+	    else if (window.ActiveXObject) 
+	    {
+	        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    //on appelle le fichier ppage
+	    xhr.open("GET", ppage, false);
+	    xhr.send(null);
+	    
+	    return xhr.responseText;
+	}
+	
+	
+	function descendMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0) {
+		window.document.getElementById("menu").style.top =  window.document.body.scrollTop-0+'px';
+		window.document.getElementById("menubar").style.top =  window.document.body.scrollTop-0+'px';
+		}
+	}
+	
+	function figerMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0)
+	    {
+		ajax("./setvar.php?nomvar=stylemenu&valeur=1");
+		this.document.formindex.stylemenu.value=1;
+		document.imgclou.src="images/punaise_on.gif";
+		}
+		else {
+			ajax("./setvar.php?nomvar=stylemenu&valeur=0");
+			this.document.formindex.stylemenu.value=0;
+			document.imgclou.src="images/punaise_off.gif";
+			}
+	}
+	
+	function Ouvrecentree(page,largeur,hauteur,options)
+	{
+		var top=(screen.height-hauteur)/2;
+		var left=(screen.width-largeur)/2;
+		if (largeur==0) 
+			{
+			if (hauteur==0)
+				window.open(page,"","top=2,left=2,"+options);
+				else window.open(page,"","top="+top+",left=2, height="+hauteur+","+options);
+			}
+			else 
+			{
+	    	if (hauteur==0)
+	    		window.open(page,"","top=2,left="+left+",width="+largeur+","+options);
+	    		else
+	    	    window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+	    	}
+	}
+	//-->
+	</script>		 
+</head>
+<body>
+		<form name="testform" id="testform" >
+		</form>
+		<div class="s_top">
+			<div style="float:left; width: 49%; height: auto;"><img src="../images/votrelogo.png" alt="" style="border:0px solid white; "  title="" /></div>
+			<div style="float:left; width: 50%; height: auto; text-align:right; "><a href="../sat/index.php"><img src="../images/logo satellys.gif" style="border:0px solid white; " alt="" title="" /></a></div>
+			<div class="s_onglets">
+				<div class="ongletGPU"><p style=" margin-top: 5px; padding: 0px;">GPU</p></div>
+				<div class="ongletGDS"><p style=" margin-top: 5px; padding: 0px;">GDS</p></div>
+				<div class="ongletGDE"><p style=" margin-top: 5px; padding: 0px;">GDE</p></div>
+                <div class="ongletGNT"><p style=" margin-top: 5px; padding: 0px;">GNT</p></div>
+				<div style="margin-right: 10px; color: black; float: right; font-size: 12px; height: 33px;"><p style="padding: 0px;"><a class="souligne" href="../sat/index.php?page_param=deconnect.php&module=SAT&cat=0&numpage=1&niv=1&clef=/3003/">D&eacute;connexion</a> - <a class="souligne"  href="../sat/index.php">Accueil SATELLYS</a></p></div>				
+			</div>
+		</div>
+		<div class="barre">&nbsp;</div>
+		<div class="s_global">	
+			<div id="menu" class="hideprint"  style=" position:relative; visibility:visible; display:block; float:left;">
+<form name="formindex" method="get" >
+	<input type="hidden" name="stylemenu" value=1 />
+</form>
+				<script language="javascript">
+<!--
+function change_dept()
+{
+var e=document.getElementsByName('chgdept');
+if (e[0].value!='')
+    {
+    rep=ajax("../aj_chgdept.php?code="+e[0].value);
+    //alert(rep);
+	if (rep=="ok") this.document.testform.submit();
+	}
+}
+
+function change_annee()
+{
+var e=document.getElementsByName('chgannee');
+if (e[0].value!='')
+    {
+	if (ajax("../aj_chgannee.php?code="+e[0].value)=="ok") this.document.testform.submit();
+	}
+}
+//-->
+</script>	
+<div class="s_profil">
+	<img src="../images/profil_etu.png" style="margin-left:2px;width:50px;" alt="" title="" align="left" />
+	<p>Utilisateur : sdoignon<br/>Dépt : SRC		<br />
+		Année : <select class="combobox" style="z-index:0; position:static; width:60px;" name="chgannee" id="chgannee"  onchange="change_annee();" ><option value='2012' >2012-2013</option>
+ </select><br />
+		Profil : 100100999999<br />
+	</p>
+</div>					<div class="hideprint">
+					<br/><div class="menutitre"><p style="margin-top: 5px; margin-left: 10px; padding: 0px;"><a href="index.php?page_param=accueil.php&cat=0&numpage=1&niv=1&clef=/305/">Emplois du temps</a></p></div><img src="./images/menu_corner_hd.gif" alt="" border="0px" style="padding: 0px; margin-left: -3px;" /><br/>      					</div>	
+			</div>
+			<div id="menuplie" style="height:56px; float:left;  background-image:url(images/menubar.gif); width:15px; background-repeat:no-repeat;" onclick="javascript:switchdiv('hide','menu');" class="handcursor"> </div>
+			<div name="menubar" id="menubar" style="float:left; position:relative; visibility:hidden;display:none; background-image:url(./images/menubar2.gif); background-repeat:no-repeat; width:15px; height:49px;" onclick="javascript:switchdiv('show','menu');"> </div>
+			<div class="s_contener" style="border-left:6px solid #828995; ">	
+			<br /><br /><br />
+<table>
+	<tr>
+		<td valign="top"><br />
+			<h1>BIENVENUE SUR SATELLYS GPU</h1>
+			<p>Avec SATELLYS GPU, vous avez la possibilité de <strong>consulter vos emplois du temps à distance.</strong>
+			<br/>
+			<br/>SATELLYS GPU est <strong>accessible partout</strong> où vous disposez d'une connexion internet ! 
+			<br/>Il est <strong>compatible avec la majorité des navigateurs internet.</strong>
+			<br/>
+			<br/>
+					
+			</p>
+		</td>
+        <td><img src="images/GPU_accueil.gif" > </td>
+	</tr>
+</table>
+
+		
+	
+			</div>
+		</div>
+		<div class="s_footer"  style="margin-top: 20px;" >Satellys est un produit Dynamisoft<sup>&copy;</sup>.</div>
+		<script language="Javascript">
+		affichediv("menu");
+		</script>
+	</body>
+</html>BEGIN:VCALENDAR
 PRODID: Gpu2vcs modified by Dynamisoft
 VERSION:2.0
 METHOD:PUBLISH
@@ -3760,7 +7079,19 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1386655200-1386662400-27
+UID:1386914400-1386921600-27
+DTSTAMP:20131213T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:dreyss Spe:Esth=C3=A9tique et expression artistique\SRC_S3\SRC_S3 
+SUMMARY:ESTH_EX_ART / COURS / SRC_S3 / SRC_S3 / SRC
+LOCATION:255-256
+DTSTART:20131213T070000Z
+DTEND:20131213T090000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1386655200-1386662400-28
 DTSTAMP:20131210T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:AMPHI-60 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3A\SRC_S3 
 SUMMARY:EXP_ECR_ORAL / TD / SRC_S3A / SRC_S3 / SRC
@@ -3772,7 +7103,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1386748800-1386756000-28
+UID:1386748800-1386756000-29
 DTSTAMP:20131211T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3B\SRC_S3 
 SUMMARY:EXP_ECR_ORAL / TD / SRC_S3B / SRC_S3 / SRC
@@ -3784,7 +7115,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1386662400-1386669600-29
+UID:1386662400-1386669600-30
 DTSTAMP:20131210T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:cbore Spe:PPP\SRC_S3A1\SRC_S3 
 SUMMARY:PPP / TP / SRC_S3A1 / SRC_S3 / SRC
@@ -3796,7 +7127,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1386673200-1386680400-30
+UID:1386673200-1386680400-31
 DTSTAMP:20131210T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:cbore Spe:PPP\SRC_S3B1\SRC_S3 
 SUMMARY:PPP / TP / SRC_S3B1 / SRC_S3 / SRC
@@ -3807,7 +7138,266 @@ PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 END:VCALENDAR
-BEGIN:VCALENDAR
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Satellys</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="fr" http-equiv="Content-Language" />
+	<meta name="description" content="Dynamisoft" />
+	<meta name="keywords" content="dynamisoft" />
+	<meta name="robots" content="index,follow" />
+	<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="gpu.css" type="text/css" />	
+	<link rel="stylesheet" type="text/css" href="print_gpu.css" media="print" />
+	<link rel="stylesheet" href="../sat/satellys.css" type="text/css" />
+		<script type="text/javascript">
+	<!--
+	function externalLinks(){ 
+		if(!document.getElementsByTagName) return; 
+		var anchors = document.getElementsByTagName("a"); 
+		for (var i=0; i<anchors.length; i++){ 
+			var anchor = anchors[i]; 
+			if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") 
+				anchor.target = "_blank"; 
+		} 
+	} 
+	window.onload = externalLinks;
+	function EcrireCookie(nom, valeur)
+	{
+	
+	var argv=EcrireCookie.arguments;
+	var argc=EcrireCookie.arguments.length;
+	var expires=(argc > 2) ? argv[2] : null;
+	var path=(argc > 3) ? argv[3] : null;
+	var domain=(argc > 4) ? argv[4] : null;
+	var secure=(argc > 5) ? argv[5] : false;
+	document.cookie=nom+"="+escape(valeur)+
+	((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
+	((path==null) ? "" : ("; path="+path))+
+	((domain==null) ? "" : ("; domain="+domain))+
+	((secure==true) ? "; secure" : "");
+	
+	}
+		
+	function getCookieVal(offset)
+	{
+		var endstr=document.cookie.indexOf (";", offset);
+		if (endstr==-1) endstr=document.cookie.length;
+		return unescape(document.cookie.substring(offset, endstr)); 
+	}
+	function LireCookie(nom)
+	{
+		var arg=nom+"=";
+		var alen=arg.length;
+		var clen=document.cookie.length;
+		var i=0;
+		while (i<clen)
+		{
+			var j=i+alen;
+			if (document.cookie.substring(i, j)==arg) return getCookieVal(j);
+			i=document.cookie.indexOf(" ",i)+1;
+			if (i==0) break;
+		}
+		return null; 
+	}
+	
+	function switchdiv(act,_div){
+			date=new Date;
+			date.setMonth(date.getMonth()+1);
+			if (act=="hide") {
+				EcrireCookie(_div, 0, date);
+				if (document.getElementById(_div).style.visibility!="hidden"){
+					document.getElementById(_div).style.visibility="hidden";
+					document.getElementById(_div).style.display='none';
+					document.getElementById(_div+"bar").style.visibility="visible";
+					document.getElementById(_div+"bar").style.display='block';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="hidden";
+						e.style.display='none';
+						}
+				}
+			}
+			if (act=="show"){
+				EcrireCookie(_div, 1, date);
+				if (document.getElementById(_div).style.visibility!="visible"){
+					document.getElementById(_div).style.visibility="visible";
+					document.getElementById(_div).style.display='block';
+					document.getElementById(_div+"bar").style.visibility="hidden";
+					document.getElementById(_div+"bar").style.display='none';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="visible";
+						e.style.display='block';
+						}
+				}
+			}
+		}
+		
+	function affichediv(_div){
+		if (LireCookie(_div)==0) 
+			{
+			document.getElementById(_div).style.visibility="hidden";
+			document.getElementById(_div).style.display='none';
+			document.getElementById(_div+"bar").style.visibility="visible";
+			document.getElementById(_div+"bar").style.display='block';
+			var e = document.getElementById(_div+"plie");
+			if (e) {
+				e.style.visibility="hidden";
+				e.style.display='none';
+				}
+			}
+	}
+	
+	function ajax(ppage)
+	{
+	    var xhr=null;
+	    
+	    if (window.XMLHttpRequest) { 
+	        xhr = new XMLHttpRequest();
+	    }
+	    else if (window.ActiveXObject) 
+	    {
+	        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    //on appelle le fichier ppage
+	    xhr.open("GET", ppage, false);
+	    xhr.send(null);
+	    
+	    return xhr.responseText;
+	}
+	
+	
+	function descendMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0) {
+		window.document.getElementById("menu").style.top =  window.document.body.scrollTop-0+'px';
+		window.document.getElementById("menubar").style.top =  window.document.body.scrollTop-0+'px';
+		}
+	}
+	
+	function figerMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0)
+	    {
+		ajax("./setvar.php?nomvar=stylemenu&valeur=1");
+		this.document.formindex.stylemenu.value=1;
+		document.imgclou.src="images/punaise_on.gif";
+		}
+		else {
+			ajax("./setvar.php?nomvar=stylemenu&valeur=0");
+			this.document.formindex.stylemenu.value=0;
+			document.imgclou.src="images/punaise_off.gif";
+			}
+	}
+	
+	function Ouvrecentree(page,largeur,hauteur,options)
+	{
+		var top=(screen.height-hauteur)/2;
+		var left=(screen.width-largeur)/2;
+		if (largeur==0) 
+			{
+			if (hauteur==0)
+				window.open(page,"","top=2,left=2,"+options);
+				else window.open(page,"","top="+top+",left=2, height="+hauteur+","+options);
+			}
+			else 
+			{
+	    	if (hauteur==0)
+	    		window.open(page,"","top=2,left="+left+",width="+largeur+","+options);
+	    		else
+	    	    window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+	    	}
+	}
+	//-->
+	</script>		 
+</head>
+<body>
+		<form name="testform" id="testform" >
+		</form>
+		<div class="s_top">
+			<div style="float:left; width: 49%; height: auto;"><img src="../images/votrelogo.png" alt="" style="border:0px solid white; "  title="" /></div>
+			<div style="float:left; width: 50%; height: auto; text-align:right; "><a href="../sat/index.php"><img src="../images/logo satellys.gif" style="border:0px solid white; " alt="" title="" /></a></div>
+			<div class="s_onglets">
+				<div class="ongletGPU"><p style=" margin-top: 5px; padding: 0px;">GPU</p></div>
+				<div class="ongletGDS"><p style=" margin-top: 5px; padding: 0px;">GDS</p></div>
+				<div class="ongletGDE"><p style=" margin-top: 5px; padding: 0px;">GDE</p></div>
+                <div class="ongletGNT"><p style=" margin-top: 5px; padding: 0px;">GNT</p></div>
+				<div style="margin-right: 10px; color: black; float: right; font-size: 12px; height: 33px;"><p style="padding: 0px;"><a class="souligne" href="../sat/index.php?page_param=deconnect.php&module=SAT&cat=0&numpage=1&niv=1&clef=/3003/">D&eacute;connexion</a> - <a class="souligne"  href="../sat/index.php">Accueil SATELLYS</a></p></div>				
+			</div>
+		</div>
+		<div class="barre">&nbsp;</div>
+		<div class="s_global">	
+			<div id="menu" class="hideprint"  style=" position:relative; visibility:visible; display:block; float:left;">
+<form name="formindex" method="get" >
+	<input type="hidden" name="stylemenu" value=1 />
+</form>
+				<script language="javascript">
+<!--
+function change_dept()
+{
+var e=document.getElementsByName('chgdept');
+if (e[0].value!='')
+    {
+    rep=ajax("../aj_chgdept.php?code="+e[0].value);
+    //alert(rep);
+	if (rep=="ok") this.document.testform.submit();
+	}
+}
+
+function change_annee()
+{
+var e=document.getElementsByName('chgannee');
+if (e[0].value!='')
+    {
+	if (ajax("../aj_chgannee.php?code="+e[0].value)=="ok") this.document.testform.submit();
+	}
+}
+//-->
+</script>	
+<div class="s_profil">
+	<img src="../images/profil_etu.png" style="margin-left:2px;width:50px;" alt="" title="" align="left" />
+	<p>Utilisateur : sdoignon<br/>Dépt : SRC		<br />
+		Année : <select class="combobox" style="z-index:0; position:static; width:60px;" name="chgannee" id="chgannee"  onchange="change_annee();" ><option value='2012' >2012-2013</option>
+ </select><br />
+		Profil : 100100999999<br />
+	</p>
+</div>					<div class="hideprint">
+					<br/><div class="menutitre"><p style="margin-top: 5px; margin-left: 10px; padding: 0px;"><a href="index.php?page_param=accueil.php&cat=0&numpage=1&niv=1&clef=/305/">Emplois du temps</a></p></div><img src="./images/menu_corner_hd.gif" alt="" border="0px" style="padding: 0px; margin-left: -3px;" /><br/>      					</div>	
+			</div>
+			<div id="menuplie" style="height:56px; float:left;  background-image:url(images/menubar.gif); width:15px; background-repeat:no-repeat;" onclick="javascript:switchdiv('hide','menu');" class="handcursor"> </div>
+			<div name="menubar" id="menubar" style="float:left; position:relative; visibility:hidden;display:none; background-image:url(./images/menubar2.gif); background-repeat:no-repeat; width:15px; height:49px;" onclick="javascript:switchdiv('show','menu');"> </div>
+			<div class="s_contener" style="border-left:6px solid #828995; ">	
+			<br /><br /><br />
+<table>
+	<tr>
+		<td valign="top"><br />
+			<h1>BIENVENUE SUR SATELLYS GPU</h1>
+			<p>Avec SATELLYS GPU, vous avez la possibilité de <strong>consulter vos emplois du temps à distance.</strong>
+			<br/>
+			<br/>SATELLYS GPU est <strong>accessible partout</strong> où vous disposez d'une connexion internet ! 
+			<br/>Il est <strong>compatible avec la majorité des navigateurs internet.</strong>
+			<br/>
+			<br/>
+					
+			</p>
+		</td>
+        <td><img src="images/GPU_accueil.gif" > </td>
+	</tr>
+</table>
+
+		
+	
+			</div>
+		</div>
+		<div class="s_footer"  style="margin-top: 20px;" >Satellys est un produit Dynamisoft<sup>&copy;</sup>.</div>
+		<script language="Javascript">
+		affichediv("menu");
+		</script>
+	</body>
+</html>BEGIN:VCALENDAR
 PRODID: Gpu2vcs modified by Dynamisoft
 VERSION:2.0
 METHOD:PUBLISH
@@ -4172,7 +7762,266 @@ PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 END:VCALENDAR
-BEGIN:VCALENDAR
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Satellys</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="fr" http-equiv="Content-Language" />
+	<meta name="description" content="Dynamisoft" />
+	<meta name="keywords" content="dynamisoft" />
+	<meta name="robots" content="index,follow" />
+	<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+	<link rel="stylesheet" href="gpu.css" type="text/css" />	
+	<link rel="stylesheet" type="text/css" href="print_gpu.css" media="print" />
+	<link rel="stylesheet" href="../sat/satellys.css" type="text/css" />
+		<script type="text/javascript">
+	<!--
+	function externalLinks(){ 
+		if(!document.getElementsByTagName) return; 
+		var anchors = document.getElementsByTagName("a"); 
+		for (var i=0; i<anchors.length; i++){ 
+			var anchor = anchors[i]; 
+			if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") 
+				anchor.target = "_blank"; 
+		} 
+	} 
+	window.onload = externalLinks;
+	function EcrireCookie(nom, valeur)
+	{
+	
+	var argv=EcrireCookie.arguments;
+	var argc=EcrireCookie.arguments.length;
+	var expires=(argc > 2) ? argv[2] : null;
+	var path=(argc > 3) ? argv[3] : null;
+	var domain=(argc > 4) ? argv[4] : null;
+	var secure=(argc > 5) ? argv[5] : false;
+	document.cookie=nom+"="+escape(valeur)+
+	((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
+	((path==null) ? "" : ("; path="+path))+
+	((domain==null) ? "" : ("; domain="+domain))+
+	((secure==true) ? "; secure" : "");
+	
+	}
+		
+	function getCookieVal(offset)
+	{
+		var endstr=document.cookie.indexOf (";", offset);
+		if (endstr==-1) endstr=document.cookie.length;
+		return unescape(document.cookie.substring(offset, endstr)); 
+	}
+	function LireCookie(nom)
+	{
+		var arg=nom+"=";
+		var alen=arg.length;
+		var clen=document.cookie.length;
+		var i=0;
+		while (i<clen)
+		{
+			var j=i+alen;
+			if (document.cookie.substring(i, j)==arg) return getCookieVal(j);
+			i=document.cookie.indexOf(" ",i)+1;
+			if (i==0) break;
+		}
+		return null; 
+	}
+	
+	function switchdiv(act,_div){
+			date=new Date;
+			date.setMonth(date.getMonth()+1);
+			if (act=="hide") {
+				EcrireCookie(_div, 0, date);
+				if (document.getElementById(_div).style.visibility!="hidden"){
+					document.getElementById(_div).style.visibility="hidden";
+					document.getElementById(_div).style.display='none';
+					document.getElementById(_div+"bar").style.visibility="visible";
+					document.getElementById(_div+"bar").style.display='block';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="hidden";
+						e.style.display='none';
+						}
+				}
+			}
+			if (act=="show"){
+				EcrireCookie(_div, 1, date);
+				if (document.getElementById(_div).style.visibility!="visible"){
+					document.getElementById(_div).style.visibility="visible";
+					document.getElementById(_div).style.display='block';
+					document.getElementById(_div+"bar").style.visibility="hidden";
+					document.getElementById(_div+"bar").style.display='none';
+					var e = document.getElementById(_div+"plie");
+					if (e) {
+						e.style.visibility="visible";
+						e.style.display='block';
+						}
+				}
+			}
+		}
+		
+	function affichediv(_div){
+		if (LireCookie(_div)==0) 
+			{
+			document.getElementById(_div).style.visibility="hidden";
+			document.getElementById(_div).style.display='none';
+			document.getElementById(_div+"bar").style.visibility="visible";
+			document.getElementById(_div+"bar").style.display='block';
+			var e = document.getElementById(_div+"plie");
+			if (e) {
+				e.style.visibility="hidden";
+				e.style.display='none';
+				}
+			}
+	}
+	
+	function ajax(ppage)
+	{
+	    var xhr=null;
+	    
+	    if (window.XMLHttpRequest) { 
+	        xhr = new XMLHttpRequest();
+	    }
+	    else if (window.ActiveXObject) 
+	    {
+	        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    //on appelle le fichier ppage
+	    xhr.open("GET", ppage, false);
+	    xhr.send(null);
+	    
+	    return xhr.responseText;
+	}
+	
+	
+	function descendMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0) {
+		window.document.getElementById("menu").style.top =  window.document.body.scrollTop-0+'px';
+		window.document.getElementById("menubar").style.top =  window.document.body.scrollTop-0+'px';
+		}
+	}
+	
+	function figerMenu()
+	{
+	if (this.document.formindex.stylemenu.value==0)
+	    {
+		ajax("./setvar.php?nomvar=stylemenu&valeur=1");
+		this.document.formindex.stylemenu.value=1;
+		document.imgclou.src="images/punaise_on.gif";
+		}
+		else {
+			ajax("./setvar.php?nomvar=stylemenu&valeur=0");
+			this.document.formindex.stylemenu.value=0;
+			document.imgclou.src="images/punaise_off.gif";
+			}
+	}
+	
+	function Ouvrecentree(page,largeur,hauteur,options)
+	{
+		var top=(screen.height-hauteur)/2;
+		var left=(screen.width-largeur)/2;
+		if (largeur==0) 
+			{
+			if (hauteur==0)
+				window.open(page,"","top=2,left=2,"+options);
+				else window.open(page,"","top="+top+",left=2, height="+hauteur+","+options);
+			}
+			else 
+			{
+	    	if (hauteur==0)
+	    		window.open(page,"","top=2,left="+left+",width="+largeur+","+options);
+	    		else
+	    	    window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+	    	}
+	}
+	//-->
+	</script>		 
+</head>
+<body>
+		<form name="testform" id="testform" >
+		</form>
+		<div class="s_top">
+			<div style="float:left; width: 49%; height: auto;"><img src="../images/votrelogo.png" alt="" style="border:0px solid white; "  title="" /></div>
+			<div style="float:left; width: 50%; height: auto; text-align:right; "><a href="../sat/index.php"><img src="../images/logo satellys.gif" style="border:0px solid white; " alt="" title="" /></a></div>
+			<div class="s_onglets">
+				<div class="ongletGPU"><p style=" margin-top: 5px; padding: 0px;">GPU</p></div>
+				<div class="ongletGDS"><p style=" margin-top: 5px; padding: 0px;">GDS</p></div>
+				<div class="ongletGDE"><p style=" margin-top: 5px; padding: 0px;">GDE</p></div>
+                <div class="ongletGNT"><p style=" margin-top: 5px; padding: 0px;">GNT</p></div>
+				<div style="margin-right: 10px; color: black; float: right; font-size: 12px; height: 33px;"><p style="padding: 0px;"><a class="souligne" href="../sat/index.php?page_param=deconnect.php&module=SAT&cat=0&numpage=1&niv=1&clef=/3003/">D&eacute;connexion</a> - <a class="souligne"  href="../sat/index.php">Accueil SATELLYS</a></p></div>				
+			</div>
+		</div>
+		<div class="barre">&nbsp;</div>
+		<div class="s_global">	
+			<div id="menu" class="hideprint"  style=" position:relative; visibility:visible; display:block; float:left;">
+<form name="formindex" method="get" >
+	<input type="hidden" name="stylemenu" value=1 />
+</form>
+				<script language="javascript">
+<!--
+function change_dept()
+{
+var e=document.getElementsByName('chgdept');
+if (e[0].value!='')
+    {
+    rep=ajax("../aj_chgdept.php?code="+e[0].value);
+    //alert(rep);
+	if (rep=="ok") this.document.testform.submit();
+	}
+}
+
+function change_annee()
+{
+var e=document.getElementsByName('chgannee');
+if (e[0].value!='')
+    {
+	if (ajax("../aj_chgannee.php?code="+e[0].value)=="ok") this.document.testform.submit();
+	}
+}
+//-->
+</script>	
+<div class="s_profil">
+	<img src="../images/profil_etu.png" style="margin-left:2px;width:50px;" alt="" title="" align="left" />
+	<p>Utilisateur : sdoignon<br/>Dépt : SRC		<br />
+		Année : <select class="combobox" style="z-index:0; position:static; width:60px;" name="chgannee" id="chgannee"  onchange="change_annee();" ><option value='2012' >2012-2013</option>
+ </select><br />
+		Profil : 100100999999<br />
+	</p>
+</div>					<div class="hideprint">
+					<br/><div class="menutitre"><p style="margin-top: 5px; margin-left: 10px; padding: 0px;"><a href="index.php?page_param=accueil.php&cat=0&numpage=1&niv=1&clef=/305/">Emplois du temps</a></p></div><img src="./images/menu_corner_hd.gif" alt="" border="0px" style="padding: 0px; margin-left: -3px;" /><br/>      					</div>	
+			</div>
+			<div id="menuplie" style="height:56px; float:left;  background-image:url(images/menubar.gif); width:15px; background-repeat:no-repeat;" onclick="javascript:switchdiv('hide','menu');" class="handcursor"> </div>
+			<div name="menubar" id="menubar" style="float:left; position:relative; visibility:hidden;display:none; background-image:url(./images/menubar2.gif); background-repeat:no-repeat; width:15px; height:49px;" onclick="javascript:switchdiv('show','menu');"> </div>
+			<div class="s_contener" style="border-left:6px solid #828995; ">	
+			<br /><br /><br />
+<table>
+	<tr>
+		<td valign="top"><br />
+			<h1>BIENVENUE SUR SATELLYS GPU</h1>
+			<p>Avec SATELLYS GPU, vous avez la possibilité de <strong>consulter vos emplois du temps à distance.</strong>
+			<br/>
+			<br/>SATELLYS GPU est <strong>accessible partout</strong> où vous disposez d'une connexion internet ! 
+			<br/>Il est <strong>compatible avec la majorité des navigateurs internet.</strong>
+			<br/>
+			<br/>
+					
+			</p>
+		</td>
+        <td><img src="images/GPU_accueil.gif" > </td>
+	</tr>
+</table>
+
+		
+	
+			</div>
+		</div>
+		<div class="s_footer"  style="margin-top: 20px;" >Satellys est un produit Dynamisoft<sup>&copy;</sup>.</div>
+		<script language="Javascript">
+		affichediv("menu");
+		</script>
+	</body>
+</html>BEGIN:VCALENDAR
 PRODID: Gpu2vcs modified by Dynamisoft
 VERSION:2.0
 METHOD:PUBLISH
