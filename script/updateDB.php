@@ -7,14 +7,13 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 // Connexion BDD
-//$bdd = new PDO('mysql:host=localhost;dbname=PIWAKE', 'root', 'sql');
 $bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", "buddy", "sqlbuddy");
 
 // On flush tout pour éviter les doublons			
-$bdd->exec("DELETE FROM EDT WHERE 1") ; 
+$bdd->exec("DELETE FROM EDT_SRC WHERE 1") ; 
 
 
-$lines = file('/usr/share/nginx/www/piwake/vcs/VCSALL');
+$lines = file('/usr/share/nginx/www/piwake/vcs/SRC/VCSALL');
 
 	foreach ($lines as $lineNumber => $lineContent) // Pour chaque ligne
     {
@@ -83,7 +82,7 @@ $lines = file('/usr/share/nginx/www/piwake/vcs/VCSALL');
 			
 			
 					
-			$req  = $bdd->prepare("INSERT INTO EDT (semestre, semaine, nomJour, annee, mois, jour, matiere, prof, salle, type, startHeure, endHeure) VALUES (:semestre, :semaine, :nomJour, :annee, :mois, :jour, :matiere, :prof, :salle, :type, :startHeure, :endHeure)");
+			$req  = $bdd->prepare("INSERT INTO EDT_SRC (semestre, semaine, nomJour, annee, mois, jour, matiere, prof, salle, type, startHeure, endHeure) VALUES (:semestre, :semaine, :nomJour, :annee, :mois, :jour, :matiere, :prof, :salle, :type, :startHeure, :endHeure)");
 			
 			$req->execute(
 				array(

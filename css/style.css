@@ -60,7 +60,7 @@ font-size : 0.7em ;
 #formulaire
 {
 font-size : 1.1em ;
-width : 360px;
+width : 425px;
 height : 29px ;
 margin :0  auto ;
 padding-bottom : 2px ;
@@ -315,6 +315,11 @@ background-color : #9C0 ;
 background-color : #BC1142;
 }
 
+#selectAnnee
+{
+-webkit-appearance: none;
+background-color : #CCC;
+}
 
 /* Select Dropdown */
 

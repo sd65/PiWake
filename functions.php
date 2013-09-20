@@ -3,8 +3,8 @@
 function drawTimeTableSelective ($nomJour, $jour, $mois, $tp, $td, $semaine, $bdd) 
 {
 	
-	$requeteCours = "SELECT * FROM EDT 
-	LEFT JOIN NOMSPROFS ON EDT.prof = NOMSPROFS.name
+	$requeteCours = "SELECT * FROM EDT_SRC 
+	LEFT JOIN NOMSPROFS ON EDT_SRC.prof = NOMSPROFS.name
 	WHERE type='" .$tp ."' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
 	" OR type='" .$td ."' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
 	" OR type='SRC_S3' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
@@ -79,7 +79,7 @@ function drawTimeTableSelective ($nomJour, $jour, $mois, $tp, $td, $semaine, $bd
 function drawTimeTableGlobal($nomJour, $jour, $mois, $semaine, $bdd) 
 {
 	
-	$requeteCours = "SELECT * FROM EDT 
+	$requeteCours = "SELECT * FROM EDT_SRC 
 
 	WHERE semaine=" . $semaine ." AND jour='". $jour ."'
 	ORDER BY startHeure, type" ;

@@ -7,11 +7,13 @@ if (!empty($_POST)) // Si on soumet le formulaire
 	setcookie('enreg_tp', $_POST['tp'], time() + 365*24*3600, null, null,false, true); 
 	setcookie('enreg_td', $_POST['td'], time() + 365*24*3600, null, null,false, true); 
 	setcookie('enreg_vue', $_POST['vue'], time() + 365*24*3600, null, null,false, true); 
+	setcookie('enreg_annee', $_POST['annee'], time() + 365*24*3600, null, null,false, true); 
 	
 	$td = $_POST['td'] ;
 	$tp = $_POST['tp'] ;
 	$semaine = $_POST['semaine'] ;
 	$vue = $_POST['vue'] ;
+	$annee = $_POST['annee'] ;
 }
 else
 {
@@ -21,12 +23,14 @@ else
 	       	$tp = $_COOKIE['enreg_tp'] ;
 	        $semaine = $_COOKIE['enreg_semaine'] ;
         	$vue = $_COOKIE['enreg_vue'] ;
+        	$annee = $_COOKIE['enreg_annee'] ;
 	}
 	else
 	{
 		$td = 1 ;
 	        $tp = 1 ;
 	        $vue = 1 ;
+	        $annee = "SRC";
 	        
 	        if(date(N) == 5 && date(G) > 19) // Si vendredi et plus de 19h
 	        	$semaine = date('W') + 1;
@@ -79,8 +83,11 @@ include_once "functions.php" ;
 			
 			<form action="index.php" method="post">
 			
-			<?php /* Inutile mais cool :  echo ($vue) ? "1" : "0" ; */ ?>
-				
+			<select id="selectAnnee" name="annee" onchange="this.form.submit()">
+				<option <?php if($annee=="SRC"){echo "selected" ;}?> value="SRC">SRC</option>
+				<option <?php if($annee=="MMI"){echo "selected" ;}?> value="MMI">MMI</option>
+			</select> 
+				/			
 			<select id="selectVue" name="vue" onchange="this.form.submit()">
 				<option <?php if($vue==1){echo "selected" ;}?> value="1">Selon</option>
 				<option <?php if($vue==0){echo "selected" ;}?> value="0">Tout</option>
@@ -154,7 +161,7 @@ include_once "functions.php" ;
 
 	
 	
-		$requeteMois = $bdd->query("SELECT DISTINCT nomJour, jour, mois FROM EDT WHERE 
+		$requeteMois = $bdd->query("SELECT DISTINCT nomJour, jour, mois FROM EDT_SRC WHERE 
 		type='" .$tp . "' AND semaine=" . $semaine . 
 		" OR type='" .$td . "' AND semaine=" . $semaine .
 		" OR type='SRC_S3' AND semaine=" . $semaine .  " ORDER BY jour") ;
