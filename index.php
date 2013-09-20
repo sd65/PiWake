@@ -17,17 +17,22 @@ else
 {
 	if (!empty($_COOKIE)) //Si on revient sur PiWake avec des Cookies remplis
 	{
-	$td = $_COOKIE['enreg_td'] ;
-       	$tp = $_COOKIE['enreg_tp'] ;
-        $semaine = $_COOKIE['enreg_semaine'] ;
-        $vue = $_COOKIE['enreg_vue'] ;
+		$td = $_COOKIE['enreg_td'] ;
+	       	$tp = $_COOKIE['enreg_tp'] ;
+	        $semaine = $_COOKIE['enreg_semaine'] ;
+        	$vue = $_COOKIE['enreg_vue'] ;
 	}
 	else
 	{
-	$td = 1 ;
-        $tp = 1 ;
-        $semaine = date('W') ;
-        $vue = 1 ;
+		$td = 1 ;
+	        $tp = 1 ;
+	        $vue = 1 ;
+	        
+	        if(date(N) == 5 && date(G) > 19) // Si vendredi et plus de 19h
+	        	$semaine = date('W') + 1;
+	        else
+	        	$semaine = date('W') ;
+        
 	}
 
 }
@@ -54,7 +59,7 @@ include_once "functions.php" ;
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,200,100' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300' rel='stylesheet' type='text/css'>
 	<script src="script/jquery.js" type="text/javascript"></script>
-	<script src="script/b.js" type="text/javascript"></script>
+	<script src="script/script1.js" type="text/javascript"></script>
 </head>
 
 
@@ -96,7 +101,7 @@ include_once "functions.php" ;
 			<select id="selectSemaine" name="semaine" onchange="this.form.submit()" >
 
 			<?php
-			$intervale_start=38;
+			$intervale_start= date(W) ;
 			$intervale_end=52;
 			for(;$intervale_start <= $intervale_end;$intervale_start++) {
 			?>
