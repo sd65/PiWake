@@ -181,7 +181,7 @@ include_once "functions.php" ;
 	
 	
 		<div id="footer">	
-			<a href="https://github.com/sd65/PiWake" title="Le site du projet">All rights reserved &#183; <img src="cat.png" alt="Calendar Mew"/> &#183; Explore on GitHub</a>
+			<a href="https://github.com/sd65/PiWake" title="Le site du projet">All rights reserved &#183; <img src="picture/cat.png" alt="Calendar Mew"/> &#183; Explore on GitHub</a>
 		</div>
 
 	</div> <!-- Fin du Tableau -->
