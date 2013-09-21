@@ -41,10 +41,9 @@ else
 
 }
 
-
-
-// Connexion
-$bdd = new PDO('mysql:host=localhost;dbname=PIWAKE;charset=utf8', 'buddy', 'sqlbuddy');
+// Connexion BDD
+include_once "config/piwake_conf.php" ;
+$bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", $usernameDB, $passwordDB);
 
 //Link
 include_once "functions.php" ;

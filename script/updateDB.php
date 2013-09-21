@@ -7,7 +7,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 // Connexion BDD
-$bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", "buddy", "sqlbuddy");
+include_once "../config/piwake_conf.php" ;
+$bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", $usernameDB, $passwordDB);
 
 // On flush tout pour éviter les doublons			
 $bdd->exec("DELETE FROM EDT_SRC WHERE 1") ; 

@@ -1,0 +1,9 @@
+<?php
+
+//Database info
+// Must be filled and renamed to "piwake_conf.php"
+
+$usernameDB="";
+$passwordDB="";
+
+?>
