@@ -16,14 +16,12 @@ $bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", $usernameDB, $
 <html lang="fr">
 
 <head>	
-	<title>PiWake 3.1</title>
+	<title>PiWake</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,200,100' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300' rel='stylesheet' type='text/css'>
-	<script src="script/jquery.js" type="text/javascript"></script>
-	<script src="script/script1.js" type="text/javascript"></script>
 </head>
 
 
@@ -33,7 +31,7 @@ $bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", $usernameDB, $
 
 	<div id="head">
 
-		<h1>PiWake <span class="trucUseless">3<span id="petiteVersion">.1</span></span></h1>
+		<h1>PiWake <span class="trucUseless">3<span id="petiteVersion">.2</span></span></h1>
 
 
 		<h2><span class="trucUseless">S</span>imple <span class="trucUseless">R</span>apide <span class="trucUseless">C</span>onnecté</h2>
@@ -148,5 +146,9 @@ $bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", $usernameDB, $
 </div> <!-- Fin du Wrapp -->
 
 </body>
+
+<script src="script/jquery.js" type="text/javascript"></script>
+<script src="script/script1.js" type="text/javascript"></script>
+<script src="script/konami.js" type="text/javascript"></script>
 
 </html>

@@ -105,7 +105,6 @@ $lines = file('/usr/share/nginx/www/piwake/vcs/SRC/VCSALL');
 					'endHeure' => $endHeure
 					)
 			);
-			
 				
 			// Pour jump prochain begin
 			$lineNumber += 11 ;
