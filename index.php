@@ -1,53 +1,14 @@
 <?php
 
-//Cookie !
-if (!empty($_POST)) // Si on soumet le formulaire
-{
-	setcookie('enreg_semaine', $_POST['semaine'], time() + 365*24*3600, null, null,false, true); 
-	setcookie('enreg_tp', $_POST['tp'], time() + 365*24*3600, null, null,false, true); 
-	setcookie('enreg_td', $_POST['td'], time() + 365*24*3600, null, null,false, true); 
-	setcookie('enreg_vue', $_POST['vue'], time() + 365*24*3600, null, null,false, true); 
-	setcookie('enreg_annee', $_POST['annee'], time() + 365*24*3600, null, null,false, true); 
-	
-	$td = $_POST['td'] ;
-	$tp = $_POST['tp'] ;
-	$semaine = $_POST['semaine'] ;
-	$vue = $_POST['vue'] ;
-	$annee = $_POST['annee'] ;
-}
-else
-{
-	if (!empty($_COOKIE)) //Si on revient sur PiWake avec des Cookies remplis
-	{
-		$td = $_COOKIE['enreg_td'] ;
-	       	$tp = $_COOKIE['enreg_tp'] ;
-	        $semaine = $_COOKIE['enreg_semaine'] ;
-        	$vue = $_COOKIE['enreg_vue'] ;
-        	$annee = $_COOKIE['enreg_annee'] ;
-	}
-	else
-	{
-		$td = 1 ;
-	        $tp = 1 ;
-	        $vue = 1 ;
-	        $annee = "SRC";
-	        
-	        if(date(N) == 5 && date(G) > 19) // Si vendredi et plus de 19h
-	        	$semaine = date('W') + 1;
-	        else
-	        	$semaine = date('W') ;
-        
-	}
-
-}
+// Includes
+include_once "include/cookies_check.php" ;
+include_once "include/functions.php" ;
+include_once "include/tp_select.php" ;
 
 // Connexion BDD
 include_once "config/piwake_conf.php" ;
+
 $bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", $usernameDB, $passwordDB);
-
-//Link
-include_once "functions.php" ;
-
 
 ?>
 
@@ -81,7 +42,7 @@ include_once "functions.php" ;
 		<div id="formulaire"> 
 			
 			<form action="index.php" method="post">
-			
+
 			<select id="selectAnnee" name="annee" onchange="this.form.submit()">
 				<option <?php if($annee=="SRC"){echo "selected" ;}?> value="SRC">SRC</option>
 				<option <?php if($annee=="MMI"){echo "selected" ;}?> value="MMI">MMI</option>
@@ -117,8 +78,6 @@ include_once "functions.php" ;
 			</form>
 				
 		</div>  <!-- Fin du formulaire -->
-
-
 	
 	</div>  <!-- Fin du Head -->
 
@@ -139,31 +98,25 @@ include_once "functions.php" ;
 				</tr>
 			</thead>
 			
-			</body>
+			<tbody>
 		
 		<?php
-	
-		if ($td == 1)
-			$td = "SRC_S3A" ;
 		
-		if ($td == 2)
-		    $td = "SRC_S3B" ;
-
-	 	if ($tp == 1)
-		    $tp = "SRC_S3A1" ;
-
-	 	if ($tp == 2)
-		    $tp = "SRC_S3A2" ;
-
-	 	if ($tp == 3)
-		    $tp = "SRC_S3B1" ;
-
-	
-	
+		if ($annee == "SRC") {
+		
 		$requeteMois = $bdd->query("SELECT DISTINCT nomJour, jour, mois FROM EDT_SRC WHERE 
-		type='" .$tp . "' AND semaine=" . $semaine . 
-		" OR type='" .$td . "' AND semaine=" . $semaine .
+		type='" .$tp_code . "' AND semaine=" . $semaine . 
+		" OR type='" .$td_code . "' AND semaine=" . $semaine .
 		" OR type='SRC_S3' AND semaine=" . $semaine .  " ORDER BY jour") ;
+		
+		} else {
+		
+		$requeteMois = $bdd->query("SELECT DISTINCT nomJour, jour, mois FROM EDT_MMI WHERE 
+		type='" .$tp_code . "' AND semaine=" . $semaine . 
+		" OR type='" .$td_code . "' AND semaine=" . $semaine .
+		" OR type='MMI_S1' AND semaine=" . $semaine .  " ORDER BY jour") ;
+		
+		}
 	
 		$nomMois = array("Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"); 
 	
@@ -172,9 +125,9 @@ include_once "functions.php" ;
 			echo '<tr>' ;
 			
 				if ($vue==1)
-					drawTimeTableSelective($lines['nomJour'], $lines['jour'], $nomMois[--$lines['mois']], $tp, $td, $semaine,$bdd) ; 
+					drawTimeTableSelective($lines['nomJour'], $lines['jour'], $nomMois[--$lines['mois']], $tp_code, $td_code, $semaine,$bdd, $annee) ; 
 				else
-					drawTimeTableGlobal($lines['nomJour'], $lines['jour'], $nomMois[--$lines['mois']], $semaine,$bdd) ; 
+					drawTimeTableGlobal($lines['nomJour'], $lines['jour'], $nomMois[--$lines['mois']], $semaine,$bdd, $annee) ; 
 					
 			echo "</tr>" ;
 	
