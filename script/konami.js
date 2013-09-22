@@ -4,7 +4,7 @@ if ( window.addEventListener ) {
 		kkeys.push( e.keyCode );
 		if ( kkeys.toString().indexOf( konami ) >= 0 ) {
 			$("table").fadeOut( "slow", function() {
-				$(this).html("<img src='picture/lolcat.gif' />").fadeIn("slow");
+				$(this).html("<img src='picture/lolcat.gif' style='border-radius:100px' />").fadeIn("slow");
 			});
 		}
 	}, true);

@@ -66,7 +66,7 @@ $bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", $usernameDB, $
 			<select id="selectSemaine" name="semaine" onchange="this.form.submit()" >
 
 			<?php
-			$intervale_start= date(W) ;
+			$intervale_start= date('W') ;
 			$intervale_end=52;
 			for(;$intervale_start <= $intervale_end;$intervale_start++) {
 			?>
@@ -138,7 +138,7 @@ $bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", $usernameDB, $
 	
 	
 		<div id="footer">	
-			<a href="https://github.com/sd65/PiWake" title="Le site du projet">All rights reserved &#183; <img src="picture/cat.png" alt="Calendar Mew"/> &#183; Explore on GitHub</a>
+			<a href="https://github.com/sd65/PiWake" title="Le site du projet">All rights reserved &#183; <img src="picture/cat.png" width="24px" height="24px" alt="Calendar Mew"/> &#183; Explore on GitHub</a>
 		</div>
 
 	</div> <!-- Fin du Tableau -->
@@ -146,7 +146,6 @@ $bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", $usernameDB, $
 </div> <!-- Fin du Wrapp -->
 
 </body>
-
 <script src="script/jquery.js" type="text/javascript"></script>
 <script src="script/script1.js" type="text/javascript"></script>
 <script src="script/konami.js" type="text/javascript"></script>

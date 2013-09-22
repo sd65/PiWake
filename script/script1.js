@@ -6,9 +6,15 @@ $(document).ready(function() {
 		
 			$(".jourProf:contains('Bornerie')").slideUp( function() {
 			
-				$(".jourProf:contains('Bornerie')").slideDown().text("#Censuré#") ;
+				$(this).slideDown().text("#Censuré#") ;
 		
-			});
+			})
+			
+			$(".jourProf:contains('#Censuré#')").slideUp( function() {
+			
+				$(this).slideDown().text("Bornerie") ;
+		
+			})
 	
 		}
 
