@@ -24,7 +24,7 @@ $(document).ready(function() {
 		if(e.ctrlKey && e.which === 86){ 
 
 			$("tbody tr").find("td:gt(1)").remove();
-			$("tbody tr").find("td").next().attr("colspan","21").html("<p class='jourProf'>Vacances générales</p>");
+			$("tbody tr").attr("colspan","21").find("td").next().html("<p class='jourProf'>Vacances générales</p>");
 			
 			e.preventDefault();
 			return false;

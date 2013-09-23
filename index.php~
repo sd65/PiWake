@@ -69,7 +69,7 @@ $bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", $usernameDB, $
 			$intervale_end=52;
 			for(;$intervale_start <= $intervale_end;$intervale_start++) {
 			?>
-				<option <?php if($semaine==$intervale_start){echo "selected" ;}?> value="<?php echo $intervale_start ?> "><?php echo "Semaine " . $intervale_start ?></option>
+				<option <?php if($semaine==$intervale_start){echo "selected" ;}?> value="<?php echo $intervale_start ?> "><?php echo "Semaine" . $intervale_start ?></option>
 			<?php } ?>
 			</select>
 			</form>
