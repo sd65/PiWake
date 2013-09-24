@@ -1,6 +1,6 @@
 <?php
 
-if ($annee == "SRC") {
+if ($filiere == "SRC") {
 
 if ($td == 1)
     $td_code = "SRC_S3A" ;
@@ -17,7 +17,7 @@ if ($tp == 2)
 if ($tp == 3)
     $tp_code = "SRC_S3B1" ;
 
-} else {
+} else if ($filiere == "MMI") {
 
 if ($td == 1)
     $td_code = "MMI_S1A" ;
@@ -34,6 +34,9 @@ if ($tp == 2)
 if ($tp == 3)
     $tp_code = "MMI_S1B1" ;
 
+} else {
+    $tp_code = "" ;
+    $td_code = "" ;
 }
 
 ?>

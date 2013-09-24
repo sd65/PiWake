@@ -1,33 +1,38 @@
 <?php
 
-function drawTimeTableSelective ($nomJour, $jour, $mois, $tp, $td, $semaine, $bdd, $annee) 
+function drawTimeTableSelective ($nomJour, $jour, $mois, $tp, $td, $semaine, $bdd, $filiere) 
 {
-	if ($annee == "SRC") { 
+	if ($filiere == "SRC" || $filiere == "PUB_2") {
+		$semestre = "S3" ;
+	}
+	else if ($filiere == "PUB_1" || $filiere == "MMI") {
+		$semestre = "S1" ;
+	}
 
-		$requeteCours = "SELECT * FROM EDT_SRC 
-		LEFT JOIN NOMSPROFS ON EDT_SRC.prof = NOMSPROFS.name
-		WHERE type='" .$tp ."' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
-		" OR type='" .$td ."' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
-		" OR type='SRC_S3' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
-		" OR type LIKE 'S3_LV2_%' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
-		" ORDER BY startHeure" ;
-		
+	if ($filiere == "SRC" || $filiere == "MMI") {
 
-		$requeteCours = $bdd->query($requeteCours) ;
-		
-		
+	$requeteCours = "SELECT * FROM EDT_" . $filiere ."  LEFT JOIN NOMSPROFS ON EDT_" . $filiere .".prof = NOMSPROFS.name WHERE (type='" .$tp ."' OR type='" .$td ."' OR type='" . $filiere . "_" . $semestre . "' OR type LIKE 'LV2') AND nomJour='" . $nomJour . "' AND semaine=" . $semaine . " ORDER BY startHeure" ;
+	
+	}
+	if($filiere == "PUB_1" || $filiere == "PUB_2") {
+
+	$requeteCours = "SELECT * FROM EDT_" . $filiere ."  LEFT JOIN NOMSPROFS ON EDT_" . $filiere .".prof = NOMSPROFS.name WHERE nomJour='" . $nomJour . "' AND semaine=" . $semaine . " ORDER BY startHeure" ;
+	}
+
+	$requeteCours = $bdd->query($requeteCours) ;
+
 		// Titre
-		echo "<td class=\"tjour\" ><p class=\"pjour\"><span class=\"jourJour\"> " . substr($nomJour,0,3) . ".</span> 
-		<span class=\"jourNum\">" . $jour . "</span><br/>
-		<span class=\"jourMois\">" . $mois . "</span></p></td>" ;
+	echo "<td class=\"tjour\" ><p class=\"pjour\"><span class=\"jourJour\"> " . substr($nomJour,0,3) . ".</span> 
+	<span class=\"jourNum\">" . $jour . "</span><br/>
+	<span class=\"jourMois\">" . $mois . "</span></p></td>" ;
 
-		$lastCours = 9 ;
-		
+	$lastCours = 9 ;
+
 		// Infos
-		while ($lines = $requeteCours->fetch()) 
-		{
+	while ($lines = $requeteCours->fetch()) 
+	{
 
-			$duree = $lines['endHeure'] - $lines['startHeure'] ;
+		$duree = $lines['endHeure'] - $lines['startHeure'] ;
 			$duree *= 2 ; //Les demi-heures
 
 			if ($lastCours < $lines['startHeure']) //Si un trou d'emploi du temps, on rajoute du vide
@@ -41,28 +46,28 @@ function drawTimeTableSelective ($nomJour, $jour, $mois, $tp, $td, $semaine, $bd
 			if ($lastCours !== $lines['endHeure']) { // Il ne peut pas voir deux cours en meme temps
 
 				$lastCours = $lines['endHeure'] ;
-			
+
 				//Calcul des couleurs
-			
-			
+
+
 				if (strlen($lines['type']) == 6)
 					$couleur = "couleurClasseEntiere" ;
-			
+
 				if (strlen($lines['type']) == 7)
 					$couleur = "couleurTD" ;
 
 				if (strlen($lines['type']) == 8)
 					$couleur = "couleurTP" ;
-					
+
 				if (strlen($lines['type']) > 8)
 					$lines['matiere'] = "LV2" ;
-			
+
 				echo "<td class=\"$couleur\"  colspan=" . $duree  .">
 				<div class=\"cellule\">
 				<p class=\"jourMatiere\">" . $lines['matiere'] . "</p>
 				<p class=\"jourProf\">" . $lines['realName'] ."</p>
 				<p class=\"jourSalle\">". $lines['salle'] . "</div></p></td>";
-			
+
 			}
 			
 		} // Fin du While
@@ -74,80 +79,7 @@ function drawTimeTableSelective ($nomJour, $jour, $mois, $tp, $td, $semaine, $bd
 			echo "<td class=\"vide\" colspan=" . $delta  . "></td>" ;
 		}
 
-	} else { // Si MMI
 
-		$requeteCours = "SELECT * FROM EDT_MMI
-		LEFT JOIN NOMSPROFS ON EDT_MMI.prof = NOMSPROFS.name
-		WHERE type='" .$tp ."' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
-		" OR type='" .$td ."' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
-		" OR type='MMI_S1' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
-		" OR type LIKE 'S1_LV2_%' AND nomJour='" . $nomJour . "' AND semaine=" . $semaine .
-		" ORDER BY startHeure" ;
-		
-
-		$requeteCours = $bdd->query($requeteCours) ;
-		
-		
-		// Titre
-		echo "<td class=\"tjour\" ><p class=\"pjour\"><span class=\"jourJour\"> " . substr($nomJour,0,3) . ".</span> 
-		<span class=\"jourNum\">" . $jour . "</span><br/>
-		<span class=\"jourMois\">" . $mois . "</span></p></td>" ;
-
-		$lastCours = 9 ;
-		
-		// Infos
-		while ($lines = $requeteCours->fetch()) 
-		{
-
-			$duree = $lines['endHeure'] - $lines['startHeure'] ;
-			$duree *= 2 ; //Les demi-heures
-
-			if ($lastCours < $lines['startHeure']) //Si un trou d'emploi du temps, on rajoute du vide
-			{
-				$difference =   $lines['startHeure'] - $lastCours   ;
-				$difference *= 2 ;
-				echo "<td  class=\"vide\" colspan=" . $difference ."></td>" ;
-				$lastCours += $difference ;						
-			}
-
-			if ($lastCours !== $lines['endHeure']) { // Il ne peut pas voir deux cours en meme temps
-			
-
-				$lastCours = $lines['endHeure'] ;
-			
-				//Calcul des couleurs
-			
-			
-				if (strlen($lines['type']) == 6)
-					$couleur = "couleurClasseEntiere" ;
-			
-				if (strlen($lines['type']) == 7)
-					$couleur = "couleurTD" ;
-
-				if (strlen($lines['type']) == 8)
-					$couleur = "couleurTP" ;
-					
-				if (strlen($lines['type']) > 8)
-					$lines['matiere'] = "LV2" ;
-			
-				echo "<td class=\"$couleur\"  colspan=" . $duree  .">
-				<div class=\"cellule\">
-				<p class=\"jourMatiere\">" . $lines['matiere'] . "</p>
-				<p class=\"jourProf\">" . $lines['realName'] ."</p>
-				<p class=\"jourSalle\">". $lines['salle'] . "</div></p></td>";
-			
-			}
-			
-		} // Fin du While
-		
-		if ($lastCours<20)
-		{
-			$delta = 20 - $lastCours ;
-			$delta *=2 ;
-			echo "<td class=\"vide\" colspan=" . $delta  . "></td>" ;
-		}
-
-	} // Fin Si MMI
 
 } // Fin de la fonction ///////////////////////////////////////////
 
@@ -160,9 +92,9 @@ function drawTimeTableSelective ($nomJour, $jour, $mois, $tp, $td, $semaine, $bd
 
 
 
-function drawTimeTableGlobal($nomJour, $jour, $mois, $semaine, $bdd, $annee) 
+function drawTimeTableGlobal($nomJour, $jour, $mois, $semaine, $bdd, $filiere) 
 {
-	if ($annee == "SRC") { 
+	if ($filiere == "SRC") { 
 
 		$requeteCours = "SELECT * FROM EDT_SRC 
 		LEFT JOIN NOMSPROFS ON EDT_SRC.prof = NOMSPROFS.name
@@ -250,8 +182,8 @@ function drawTimeTableGlobal($nomJour, $jour, $mois, $semaine, $bdd, $annee)
 			<p class=\"jourSalle\">". $lines['salle'] . "</p></div>";	
 			
 		} // Fin du While
-	
-	
+
+
 		if ($lastCours<20)
 		{
 			$delta = 20 - $lastCours ;
@@ -347,8 +279,8 @@ function drawTimeTableGlobal($nomJour, $jour, $mois, $semaine, $bdd, $annee)
 			<p class=\"jourSalle\">". $lines['salle'] . "</p></div>";	
 			
 		} // Fin du While
-	
-	
+
+
 		if ($lastCours<20)
 		{
 			$delta = 20 - $lastCours ;
