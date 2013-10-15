@@ -37,6 +37,7 @@ foreach ($tabFiliere as $filiere) {
 			
 			//Salle
 			$salle = preg_split("#[\s]#",$description[2]) ;
+			$salle = preg_replace("#AMPHI-60#", "Amphi 2",$salle) ;
 			$salle = $salle[0] ;
 			
 			
@@ -81,9 +82,13 @@ foreach ($tabFiliere as $filiere) {
 			$endMinute = substr ($dEnd, 17, 2) ;
 			$endSeconde = substr ($dEnd, 19, 2) ;
 			
-			
-			$startHeure = $startHeure ; //. $startMinute . $startSeconde ;
-			$endHeure = $endHeure ;//. $endMinute . $endSeconde ;
+			if ($startMinute == 30)
+				$startMinute = 5 ;
+			if ($endMinute == 30)
+				$endMinute = 5 ;
+
+			$startHeure = $startHeure . '.' . $startMinute ; //. $startSeconde ;
+			$endHeure = $endHeure . '.' .  $endMinute ; //. $endSeconde ;
 			
 			
 			echo "Debug : " . $semestre ." # " . $semaine ." # " .$nomJour." # " .$annee." # " .$mois." # " .$jour." # " . $matiere." # " . $prof." # " . $salle. $type. " # " .$startHeure. " # " .$endHeure . " # " . $filiere . "<br/>";

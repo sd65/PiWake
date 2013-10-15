@@ -44,6 +44,11 @@ $(document).ready(function() {
 		$("html").css("background-color","#99CC00");
 		$("h2").html('<span class="trucUselessMMI">M</span>oderne <span class="trucUselessMMI" >M</span>ignon <span class="trucUselessMMI">I</span>ndépendant');
 	}
+
+	if( $("span.jourNum").last().text() == "30" && $("span.jourMois").last().text() == "Septembre") {
+	$("tr").first().after($("tr").last()) ;
+	}
+
 });
 
 

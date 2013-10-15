@@ -11,7 +11,7 @@ function drawTimeTableSelective ($nomJour, $jour, $mois, $tp, $td, $semaine, $bd
 
 	if ($filiere == "SRC" || $filiere == "MMI") {
 
-	$requeteCours = "SELECT * FROM EDT_" . $filiere ."  LEFT JOIN NOMSPROFS ON EDT_" . $filiere .".prof = NOMSPROFS.name WHERE (type='" .$tp ."' OR type='" .$td ."' OR type='" . $filiere . "_" . $semestre . "' OR type LIKE 'LV2') AND nomJour='" . $nomJour . "' AND semaine=" . $semaine . " ORDER BY startHeure" ;
+	$requeteCours = "SELECT * FROM EDT_" . $filiere ."  LEFT JOIN NOMSPROFS ON EDT_" . $filiere .".prof = NOMSPROFS.name WHERE (type='" .$tp ."' OR type='" .$td ."' OR type='" . $filiere . "_" . $semestre . "' OR type LIKE '%LV2%') AND nomJour='" . $nomJour . "' AND semaine=" . $semaine . " ORDER BY startHeure" ;
 	
 	}
 	if($filiere == "PUB_1" || $filiere == "PUB_2") {
