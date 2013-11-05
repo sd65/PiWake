@@ -354,4 +354,11 @@ background-color : #BC1142;
 }
 
 
-
+.rotate {
+padding-top : 138px; 
+transform: rotate(333deg) ;
+-webkit-transform: rotate(333deg) ;
+-moz-transform: rotate(333deg) ;
+-o-transform: rotate(333deg) ;
+-ms-transform: rotate(333deg) ;
+}

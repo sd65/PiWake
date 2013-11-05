@@ -2,6 +2,8 @@
 
 # This file is intented to be used in crontab
 
+cd $0
+
 # Getting Cookie on Sattelys Server
 wget -O /dev/null --keep-session-cookies --save-cookies "cookie/cookie" --post-data "modeconnect=connect&util=sdoignon&acct_pass=123" 'http://syrah.iut.u-bordeaux3.fr/gpu/sat/index.php?page_param=accueilsatellys.php&cat=0&numpage=1&niv=0&clef=/'
 

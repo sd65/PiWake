@@ -73,11 +73,13 @@ foreach ($tabFiliere as $filiere) {
 			$nomJour = $jours[$nomJour-1] ;
 			
 			$startHeure = 2 + substr ($dStart, 17, 2) ; //GMT +2
+			$startHeure = $startHeure -1 ; // Heure d'été
 			if ($startHeure < 10) { $startHeure = "0" . $startHeure ;} //Fix first zero
 			$startMinute = substr ($dStart, 19, 2) ;
 			$startSeconde = substr ($dStart, 21, 2) ;
 			
 			$endHeure = 2 + substr ($dEnd, 15, 2) ;
+			$endHeure = $endHeure -1 ; // Heure d'été
 			if ($endHeure < 10) { $endHeure = "0" . $endHeure ;} 
 			$endMinute = substr ($dEnd, 17, 2) ;
 			$endSeconde = substr ($dEnd, 19, 2) ;

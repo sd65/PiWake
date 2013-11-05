@@ -30,6 +30,13 @@ $(document).ready(function() {
 			return false;
 
 		}
+		 if(e.ctrlKey && e.which === 73){
+
+                        $("#tableau").addClass("rotate");
+                        e.preventDefault();
+                        return false;
+
+                }
 
 
 	});
@@ -48,6 +55,9 @@ $(document).ready(function() {
 	if( $("span.jourNum").last().text() == "30" && $("span.jourMois").last().text() == "Septembre") {
 	$("tr").first().after($("tr").last()) ;
 	}
+
+
+	
 
 });
 
