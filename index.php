@@ -65,8 +65,6 @@ $bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", $usernameDB, $
 					<select id="selectFiliere" name="filiere" onchange="this.form.submit()">
 						<option <?php if($filiere=="SRC"){echo "selected" ;}?> value="SRC">SRC</option>
 						<option <?php if($filiere=="MMI"){echo "selected" ;}?> value="MMI">MMI</option>
-						<option <?php if($filiere=="PUB_1"){echo "selected" ;}?> value="PUB_1">PUB 1A</option>
-						<option <?php if($filiere=="PUB_2"){echo "selected" ;}?> value="PUB_2">PUB 2A</option>
 					</select> 
 					
 					<select id="selectVue" name="vue" onchange="this.form.submit()">
@@ -106,7 +104,6 @@ $bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", $usernameDB, $
 			</div>  <!-- Fin du Head -->
 
 			<?php if ($vue != 1) { ?> <p style="color:grey;font-style:italic;text-align:center;margin:-10px 0 20px 0;">Cette vue de 'tous les cours' est encore expérimentale. Utilisez la en connaissance de cause.</p><?php } ?>
-			<?php if ($filiere == "PUB_2" || $filiere == "PUB_1") { ?> <p style="color:grey;font-style:italic;text-align:center;margin:-10px 0 20px 0;">Cette filière est encore expérimentale. Utilisez la en connaissance de cause.</p><?php } ?>
 
 			<div id="tableau">
 

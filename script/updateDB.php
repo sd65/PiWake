@@ -10,7 +10,7 @@ ini_set('display_errors', 'On');
 include_once "config/piwake_conf.php" ;
 $bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", $usernameDB, $passwordDB);
 
-$tabFiliere = array( "SRC", "MMI", "PUB_1", "PUB_2") ;
+$tabFiliere = array( "SRC", "MMI") ;
 
 
 foreach ($tabFiliere as $filiere) {	

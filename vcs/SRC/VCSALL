@@ -1,651 +1,3 @@
-[H[2J﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
-<head>
-	<title>Satellys</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta content="fr" http-equiv="Content-Language" />
-	<meta name="description" content="Dynamisoft" />
-	<meta name="keywords" content="dynamisoft" />
-	<meta name="robots" content="index,follow" />
-	<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
-	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
-	<link rel="stylesheet" href="gpu.css" type="text/css" />	
-	<link rel="stylesheet" type="text/css" href="print_gpu.css" media="print" />
-	<link rel="stylesheet" href="../sat/satellys.css" type="text/css" />
-		<script type="text/javascript">
-	<!--
-	function externalLinks(){ 
-		if(!document.getElementsByTagName) return; 
-		var anchors = document.getElementsByTagName("a"); 
-		for (var i=0; i<anchors.length; i++){ 
-			var anchor = anchors[i]; 
-			if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") 
-				anchor.target = "_blank"; 
-		} 
-	} 
-	window.onload = externalLinks;
-	function EcrireCookie(nom, valeur)
-	{
-	
-	var argv=EcrireCookie.arguments;
-	var argc=EcrireCookie.arguments.length;
-	var expires=(argc > 2) ? argv[2] : null;
-	var path=(argc > 3) ? argv[3] : null;
-	var domain=(argc > 4) ? argv[4] : null;
-	var secure=(argc > 5) ? argv[5] : false;
-	document.cookie=nom+"="+escape(valeur)+
-	((expires==null) ? "" : ("; expires="+expires.toGMTString()))+
-	((path==null) ? "" : ("; path="+path))+
-	((domain==null) ? "" : ("; domain="+domain))+
-	((secure==true) ? "; secure" : "");
-	
-	}
-		
-	function getCookieVal(offset)
-	{
-		var endstr=document.cookie.indexOf (";", offset);
-		if (endstr==-1) endstr=document.cookie.length;
-		return unescape(document.cookie.substring(offset, endstr)); 
-	}
-	function LireCookie(nom)
-	{
-		var arg=nom+"=";
-		var alen=arg.length;
-		var clen=document.cookie.length;
-		var i=0;
-		while (i<clen)
-		{
-			var j=i+alen;
-			if (document.cookie.substring(i, j)==arg) return getCookieVal(j);
-			i=document.cookie.indexOf(" ",i)+1;
-			if (i==0) break;
-		}
-		return null; 
-	}
-	
-	function switchdiv(act,_div){
-			date=new Date;
-			date.setMonth(date.getMonth()+1);
-			if (act=="hide") {
-				EcrireCookie(_div, 0, date);
-				if (document.getElementById(_div).style.visibility!="hidden"){
-					document.getElementById(_div).style.visibility="hidden";
-					document.getElementById(_div).style.display='none';
-					document.getElementById(_div+"bar").style.visibility="visible";
-					document.getElementById(_div+"bar").style.display='block';
-					var e = document.getElementById(_div+"plie");
-					if (e) {
-						e.style.visibility="hidden";
-						e.style.display='none';
-						}
-				}
-			}
-			if (act=="show"){
-				EcrireCookie(_div, 1, date);
-				if (document.getElementById(_div).style.visibility!="visible"){
-					document.getElementById(_div).style.visibility="visible";
-					document.getElementById(_div).style.display='block';
-					document.getElementById(_div+"bar").style.visibility="hidden";
-					document.getElementById(_div+"bar").style.display='none';
-					var e = document.getElementById(_div+"plie");
-					if (e) {
-						e.style.visibility="visible";
-						e.style.display='block';
-						}
-				}
-			}
-		}
-		
-	function affichediv(_div){
-		if (LireCookie(_div)==0) 
-			{
-			document.getElementById(_div).style.visibility="hidden";
-			document.getElementById(_div).style.display='none';
-			document.getElementById(_div+"bar").style.visibility="visible";
-			document.getElementById(_div+"bar").style.display='block';
-			var e = document.getElementById(_div+"plie");
-			if (e) {
-				e.style.visibility="hidden";
-				e.style.display='none';
-				}
-			}
-	}
-	
-	function ajax(ppage)
-	{
-	    var xhr=null;
-	    
-	    if (window.XMLHttpRequest) { 
-	        xhr = new XMLHttpRequest();
-	    }
-	    else if (window.ActiveXObject) 
-	    {
-	        xhr = new ActiveXObject("Microsoft.XMLHTTP");
-	    }
-	    //on appelle le fichier ppage
-	    xhr.open("GET", ppage, false);
-	    xhr.send(null);
-	    
-	    return xhr.responseText;
-	}
-	
-	
-	function descendMenu()
-	{
-	if (this.document.formindex.stylemenu.value==0) {
-		window.document.getElementById("menu").style.top =  window.document.body.scrollTop-0+'px';
-		window.document.getElementById("menubar").style.top =  window.document.body.scrollTop-0+'px';
-		}
-	}
-	
-	function figerMenu()
-	{
-	if (this.document.formindex.stylemenu.value==0)
-	    {
-		ajax("./setvar.php?nomvar=stylemenu&valeur=1");
-		this.document.formindex.stylemenu.value=1;
-		document.imgclou.src="images/punaise_on.gif";
-		}
-		else {
-			ajax("./setvar.php?nomvar=stylemenu&valeur=0");
-			this.document.formindex.stylemenu.value=0;
-			document.imgclou.src="images/punaise_off.gif";
-			}
-	}
-	
-	function Ouvrecentree(page,largeur,hauteur,options)
-	{
-		var top=(screen.height-hauteur)/2;
-		var left=(screen.width-largeur)/2;
-		if (largeur==0) 
-			{
-			if (hauteur==0)
-				window.open(page,"","top=2,left=2,"+options);
-				else window.open(page,"","top="+top+",left=2, height="+hauteur+","+options);
-			}
-			else 
-			{
-	    	if (hauteur==0)
-	    		window.open(page,"","top=2,left="+left+",width="+largeur+","+options);
-	    		else
-	    	    window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
-	    	}
-	}
-	//-->
-	</script>		 
-</head>
-<body>
-		<form name="testform" id="testform" >
-		</form>
-		<div class="s_top">
-			<div style="float:left; width: 49%; height: auto;"><img src="../images/votrelogo.png" alt="" style="border:0px solid white; "  title="" /></div>
-			<div style="float:left; width: 50%; height: auto; text-align:right; "><a href="../sat/index.php"><img src="../images/logo satellys.gif" style="border:0px solid white; " alt="" title="" /></a></div>
-			<div class="s_onglets">
-				<div class="ongletGPU"><p style=" margin-top: 5px; padding: 0px;">GPU</p></div>
-				<div class="ongletGDS"><p style=" margin-top: 5px; padding: 0px;">GDS</p></div>
-				<div class="ongletGDE"><p style=" margin-top: 5px; padding: 0px;">GDE</p></div>
-                <div class="ongletGNT"><p style=" margin-top: 5px; padding: 0px;">GNT</p></div>
-				<div style="margin-right: 10px; color: black; float: right; font-size: 12px; height: 33px;"><p style="padding: 0px;"><a class="souligne" href="../sat/index.php?page_param=deconnect.php&module=SAT&cat=0&numpage=1&niv=1&clef=/3003/">D&eacute;connexion</a> - <a class="souligne"  href="../sat/index.php">Accueil SATELLYS</a></p></div>				
-			</div>
-		</div>
-		<div class="barre">&nbsp;</div>
-		<div class="s_global">	
-			<div id="menu" class="hideprint"  style=" position:relative; visibility:visible; display:block; float:left;">
-<form name="formindex" method="get" >
-	<input type="hidden" name="stylemenu" value=1 />
-</form>
-				<script language="javascript">
-<!--
-function change_dept()
-{
-var e=document.getElementsByName('chgdept');
-if (e[0].value!='')
-    {
-    rep=ajax("../aj_chgdept.php?code="+e[0].value);
-    //alert(rep);
-	if (rep=="ok") this.document.testform.submit();
-	}
-}
-
-function change_annee()
-{
-var e=document.getElementsByName('chgannee');
-if (e[0].value!='')
-    {
-	if (ajax("../aj_chgannee.php?code="+e[0].value)=="ok") this.document.testform.submit();
-	}
-}
-//-->
-</script>	
-<div class="s_profil">
-	<img src="../images/profil_etu.png" style="margin-left:2px;width:50px;" alt="" title="" align="left" />
-	<p>Utilisateur : sdoignon<br/>Dépt : SRC		<br />
-		Année : <select class="combobox" style="z-index:0; position:static; width:60px;" name="chgannee" id="chgannee"  onchange="change_annee();" ><option value='2012' >2012-2013</option>
- </select><br />
-		Profil : 100100999999<br />
-	</p>
-</div>					<div class="hideprint">
-					<br/><div class="menutitre"><p style="margin-top: 5px; margin-left: 10px; padding: 0px;"><a href="index.php?page_param=accueil.php&cat=0&numpage=1&niv=1&clef=/305/">Emplois du temps</a></p></div><img src="./images/menu_corner_hd.gif" alt="" border="0px" style="padding: 0px; margin-left: -3px;" /><br/>      					</div>	
-			</div>
-			<div id="menuplie" style="height:56px; float:left;  background-image:url(images/menubar.gif); width:15px; background-repeat:no-repeat;" onclick="javascript:switchdiv('hide','menu');" class="handcursor"> </div>
-			<div name="menubar" id="menubar" style="float:left; position:relative; visibility:hidden;display:none; background-image:url(./images/menubar2.gif); background-repeat:no-repeat; width:15px; height:49px;" onclick="javascript:switchdiv('show','menu');"> </div>
-			<div class="s_contener" style="border-left:6px solid #828995; ">	
-			<br /><br /><br />
-<table>
-	<tr>
-		<td valign="top"><br />
-			<h1>BIENVENUE SUR SATELLYS GPU</h1>
-			<p>Avec SATELLYS GPU, vous avez la possibilité de <strong>consulter vos emplois du temps à distance.</strong>
-			<br/>
-			<br/>SATELLYS GPU est <strong>accessible partout</strong> où vous disposez d'une connexion internet ! 
-			<br/>Il est <strong>compatible avec la majorité des navigateurs internet.</strong>
-			<br/>
-			<br/>
-					
-			</p>
-		</td>
-        <td><img src="images/GPU_accueil.gif" > </td>
-	</tr>
-</table>
-
-		
-	
-			</div>
-		</div>
-		<div class="s_footer"  style="margin-top: 20px;" >Satellys est un produit Dynamisoft<sup>&copy;</sup>.</div>
-		<script language="Javascript">
-		affichediv("menu");
-		</script>
-	</body>
-</html>BEGIN:VCALENDAR
-PRODID: Gpu2vcs modified by Dynamisoft
-VERSION:2.0
-METHOD:PUBLISH
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386158400-1386165600-0
-DTSTAMP:20131204T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232/224 Prof:cbore Spe:Anglais\SRC_S3B\SRC_S3 
-SUMMARY:ANG / TD / SRC_S3B / SRC_S3 / SRC
-LOCATION:232/224
-DTSTART:20131204T130000Z
-DTEND:20131204T150000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386072000-1386079200-1
-DTSTAMP:20131203T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:224/232 Prof:cbore Spe:Anglais\SRC_S3A\SRC_S3 
-SUMMARY:ANG / TD / SRC_S3A / SRC_S3 / SRC
-LOCATION:224/232
-DTSTART:20131203T130000Z
-DTEND:20131203T150000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386172800-1386178200-2
-DTSTAMP:20131204T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle: Prof: Spe:Allemand\SRC_S3\SRC_S3 
-SUMMARY:ALL / COURS / SRC_S3 / SRC_S3 / SRC
-LOCATION:
-DTSTART:20131204T170000Z
-DTEND:20131204T183000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386165600-1386172800-3
-DTSTAMP:20131204T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle: Prof:ecattelain Spe:Chinois\S3_LV2_CN\SRC_S3 
-SUMMARY:CHINOIS / COURS / S3_LV2_CN / SRC_S3 / SRC
-LOCATION:
-DTSTART:20131204T150000Z
-DTEND:20131204T170000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386165600-1386172800-4
-DTSTAMP:20131204T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle: Prof: Spe:Espagnol\S3_LV2_ESP_1\SRC_S3 
-SUMMARY:ESP / TD / S3_LV2_ESP_1 / SRC_S3 / SRC
-LOCATION:
-DTSTART:20131204T150000Z
-DTEND:20131204T170000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386140400-1386147600-5
-DTSTAMP:20131204T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:pmetayer Spe:Num=C3=A9risation compression stockage\SRC_S3\SRC_S3 
-SUMMARY:NUM_COMP_ST / COURS / SRC_S3 / SRC_S3 / SRC
-LOCATION:255-256
-DTSTART:20131204T080000Z
-DTEND:20131204T100000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386320400-1386327600-6
-DTSTAMP:20131206T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:jpsalmon Spe:R=C3=A9seaux internet et services\SRC_S3\SRC_S3 
-SUMMARY:RES_INT_SER / COURS / SRC_S3 / SRC_S3 / SRC
-LOCATION:255-256
-DTSTART:20131206T100000Z
-DTEND:20131206T120000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386331200-1386338400-7
-DTSTAMP:20131206T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:252 Prof:jpsalmon Spe:R=C3=A9seaux internet et services\SRC_S3A1\SRC_S3 
-SUMMARY:RES_INT_SER / TP / SRC_S3A1 / SRC_S3 / SRC
-LOCATION:252
-DTSTART:20131206T130000Z
-DTEND:20131206T150000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386331200-1386338400-8
-DTSTAMP:20131206T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:251 Prof:jlapergue Spe:R=C3=A9seaux internet et services\SRC_S3A2\SRC_S3 
-SUMMARY:RES_INT_SER / TP / SRC_S3A2 / SRC_S3 / SRC
-LOCATION:251
-DTSTART:20131206T130000Z
-DTEND:20131206T150000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386338400-1386345600-9
-DTSTAMP:20131206T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:251 Prof:jlapergue Spe:R=C3=A9seaux internet et services\SRC_S3B1\SRC_S3 
-SUMMARY:RES_INT_SER / TP / SRC_S3B1 / SRC_S3 / SRC
-LOCATION:251
-DTSTART:20131206T150000Z
-DTEND:20131206T170000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386061200-1386068400-10
-DTSTAMP:20131203T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:jpsalmon Spe:R=C3=A9seaux internet et services\SRC_S3B\SRC_S3 
-SUMMARY:RES_INT_SER / COURS / SRC_S3B / SRC_S3 / SRC
-LOCATION:227
-DTSTART:20131203T100000Z
-DTEND:20131203T120000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1385967600-1385974800-11
-DTSTAMP:20131202T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:251 Prof:mbornerie Spe:Programmation\SRC_S3A2\SRC_S3 
-SUMMARY:PROG / TP / SRC_S3A2 / SRC_S3 / SRC
-LOCATION:251
-DTSTART:20131202T080000Z
-DTEND:20131202T100000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386079200-1386086400-12
-DTSTAMP:20131203T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:252 Prof:mbornerie Spe:Multim=C3=A9dia\SRC_S3A1\SRC_S3 
-SUMMARY:MULTIMED / TP / SRC_S3A1 / SRC_S3 / SRC
-LOCATION:252
-DTSTART:20131203T150000Z
-DTEND:20131203T170000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1385967600-1385974800-13
-DTSTAMP:20131202T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:252 Prof:lgillier Spe:Programmation\SRC_S3A1\SRC_S3 
-SUMMARY:PROG / TP / SRC_S3A1 / SRC_S3 / SRC
-LOCATION:252
-DTSTART:20131202T080000Z
-DTEND:20131202T100000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1385967600-1385974800-14
-DTSTAMP:20131202T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:253 Prof: Spe:Programmation\SRC_S3B1\SRC_S3 
-SUMMARY:PROG / TP / SRC_S3B1 / SRC_S3 / SRC
-LOCATION:253
-DTSTART:20131202T080000Z
-DTEND:20131202T100000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386338400-1386345600-15
-DTSTAMP:20131206T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:253 Prof:jgomez Spe:Multim=C3=A9dia\SRC_S3A2\SRC_S3 
-SUMMARY:MULTIMED / TP / SRC_S3A2 / SRC_S3 / SRC
-LOCATION:253
-DTSTART:20131206T150000Z
-DTEND:20131206T170000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1385985600-1385992800-16
-DTSTAMP:20131202T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:252 Prof:mbornerie Spe:Multim=C3=A9dia\SRC_S3B1\SRC_S3 
-SUMMARY:MULTIMED / TP / SRC_S3B1 / SRC_S3 / SRC
-LOCATION:252
-DTSTART:20131202T130000Z
-DTEND:20131202T150000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386061200-1386068400-17
-DTSTAMP:20131203T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:jlapergue Spe:R=C3=A9seaux internet et services\SRC_S3A\SRC_S3 
-SUMMARY:RES_INT_SER / COURS / SRC_S3A / SRC_S3 / SRC
-LOCATION:232
-DTSTART:20131203T100000Z
-DTEND:20131203T120000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1385974800-1385982000-18
-DTSTAMP:20131202T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:mbornerie Spe:Multim=C3=A9dia\SRC_S3\SRC_S3 
-SUMMARY:MULTIMED / COURS / SRC_S3 / SRC_S3 / SRC
-LOCATION:255-256
-DTSTART:20131202T100000Z
-DTEND:20131202T120000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386147600-1386154800-19
-DTSTAMP:20131204T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:pmetayer Spe:Num=C3=A9risation compression stockage\SRC_S3A\SRC_S3 
-SUMMARY:NUM_COMP_ST / TD / SRC_S3A / SRC_S3 / SRC
-LOCATION:227
-DTSTART:20131204T100000Z
-DTEND:20131204T120000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386313200-1386320400-20
-DTSTAMP:20131206T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hmillaret Spe:Droit\SRC_S3\SRC_S3 
-SUMMARY:DROIT / COURS / SRC_S3 / SRC_S3 / SRC
-LOCATION:255-256
-DTSTART:20131206T080000Z
-DTEND:20131206T100000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386244800-1386252000-21
-DTSTAMP:20131205T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hmillaret Spe:Droit\SRC_S3\SRC_S3 
-SUMMARY:DROIT / COURS / SRC_S3 / SRC_S3 / SRC
-LOCATION:255-256
-DTSTART:20131205T130000Z
-DTEND:20131205T150000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386252000-1386259200-22
-DTSTAMP:20131205T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hmillaret Spe:Droit\SRC_S3\SRC_S3 
-SUMMARY:DROIT / COURS / SRC_S3 / SRC_S3 / SRC
-LOCATION:255-256
-DTSTART:20131205T150000Z
-DTEND:20131205T170000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386054000-1386061200-23
-DTSTAMP:20131203T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:AMPHI-60 Prof:dreyss Spe:Ecriture pour les m=C3=A9dias num=C3=A9riques\SRC_S3\SRC_S3 
-SUMMARY:ECR_MED_NUM / COURS / SRC_S3 / SRC_S3 / SRC
-LOCATION:AMPHI-60
-DTSTART:20131203T080000Z
-DTEND:20131203T100000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386158400-1386165600-24
-DTSTAMP:20131204T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:vcourreges Spe:Ecriture pour les m=C3=A9dias num=C3=A9riques\SRC_S3A\SRC_S3 
-SUMMARY:ECR_MED_NUM / TD / SRC_S3A / SRC_S3 / SRC
-LOCATION:227
-DTSTART:20131204T130000Z
-DTEND:20131204T150000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386226800-1386234000-25
-DTSTAMP:20131205T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:dreyss Spe:Ecriture pour les m=C3=A9dias num=C3=A9riques\SRC_S3B\SRC_S3 
-SUMMARY:ECR_MED_NUM / TD / SRC_S3B / SRC_S3 / SRC
-LOCATION:227
-DTSTART:20131205T080000Z
-DTEND:20131205T100000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1385992800-1386000000-26
-DTSTAMP:20131202T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3A\SRC_S3 
-SUMMARY:EXP_ECR_ORAL / TD / SRC_S3A / SRC_S3 / SRC
-LOCATION:227
-DTSTART:20131202T150000Z
-DTEND:20131202T170000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386234000-1386241200-27
-DTSTAMP:20131205T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3A\SRC_S3 
-SUMMARY:EXP_ECR_ORAL / TD / SRC_S3A / SRC_S3 / SRC
-LOCATION:255-256
-DTSTART:20131205T100000Z
-DTEND:20131205T120000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386147600-1386154800-28
-DTSTAMP:20131204T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:229 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3B\SRC_S3 
-SUMMARY:EXP_ECR_ORAL / TD / SRC_S3B / SRC_S3 / SRC
-LOCATION:229
-DTSTART:20131204T100000Z
-DTEND:20131204T120000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386226800-1386234000-29
-DTSTAMP:20131205T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:cbore Spe:PPP\SRC_S3A\SRC_S3 
-SUMMARY:PPP / TD / SRC_S3A / SRC_S3 / SRC
-LOCATION:232
-DTSTART:20131205T080000Z
-DTEND:20131205T100000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386234000-1386241200-30
-DTSTAMP:20131205T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:AMPHI-60 Prof:cbore Spe:PPP\SRC_S3B\SRC_S3 
-SUMMARY:PPP / TD / SRC_S3B / SRC_S3 / SRC
-LOCATION:AMPHI-60
-DTSTART:20131205T100000Z
-DTEND:20131205T120000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1386079200-1386086400-31
-DTSTAMP:20131203T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle: Prof:cbore Spe:PPP\SRC_S3B1\SRC_S3 
-SUMMARY:PPP / TP / SRC_S3B1 / SRC_S3 / SRC
-LOCATION:
-DTSTART:20131203T150000Z
-DTEND:20131203T170000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-END:VCALENDAR
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
@@ -1247,13 +599,13 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1386831600-1386864000-28
+UID:1386831600-1386846000-28
 DTSTAMP:20131212T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:idoan Spe:Gestion de projet 2\SRC_S3\SRC_S3 
 SUMMARY:GES_PROJ_2 / COURS / SRC_S3 / SRC_S3 / SRC
 LOCATION:255-256
 DTSTART:20131212T080000Z
-DTEND:20131212T170000Z
+DTEND:20131212T120000Z
 PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
@@ -1266,6 +618,18 @@ SUMMARY:ECR_MED_NUM / TP / SRC_S3B1 / SRC_S3 / SRC
 LOCATION:
 DTSTART:20131211T080000Z
 DTEND:20131211T100000Z
+PRIORITY:5
+CLASS:PUBLIC
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:0
+UID:1386849600-1386864000-30
+DTSTAMP:20131212T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:idoan Spe:Gestion de projet 2\SRC_S3\SRC_S3 
+SUMMARY:GES_PROJ_2 / COURS / SRC_S3 / SRC_S3 / SRC
+LOCATION:255-256
+DTSTART:20131212T130000Z
+DTEND:20131212T170000Z
 PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
@@ -1535,19 +899,7 @@ VERSION:2.0
 METHOD:PUBLISH
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387530000-1387537200-0
-DTSTAMP:20131220T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:224 Prof:cbore Spe:Anglais\SRC_S3B1\SRC_S3 
-SUMMARY:ANG / TP / SRC_S3B1 / SRC_S3 / SRC
-LOCATION:224
-DTSTART:20131220T100000Z
-DTEND:20131220T120000Z
-PRIORITY:5
-CLASS:PUBLIC
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:0
-UID:1387184400-1387191600-1
+UID:1387184400-1387191600-0
 DTSTAMP:20131216T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:224 Prof:cbore Spe:Anglais\SRC_S3A1\SRC_S3 
 SUMMARY:ANG / TP / SRC_S3A1 / SRC_S3 / SRC
@@ -1559,7 +911,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387195200-1387202400-2
+UID:1387195200-1387202400-1
 DTSTAMP:20131216T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:224 Prof:cbore Spe:Anglais\SRC_S3A2\SRC_S3 
 SUMMARY:ANG / TP / SRC_S3A2 / SRC_S3 / SRC
@@ -1571,7 +923,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387202400-1387209600-3
+UID:1387202400-1387209600-2
 DTSTAMP:20131216T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:224 Prof:cbore Spe:Anglais\SRC_S3B1\SRC_S3 
 SUMMARY:ANG / TP / SRC_S3B1 / SRC_S3 / SRC
@@ -1583,7 +935,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387270800-1387278000-4
+UID:1387270800-1387278000-3
 DTSTAMP:20131217T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:251 Prof:pmetayer Spe:Num=C3=A9risation compression stockage\SRC_S3A1\SRC_S3 
 SUMMARY:NUM_COMP_ST / TP / SRC_S3A1 / SRC_S3 / SRC
@@ -1595,7 +947,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387296000-1387301400-5
+UID:1387296000-1387301400-4
 DTSTAMP:20131217T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle: Prof: Spe:Allemand\SRC_S3\SRC_S3 
 SUMMARY:ALL / COURS / SRC_S3 / SRC_S3 / SRC
@@ -1607,7 +959,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387350000-1387357200-6
+UID:1387350000-1387357200-5
 DTSTAMP:20131218T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:224 Prof:cbore Spe:Anglais\SRC_S3B1\SRC_S3 
 SUMMARY:ANG / TP / SRC_S3B1 / SRC_S3 / SRC
@@ -1619,7 +971,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387177200-1387184400-7
+UID:1387177200-1387184400-6
 DTSTAMP:20131216T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:jpsalmon Spe:R=C3=A9seaux internet et services\SRC_S3\SRC_S3 
 SUMMARY:RES_INT_SER / COURS / SRC_S3 / SRC_S3 / SRC
@@ -1631,7 +983,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387263600-1387270800-8
+UID:1387263600-1387270800-7
 DTSTAMP:20131217T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:252 Prof:jpsalmon Spe:R=C3=A9seaux internet et services\SRC_S3A1\SRC_S3 
 SUMMARY:RES_INT_SER / TP / SRC_S3A1 / SRC_S3 / SRC
@@ -1643,7 +995,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387270800-1387278000-9
+UID:1387270800-1387278000-8
 DTSTAMP:20131217T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:252 Prof:jlapergue Spe:R=C3=A9seaux internet et services\SRC_S3A2\SRC_S3 
 SUMMARY:RES_INT_SER / TP / SRC_S3A2 / SRC_S3 / SRC
@@ -1655,7 +1007,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387263600-1387270800-10
+UID:1387263600-1387270800-9
 DTSTAMP:20131217T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:251 Prof:jlapergue Spe:R=C3=A9seaux internet et services\SRC_S3B1\SRC_S3 
 SUMMARY:RES_INT_SER / TP / SRC_S3B1 / SRC_S3 / SRC
@@ -1667,7 +1019,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387375200-1387382400-11
+UID:1387375200-1387382400-10
 DTSTAMP:20131218T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle: Prof:cbore Spe:PPP\SRC_S3B1\SRC_S3 
 SUMMARY:PPP / TP / SRC_S3B1 / SRC_S3 / SRC
@@ -1679,7 +1031,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387195200-1387202400-12
+UID:1387195200-1387202400-11
 DTSTAMP:20131216T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:252 Prof:mbornerie Spe:Multim=C3=A9dia\SRC_S3A1\SRC_S3 
 SUMMARY:MULTIMED / TP / SRC_S3A1 / SRC_S3 / SRC
@@ -1691,7 +1043,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387202400-1387209600-13
+UID:1387202400-1387209600-12
 DTSTAMP:20131216T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:252 Prof:jgomez Spe:Multim=C3=A9dia\SRC_S3A2\SRC_S3 
 SUMMARY:MULTIMED / TP / SRC_S3A2 / SRC_S3 / SRC
@@ -1703,7 +1055,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387184400-1387191600-14
+UID:1387184400-1387191600-13
 DTSTAMP:20131216T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:252 Prof:mbornerie Spe:Multim=C3=A9dia\SRC_S3B1\SRC_S3 
 SUMMARY:MULTIMED / TP / SRC_S3B1 / SRC_S3 / SRC
@@ -1715,7 +1067,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387350000-1387357200-15
+UID:1387350000-1387357200-14
 DTSTAMP:20131218T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:pmetayer Spe:Num=C3=A9risation compression stockage\SRC_S3A\SRC_S3 
 SUMMARY:NUM_COMP_ST / TD / SRC_S3A / SRC_S3 / SRC
@@ -1727,7 +1079,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387281600-1387288800-16
+UID:1387281600-1387288800-15
 DTSTAMP:20131217T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle: Prof:pmetayer Spe:Num=C3=A9risation compression stockage\SRC_S3B\SRC_S3 
 SUMMARY:NUM_COMP_ST / TD / SRC_S3B / SRC_S3 / SRC
@@ -1739,7 +1091,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387184400-1387191600-17
+UID:1387184400-1387191600-16
 DTSTAMP:20131216T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:251 Prof:pmetayer Spe:Num=C3=A9risation compression stockage\SRC_S3A2\SRC_S3 
 SUMMARY:NUM_COMP_ST / TP / SRC_S3A2 / SRC_S3 / SRC
@@ -1751,7 +1103,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387195200-1387202400-18
+UID:1387195200-1387202400-17
 DTSTAMP:20131216T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:253 Prof:pmetayer Spe:Num=C3=A9risation compression stockage\SRC_S3B1\SRC_S3 
 SUMMARY:NUM_COMP_ST / TP / SRC_S3B1 / SRC_S3 / SRC
@@ -1763,19 +1115,19 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387530000-1387537200-19
-DTSTAMP:20131220T000000Z
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:251 Prof:pmetayer Spe:Num=C3=A9risation compression stockage\SRC_S3A1\SRC_S3 
+UID:1387436400-1387443600-18
+DTSTAMP:20131219T000000Z
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:253 Prof:pmetayer Spe:Num=C3=A9risation compression stockage\SRC_S3A1\SRC_S3 
 SUMMARY:NUM_COMP_ST / TP / SRC_S3A1 / SRC_S3 / SRC
-LOCATION:251
-DTSTART:20131220T100000Z
-DTEND:20131220T120000Z
+LOCATION:253
+DTSTART:20131219T080000Z
+DTEND:20131219T100000Z
 PRIORITY:5
 CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387357200-1387364400-20
+UID:1387357200-1387364400-19
 DTSTAMP:20131218T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:pmetayer Spe:Images informatiques\SRC_S3\SRC_S3 
 SUMMARY:IM_INFO / COURS / SRC_S3 / SRC_S3 / SRC
@@ -1787,7 +1139,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387454400-1387461600-21
+UID:1387454400-1387461600-20
 DTSTAMP:20131219T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:alevy Spe:Infographie\SRC_S3\SRC_S3 
 SUMMARY:INFOGRAPH / TD / SRC_S3 / SRC_S3 / SRC
@@ -1799,7 +1151,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387461600-1387468800-22
+UID:1387461600-1387468800-21
 DTSTAMP:20131219T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:alevy Spe:Infographie\SRC_S3\SRC_S3 
 SUMMARY:INFOGRAPH / TD / SRC_S3 / SRC_S3 / SRC
@@ -1811,7 +1163,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387443600-1387450800-23
+UID:1387443600-1387450800-22
 DTSTAMP:20131219T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:alevy Spe:Infographie\SRC_S3\SRC_S3 
 SUMMARY:INFOGRAPH / TD / SRC_S3 / SRC_S3 / SRC
@@ -1823,7 +1175,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387522800-1387530000-24
+UID:1387522800-1387530000-23
 DTSTAMP:20131220T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle: Prof:alevy Spe:Infographie\SRC_S3\SRC_S3 
 SUMMARY:INFOGRAPH / TD / SRC_S3 / SRC_S3 / SRC
@@ -1835,7 +1187,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387468800-1387476000-25
+UID:1387468800-1387476000-24
 DTSTAMP:20131219T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:alevy Spe:Infographie\SRC_S3\SRC_S3 
 SUMMARY:INFOGRAPH / TD / SRC_S3 / SRC_S3 / SRC
@@ -1847,7 +1199,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387540800-1387548000-26
+UID:1387540800-1387548000-25
 DTSTAMP:20131220T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle: Prof:vcourreges Spe:Communication expression =C3=A9crite et orale\SRC_S3A\SRC_S3 
 SUMMARY:EXP_ECR_ORAL / TD / SRC_S3A / SRC_S3 / SRC
@@ -1859,7 +1211,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387548000-1387555200-27
+UID:1387548000-1387555200-26
 DTSTAMP:20131220T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3A\SRC_S3 
 SUMMARY:EXP_ECR_ORAL / TD / SRC_S3A / SRC_S3 / SRC
@@ -1871,7 +1223,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387540800-1387548000-28
+UID:1387540800-1387548000-27
 DTSTAMP:20131220T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:dreyss Spe:Communication expression =C3=A9crite et orale\SRC_S3B\SRC_S3 
 SUMMARY:EXP_ECR_ORAL / TD / SRC_S3B / SRC_S3 / SRC
@@ -1883,7 +1235,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387548000-1387555200-29
+UID:1387548000-1387555200-28
 DTSTAMP:20131220T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:232 Prof:vcourreges Spe:Communication expression =C3=A9crite et orale\SRC_S3B\SRC_S3 
 SUMMARY:EXP_ECR_ORAL / TD / SRC_S3B / SRC_S3 / SRC
@@ -1895,7 +1247,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387263600-1387270800-30
+UID:1387263600-1387270800-29
 DTSTAMP:20131217T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:cbore Spe:PPP\SRC_S3A2\SRC_S3 
 SUMMARY:PPP / TP / SRC_S3A2 / SRC_S3 / SRC
@@ -1907,7 +1259,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387368000-1387375200-31
+UID:1387368000-1387375200-30
 DTSTAMP:20131218T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:227 Prof:cbore Spe:PPP\SRC_S3A2\SRC_S3 
 SUMMARY:PPP / TP / SRC_S3A2 / SRC_S3 / SRC
@@ -1919,7 +1271,7 @@ CLASS:PUBLIC
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:0
-UID:1387288800-1387296000-32
+UID:1387288800-1387296000-31
 DTSTAMP:20131217T000000Z
 DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Salle:255-256 Prof:hkromm Spe:Gestion de projet\SRC_S3\SRC_S3 
 SUMMARY:GEST_PROJ_1 / EXAM / SRC_S3 / SRC_S3 / SRC
