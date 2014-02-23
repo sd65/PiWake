@@ -90,8 +90,8 @@ $bdd = new PDO("mysql:host=localhost;dbname=PIWAKE;charset=utf8", $usernameDB, $
 					<select id="selectSemaine" name="semaine" onchange="this.form.submit()" >
 
 						<?php
-						$intervale_start= date('W') ;
-						$intervale_end=52;
+						$intervale_start= (int)date('W') ;
+						$intervale_end=26;
 						for(;$intervale_start <= $intervale_end;$intervale_start++) {
 							?>
 							<option <?php if($semaine==$intervale_start){echo "selected" ;}?> value="<?php echo $intervale_start ?>"><?php echo "Semaine " . $intervale_start ?></option>

@@ -2,11 +2,11 @@
 
 function drawTimeTableSelective ($nomJour, $jour, $mois, $tp, $td, $semaine, $bdd, $filiere) 
 {
-	if ($filiere == "SRC" || $filiere == "PUB_2") {
-		$semestre = "S3" ;
+	if ($filiere == "SRC") {
+		$semestre = "S4" ;
 	}
-	else if ($filiere == "PUB_1" || $filiere == "MMI") {
-		$semestre = "S1" ;
+	else if ($filiere == "MMI") {
+		$semestre = "S2" ;
 	}
 
 	if ($filiere == "SRC" || $filiere == "MMI") {
@@ -14,11 +14,6 @@ function drawTimeTableSelective ($nomJour, $jour, $mois, $tp, $td, $semaine, $bd
 	$requeteCours = "SELECT * FROM EDT_" . $filiere ."  LEFT JOIN NOMSPROFS ON EDT_" . $filiere .".prof = NOMSPROFS.name WHERE (type='" .$tp ."' OR type='" .$td ."' OR type='" . $filiere . "_" . $semestre . "' OR type LIKE '%LV2%') AND nomJour='" . $nomJour . "' AND semaine=" . $semaine . " ORDER BY startHeure" ;
 	
 	}
-	if($filiere == "PUB_1" || $filiere == "PUB_2") {
-
-	$requeteCours = "SELECT * FROM EDT_" . $filiere ."  LEFT JOIN NOMSPROFS ON EDT_" . $filiere .".prof = NOMSPROFS.name WHERE nomJour='" . $nomJour . "' AND semaine=" . $semaine . " ORDER BY startHeure" ;
-	}
-
 	$requeteCours = $bdd->query($requeteCours) ;
 
 		// Titre
@@ -131,22 +126,22 @@ function drawTimeTableGlobal($nomJour, $jour, $mois, $semaine, $bdd, $filiere)
 
 			$type = $lines['type']  ;
 
-			if ($type == "SRC_S3")
+			if ($type == "SRC_S4")
 				{ $type = "" ; $timbre="timbre_ClasseEntiere"; }
 
-			if ($type == "SRC_S3A")
+			if ($type == "SRC_S4A")
 				{ $type = "TD1" ; $timbre="timbre_td"; }
 
-			if ($type == "SRC_S3B")
+			if ($type == "SRC_S4B")
 				{ $type = "TD2" ; $timbre="timbre_td"; }
 
-			if ($type == "SRC_S3A1")
+			if ($type == "SRC_S4A1")
 				{ $type = "TP1" ; $timbre="timbre_td"; }
 
-			if ($type == "SRC_S3A2")
+			if ($type == "SRC_S4A2")
 				{ $type = "TP2" ; $timbre="timbre_tp"; }
 
-			if ($type == "SRC_S3B1")
+			if ($type == "SRC_S4B1")
 				{ $type = "TP3" ; $timbre="timbre_tp"; }
 
 
@@ -228,22 +223,22 @@ function drawTimeTableGlobal($nomJour, $jour, $mois, $semaine, $bdd, $filiere)
 
 			$type = $lines['type']  ;
 
-			if ($type == "MMI_S1")
+			if ($type == "MMI_S2")
 				{ $type = "" ; $timbre="timbre_ClasseEntiere"; }
 
-			if ($type == "MMI_S1A")
+			if ($type == "MMI_S2A")
 				{ $type = "TD1" ; $timbre="timbre_td"; }
 
-			if ($type == "MMI_S1B")
+			if ($type == "MMI_S2B")
 				{ $type = "TD2" ; $timbre="timbre_td"; }
 
-			if ($type == "MMI_S1A1")
+			if ($type == "MMI_S2A1")
 				{ $type = "TP1" ; $timbre="timbre_td"; }
 
-			if ($type == "MMI_S1A2")
+			if ($type == "MMI_S2A2")
 				{ $type = "TP2" ; $timbre="timbre_tp"; }
 
-			if ($type == "MMI_S1B1")
+			if ($type == "MMI_S2B1")
 				{ $type = "TP3" ; $timbre="timbre_tp"; }
 
 

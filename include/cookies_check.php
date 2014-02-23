@@ -32,7 +32,7 @@ else
 	        $vue = 1 ;
 	        $filiere = "SRC";
 	        
-	        if(date('N') == 5 && date(G) > 19) // Si vendredi et plus de 19h
+	        if(date('N') == 5 && date('G') > 19) // Si vendredi et plus de 19h
 	        	$semaine = date('W') + 1;
 	        else
 	        	$semaine = date('W') ;

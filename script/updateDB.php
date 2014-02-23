@@ -93,7 +93,7 @@ foreach ($tabFiliere as $filiere) {
 			$endHeure = $endHeure . '.' .  $endMinute ; //. $endSeconde ;
 			
 			
-			echo "Debug : " . $semestre ." # " . $semaine ." # " .$nomJour." # " .$annee." # " .$mois." # " .$jour." # " . $matiere." # " . $prof." # " . $salle. $type. " # " .$startHeure. " # " .$endHeure . " # " . $filiere . "<br/>";
+			echo "Debug : " . $semestre ." # " . $semaine ." # " .$nomJour." # " .$annee." # " .$mois." # " .$jour." # " . $matiere." # " . $prof." # " . $salle. $type. " # " .$startHeure. " # " .$endHeure . " # " . $filiere ;
 			
 			
 

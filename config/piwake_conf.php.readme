@@ -5,5 +5,4 @@
 
 $usernameDB="";
 $passwordDB="";
-
-?>
+$piwakePath="";
